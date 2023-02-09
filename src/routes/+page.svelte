@@ -1,23 +1,6 @@
 <script lang="ts">
 	// Docs
 	import DocsLogoAnim from '../lib/Logo/DocsLogoAnim.svelte';
-	import SvgIcon from '../lib/SvgIcon/SvgIcon.svelte';
-	// Components
-	import { Avatar } from '@skeletonlabs/skeleton';
-
-	// Fetch HTTP Data
-	async function fetchHttpData(url: string, key?: string): Promise<any> {
-		const http = await fetch(url);
-		const res = await http.json();
-		if (http.ok) {
-			return key ? res[key] : res;
-		} else {
-			throw new Error(res);
-		}
-	}
-	let contributors: Promise<any> = fetchHttpData(
-		'https://api.github.com/repos/skeletonlabs/skeleton/contributors'
-	);
 </script>
 
 <div>
