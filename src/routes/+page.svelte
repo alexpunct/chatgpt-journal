@@ -15,7 +15,7 @@
 			<div class="space-y-4">
 				<h1>
 					<span class="gradient-heading font-bold text-6xl"
-						><small>Your journal + ChatGPT</small></span
+						><small>Your journal + ChatGPT = </small><br /><strong>ChatJournal.Ai</strong></span
 					>
 				</h1>
 				<!-- <h2 class="md:text-4xl">Private and intelligent.</h2> -->
