@@ -1,0 +1,31 @@
+/*place global styles here */
+html,
+body {
+	@apply h-full overflow-hidden;
+}
+
+.gradient-heading {
+	@apply bg-clip-text text-transparent box-decoration-clone;
+	/* Direction */
+	@apply bg-gradient-to-br;
+	/* Color Stops */
+	@apply from-tertiary-900 via-primary-600 to-secondary-700;
+}
+.dark .gradient-heading {
+	@apply from-tertiary-300 via-primary-500 to-secondary-300;
+}
+
+/* Created with: https://csshero.org/mesher/ */
+[data-theme='chatjournal'] {
+	/* prettier-ignore */
+	background-image:
+		radial-gradient(at 41% 34%, hsla(192, 71%, 44%, 0.5) 0px, transparent 50%),
+		radial-gradient(at 82% 85%, hsla(309, 91%, 64%, 0.5) 0px, transparent 50%),
+		radial-gradient(at 64% 85%, hsla(67, 90%, 59%, 0.5) 0px, transparent 50%);
+}
+.dark [data-theme='chatjournal'] {
+	/* prettier-ignore */
+	background-image: radial-gradient(at 41% 34%, hsla(192, 71%, 44%, 0.25) 0px, transparent 50%),
+		radial-gradient(at 82% 85%, hsla(309, 91%, 64%, 0.25) 0px, transparent 50%),
+		radial-gradient(at 64% 85%, hsla(67, 90%, 59%, 0.25) 0px, transparent 50%);
+}
