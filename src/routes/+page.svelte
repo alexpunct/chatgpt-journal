@@ -9,18 +9,18 @@
 		class="variant-glass-surface border-b border-black/5 dark:border-white/5 px-4 py-10 md:py-20"
 	>
 		<div
-			class="container max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 place-items-center"
+			class="container max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 place-items-center md:text-left sm:text-center"
 		>
 			<!-- Text -->
 			<div class="space-y-4">
 				<h1>
-					<span class="gradient-heading font-bold text-6xl"
+					<span class="gradient-heading font-bold text-5xl"
 						><small>Your journal + ChatGPT = </small><br /><strong>ChatJournal.Ai</strong></span
 					>
 				</h1>
 				<!-- <h2 class="md:text-4xl">Private and intelligent.</h2> -->
 				<p class="md:!text-lg">
-					Get the most out of your diary with our friendly <i class="fa fa-robot" />
+					Journal, chat and have fun with our many <i class="fa fa-robot" />
 				</p>
 				<nav class="flex space-x-4">
 					<!-- <a href="/guides/install" class="btn variant-filled-primary">
