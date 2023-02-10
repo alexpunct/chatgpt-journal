@@ -3,17 +3,13 @@
 	import { writable, type Writable } from 'svelte/store';
 
 	// Types
-	import { DocsFeature, type DocsShellSettings } from '$docs/DocsShell/types';
+	import { DocsFeature, type DocsShellSettings } from '$libSkeleton/Shell/types';
 
 	// Components
-	import Table from '$lib/components/Table/Table.svelte';
-	import Tab from '$lib/components/Tab/Tab.svelte';
-	import TabGroup from '$lib/components/Tab/TabGroup.svelte';
-	import TableOfContents from '$lib/components/TableOfContents/TableOfContents.svelte';
+	import { Table, Tab, TabGroup, TableOfContents, toastStore } from '@skeletonlabs/skeleton';
+	import type { ToastSettings } from '@skeletonlabs/skeleton';
 
 	// Utilities
-	import { toastStore } from '$lib/utilities/Toast/stores';
-	import type { ToastSettings } from '$lib/utilities/Toast/types';
 	import { sveldMapperProps, sveldMapperSlots, sveldeMapperEvents } from './sveldMapper';
 
 	// Props
@@ -22,7 +18,8 @@
 	export let spacing = 'space-y-8 md:space-y-12';
 	// Props (regions)
 	export let regionHeader = 'variant-glass-surface border-b border-black/5 dark:border-white/5';
-	export let regionDetails = 'overflow-x-auto whitespace-nowrap grid grid-cols-1 md:grid-cols-[128px_1fr] gap-3';
+	export let regionDetails =
+		'overflow-x-auto whitespace-nowrap grid grid-cols-1 md:grid-cols-[128px_1fr] gap-3';
 	export let regionPanels = 'page-container';
 
 	// Classes
@@ -43,7 +40,10 @@
 		types: [],
 		stylesheetIncludes: [],
 		stylesheets: [],
-		package: { name: '@skeletonlabs/skeleton', url: 'https://www.npmjs.com/package/@skeletonlabs/skeleton' },
+		package: {
+			name: '@skeletonlabs/skeleton',
+			url: 'https://www.npmjs.com/package/@skeletonlabs/skeleton'
+		},
 		source: undefined,
 		docsPath: $page.url.pathname,
 		aria: undefined,
@@ -82,7 +82,9 @@
 	}
 
 	function formatTypes(): string {
-		return `import type { ${pageSettings.types?.join(', ')} } from '${pageSettings.package?.name}';`;
+		return `import type { ${pageSettings.types?.join(', ')} } from '${
+			pageSettings.package?.name
+		}';`;
 	}
 
 	function formatStylesheet(stylesheet: string): string {
@@ -133,7 +135,9 @@
 				{#if pageSettings.imports?.length}
 					<p class="hidden md:inline-block w-32">Import</p>
 					<div>
-						<button class="chip variant-ghost-primary" on:click={copyImports}>{formatImports()}</button>
+						<button class="chip variant-ghost-primary" on:click={copyImports}
+							>{formatImports()}</button
+						>
 					</div>
 				{/if}
 				<!-- Types -->
@@ -166,21 +170,31 @@
 				<p class="hidden md:inline-block w-32">Package</p>
 				<div class="flex items-center space-x-2">
 					<i class="fa-brands fa-npm" />
-					<a href={pageSettings.package?.url} target="_blank" rel="noreferrer">{pageSettings.package?.name}</a>
+					<a href={pageSettings.package?.url} target="_blank" rel="noreferrer"
+						>{pageSettings.package?.name}</a
+					>
 				</div>
 				<!-- Source Code -->
 				{#if pageSettings.source}
 					<p class="hidden md:inline-block w-32">Source</p>
 					<div class="flex items-center space-x-2">
 						<i class="fa-brands fa-github" />
-						<a href={`${githubSourcePath}/lib/${pageSettings.source}`} target="_blank" rel="noreferrer">Source Code</a>
+						<a
+							href={`${githubSourcePath}/lib/${pageSettings.source}`}
+							target="_blank"
+							rel="noreferrer">Source Code</a
+						>
 					</div>
 				{/if}
 				<!-- Doc Source -->
 				<p class="hidden md:inline-block w-32">Doc</p>
 				<div class="flex items-center space-x-2">
 					<i class="fa-solid fa-code" />
-					<a href={`${githubSourcePath}/routes/(inner)${pageSettings.docsPath}/+page.svelte`} target="_blank" rel="noreferrer">
+					<a
+						href={`${githubSourcePath}/routes/(inner)${pageSettings.docsPath}/+page.svelte`}
+						target="_blank"
+						rel="noreferrer"
+					>
 						View Page Source
 					</a>
 				</div>
@@ -209,12 +223,32 @@
 			<!-- Tabs -->
 			<TabGroup border="" active="border-b-4 border-primary-500" hover="hover:variant-soft-primary">
 				<Tab bind:group={$storeActiveTab} name="usage" value="usage">Usage</Tab>
-				{#if sveldCounts.props > 0}<Tab bind:group={$storeActiveTab} name="properties" value="properties">Props</Tab>{/if}
-				{#if sveldCounts.slots > 0}<Tab bind:group={$storeActiveTab} name="slots" value="slots">Slots</Tab>{/if}
-				{#if sveldCounts.events > 0}<Tab bind:group={$storeActiveTab} name="events" value="events">Events</Tab>{/if}
-				{#if pageSettings.parameters?.length}<Tab bind:group={$storeActiveTab} name="parameters" value="parameters">Params</Tab>{/if}
-				{#if pageSettings.classes?.length}<Tab bind:group={$storeActiveTab} name="classes" value="classes">Classes</Tab>{/if}
-				{#if pageSettings.keyboard?.length}<Tab bind:group={$storeActiveTab} name="keyboard" value="keyboard">Keyboard</Tab>{/if}
+				{#if sveldCounts.props > 0}<Tab
+						bind:group={$storeActiveTab}
+						name="properties"
+						value="properties">Props</Tab
+					>{/if}
+				{#if sveldCounts.slots > 0}<Tab bind:group={$storeActiveTab} name="slots" value="slots"
+						>Slots</Tab
+					>{/if}
+				{#if sveldCounts.events > 0}<Tab bind:group={$storeActiveTab} name="events" value="events"
+						>Events</Tab
+					>{/if}
+				{#if pageSettings.parameters?.length}<Tab
+						bind:group={$storeActiveTab}
+						name="parameters"
+						value="parameters">Params</Tab
+					>{/if}
+				{#if pageSettings.classes?.length}<Tab
+						bind:group={$storeActiveTab}
+						name="classes"
+						value="classes">Classes</Tab
+					>{/if}
+				{#if pageSettings.keyboard?.length}<Tab
+						bind:group={$storeActiveTab}
+						name="keyboard"
+						value="keyboard">Keyboard</Tab
+					>{/if}
 			</TabGroup>
 		</div>
 	</header>
@@ -254,7 +288,11 @@
 					</div>
 					<!-- Table of Contents -->
 					<div>
-						<TableOfContents target="#toc-target" minimumHeadings={1} class="sticky top-10 hidden 2xl:inline-block ml-4" />
+						<TableOfContents
+							target="#toc-target"
+							minimumHeadings={1}
+							class="sticky top-10 hidden 2xl:inline-block ml-4"
+						/>
 					</div>
 				</div>
 			</div>
@@ -282,7 +320,10 @@
 								{#if comp.descProps}<div>{@html comp.descProps}</div>{/if}
 								{#if tableSource.body.length > 0}<Table source={tableSource} />{/if}
 								{#if comp.overrideProps}<div>
-										<em>{comp.label} can override: <span class="text-primary-500">{comp.overrideProps.join(', ')}</span>.</em>
+										<em
+											>{comp.label} can override:
+											<span class="text-primary-500">{comp.overrideProps.join(', ')}</span>.</em
+										>
 									</div>{/if}
 							</section>
 						{/if}

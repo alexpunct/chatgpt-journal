@@ -1,5 +1,5 @@
 import { Configuration, OpenAIApi } from 'openai';
-import { supabaseClient } from '$lib/supabaseClient';
+import { supabase } from '$lib/supabaseClient';
 import { OPENAI_API_KEY } from '$env/static/private';
 
 const EMBEDDINGS_MODEL = 'text-embedding-ada-002';
@@ -37,7 +37,7 @@ export const insertDocuments = async (data: [{ content: string; date: Date }]) =
 			const embedding = await generateEmbeddings(document.content);
 
 			// In production we should handle possible errors
-			await supabaseClient.from('journal_alex').insert({
+			await supabase.from('journal_alex').insert({
 				content: document.content,
 				date: document.date,
 				embedding

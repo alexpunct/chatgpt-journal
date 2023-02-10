@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import DocsLogoAnim from '../lib/Logo/DocsLogoAnim.svelte';
+	import DocsLogoAnim from '$libSkeleton/Logo/DocsLogoAnim.svelte';
 </script>
 
 {#if $page}

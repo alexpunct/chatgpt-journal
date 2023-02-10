@@ -2,7 +2,7 @@
 <script lang="ts">
 	import { inject } from '@vercel/analytics';
 	import hljs from 'highlight.js';
-	import '../lib/Styles/highlight-js.css'; // was: 'highlight.js/styles/github-dark.css';
+	import '$libSkeleton/Styles/highlight-js.css'; // was: 'highlight.js/styles/github-dark.css';
 	import { storeHighlightJs } from '@skeletonlabs/skeleton';
 	storeHighlightJs.set(hljs);
 
@@ -12,20 +12,19 @@
 	import { afterNavigate } from '$app/navigation';
 
 	// Stores
-	import { storeCurrentUrl, storeTheme } from '../lib/stores';
-	import { storePreview } from '../lib/Themer/stores';
+	import { storeCurrentUrl, storeTheme } from '$lib/stores';
+	import { storePreview } from '$libSkeleton/Themer/stores';
 
 	// Components & Utilities
 	import { AppShell, Modal, Toast } from '@skeletonlabs/skeleton';
 
 	// Docs Components
-	import AppBar from '../lib/AppBar/AppBarMinimal.svelte';
-	import Sidebar from '../lib/Navigation/DocsSidebar.svelte';
-	import Drawer from '../lib/Navigation/DocsDrawer.svelte';
-	import Footer from '../lib/Footer/DocsFooter.svelte';
+	import AppBar from '$libSkeleton/AppBar/AppBarMinimal.svelte';
+	import Sidebar from '$libSkeleton/Navigation/DocsSidebar.svelte';
+	import Drawer from '$libSkeleton/Navigation/DocsDrawer.svelte';
+	import Footer from '$libSkeleton/Footer/DocsFooter.svelte';
 
 	// Skeleton Stylesheets
-	// import '../theme.postcss';
 	import '@skeletonlabs/skeleton/styles/all.css';
 	import '../app.postcss';
 

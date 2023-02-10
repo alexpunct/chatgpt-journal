@@ -2,14 +2,16 @@
 	import type { Writable } from 'svelte/store';
 
 	// Preview Components
-	import ProgressBar from '$lib/components/ProgressBar/ProgressBar.svelte';
-	import SlideToggle from '$lib/components/SlideToggle/SlideToggle.svelte';
+	import {
+		ProgressBar,
+		SlideToggle,
+		CodeBlock,
+		LightSwitch,
+		localStorageStore
+	} from '@skeletonlabs/skeleton';
 	// Components
-	import CodeBlock from '$lib/utilities/CodeBlock/CodeBlock.svelte';
-	import LightSwitch from '$lib/utilities/LightSwitch/LightSwitch.svelte';
 	import Swatch from './Swatch.svelte';
 	// Utilities
-	import { localStorageStore } from '$lib/utilities/LocalStorageStore/LocalStorageStore';
 
 	// Local Utils
 	import { storePreview } from './stores';
@@ -108,7 +110,12 @@
 <div class="docs-themer space-y-4">
 	<div class="card variant-glass-surface p-4 flex justify-between items-center">
 		<span>Live Preview Mode</span>
-		<SlideToggle size="lg" bind:checked={$storePreview} on:change={onPreviewToggle} />
+		<SlideToggle
+			name="Live Preview"
+			size="lg"
+			bind:checked={$storePreview}
+			on:change={onPreviewToggle}
+		/>
 	</div>
 	<div class="grid grid-cols-2 gap-4">
 		<!-- Theme Color -->
@@ -119,7 +126,9 @@
 					<h3>Colors</h3>
 					<LightSwitch />
 				</div>
-				<button class="btn variant-ghost-surface" on:click={randomize} disabled={!$storePreview}>Randomize Colors</button>
+				<button class="btn variant-ghost-surface" on:click={randomize} disabled={!$storePreview}
+					>Randomize Colors</button
+				>
 			</header>
 			<hr />
 			<div class="p-4 grid grid-cols-1 gap-4">
@@ -128,15 +137,27 @@
 						<label class="label">
 							<span>{colorRow.label}</span>
 							<div class="grid grid-cols-[auto_1fr] gap-4 place-items-end">
-								<input class="input" type="color" bind:value={colorRow.hex} disabled={!$storePreview} />
-								<input class="input" type="text" bind:value={colorRow.hex} placeholder="#BADA55" disabled={!$storePreview} />
+								<input
+									class="input"
+									type="color"
+									bind:value={colorRow.hex}
+									disabled={!$storePreview}
+								/>
+								<input
+									class="input"
+									type="text"
+									bind:value={colorRow.hex}
+									placeholder="#BADA55"
+									disabled={!$storePreview}
+								/>
 							</div>
 						</label>
 						<Swatch color={colorRow.key} />
 						<label class="label">
 							<span>Text & Fill Color</span>
 							<select class="select" bind:value={colorRow.on} disabled={!$storePreview}>
-								{#each inputSettings.colorProps as c}<option value={c.value}>{c.label}</option>{/each}
+								{#each inputSettings.colorProps as c}<option value={c.value}>{c.label}</option
+									>{/each}
 							</select>
 						</label>
 					</div>
@@ -156,7 +177,11 @@
 			</label>
 			<label class="label">
 				<span>Headings</span>
-				<select class="select" bind:value={$storeThemGenForm.fontHeadings} disabled={!$storePreview}>
+				<select
+					class="select"
+					bind:value={$storeThemGenForm.fontHeadings}
+					disabled={!$storePreview}
+				>
 					{#each inputSettings.fonts as f}<option value={f}>{f}</option>{/each}
 				</select>
 			</label>
@@ -164,13 +189,21 @@
 			<h3 class="col-span-2">Text Color</h3>
 			<label class="label">
 				<span>Light Mode</span>
-				<select class="select" bind:value={$storeThemGenForm.textColorLight} disabled={!$storePreview}>
+				<select
+					class="select"
+					bind:value={$storeThemGenForm.textColorLight}
+					disabled={!$storePreview}
+				>
 					{#each inputSettings.colorProps as c}<option value={c.value}>{c.label}</option>{/each}
 				</select>
 			</label>
 			<label class="label">
 				<span>Dark Mode</span>
-				<select class="select" bind:value={$storeThemGenForm.textColorDark} disabled={!$storePreview}>
+				<select
+					class="select"
+					bind:value={$storeThemGenForm.textColorDark}
+					disabled={!$storePreview}
+				>
 					{#each inputSettings.colorProps as c}<option value={c.value}>{c.label}</option>{/each}
 				</select>
 			</label>
@@ -185,7 +218,11 @@
 			</label>
 			<label class="label">
 				<span>Container</span>
-				<select class="select" bind:value={$storeThemGenForm.roundedContainer} disabled={!$storePreview}>
+				<select
+					class="select"
+					bind:value={$storeThemGenForm.roundedContainer}
+					disabled={!$storePreview}
+				>
 					{#each inputSettings.rounded as r}<option value={r}>{r}</option>{/each}
 				</select>
 			</label>
@@ -233,10 +270,10 @@
 			<hr class="opacity-50" />
 			<!-- Slide Toggles -->
 			<div class="grid grid-cols-4 gap-4 place-items-center">
-				<SlideToggle accent="bg-surface-500" checked />
-				<SlideToggle accent="bg-primary-500" checked />
-				<SlideToggle checked />
-				<SlideToggle accent="bg-tertiary-500" checked />
+				<SlideToggle name="surface" accent="bg-surface-500" checked />
+				<SlideToggle name="primary" accent="bg-primary-500" checked />
+				<SlideToggle name="unknown" checked />
+				<SlideToggle name="tertiary" accent="bg-tertiary-500" checked />
 			</div>
 		</section>
 

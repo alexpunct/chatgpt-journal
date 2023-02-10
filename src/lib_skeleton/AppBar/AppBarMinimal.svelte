@@ -6,8 +6,8 @@
 	import type { DrawerSettings } from '@skeletonlabs/skeleton';
 
 	//
-	import LogoFull from '../Logo/LogoFull.svelte';
-	import Search from '../Search/Search.svelte';
+	import LogoFull from '$libSkeleton/Logo/LogoFull.svelte';
+	import Search from '$libSkeleton/Search/Search.svelte';
 
 	// Components
 	import { AppBar } from '@skeletonlabs/skeleton';
@@ -17,7 +17,7 @@
 	import { modalStore } from '@skeletonlabs/skeleton';
 
 	// Stores
-	import { storeTheme } from '../stores';
+	import { storeTheme } from '$lib/stores';
 	import { drawerStore } from '@skeletonlabs/skeleton';
 
 	// Local

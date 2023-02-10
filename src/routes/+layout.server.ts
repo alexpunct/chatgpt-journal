@@ -9,6 +9,6 @@ export const load: LayoutServerLoad = async ({ cookies }) => {
 		theme = 'chatjournal';
 	}
 	// Imports theme as a string
-	const modules = import.meta.glob(`../lib/themes/*.css`, { as: 'raw' });
-	return { currentTheme: modules[`../lib/themes/theme-${theme}.css`](), vercelEnv: VERCEL_ENV };
+	const modules = import.meta.glob(`$lib/themes/*.css`, { as: 'raw' });
+	return { currentTheme: modules[`/src/lib/themes/theme-${theme}.css`](), vercelEnv: VERCEL_ENV };
 };

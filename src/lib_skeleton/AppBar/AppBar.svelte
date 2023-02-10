@@ -19,7 +19,7 @@
 	import { modalStore } from '@skeletonlabs/skeleton';
 
 	// Stores
-	import { storeTheme } from '../stores';
+	import { storeTheme } from '$lib/stores';
 	import { drawerStore } from '@skeletonlabs/skeleton';
 
 	// Local

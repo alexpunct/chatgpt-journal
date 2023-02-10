@@ -1,6 +1,6 @@
 <script lang="ts">
 	// Docs
-	import DocsLogoAnim from '../lib/Logo/DocsLogoAnim.svelte';
+	import DocsLogoAnim from '$libSkeleton/Logo/DocsLogoAnim.svelte';
 </script>
 
 <div>

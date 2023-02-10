@@ -7,7 +7,7 @@
 	import { AppRail, AppRailTile, drawerStore } from '@skeletonlabs/skeleton';
 
 	// Stores
-	import { storeCurrentUrl } from '../stores';
+	import { storeCurrentUrl } from '$lib/stores';
 
 	// Props
 	export let embedded = false;
