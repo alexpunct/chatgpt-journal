@@ -41,5 +41,10 @@
 		"vite": "^4.0.0",
 		"vitest": "^0.25.3"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"@supabase/auth-helpers-sveltekit": "^0.8.7",
+		"@supabase/supabase-js": "^2.7.1",
+		"openai": "^3.1.0"
+	}
 }
