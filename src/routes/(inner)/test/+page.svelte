@@ -1,5 +1,9 @@
 <script lang="ts">
-	export let data: Object;
+	export let data: {
+		journal_alex: {
+			content: string;
+		}[];
+	};
 
 	let { journal_alex } = data;
 	$: ({ journal_alex } = data);
