@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import { enhance, type SubmitFunction } from '$app/forms';
+	import type { SubmitFunction } from '$app/forms';
+	import { supabase } from '$lib/supabaseClient';
 
 	// Types
 	import type { ModalSettings, ModalComponent } from '@skeletonlabs/skeleton';
@@ -75,6 +76,17 @@
 			}
 		};
 	};
+
+	async function signOut() {
+		try {
+			let { error } = await supabase.auth.signOut();
+			if (error) throw error;
+		} catch (error) {
+			if (error instanceof Error) {
+				alert(error.message);
+			}
+		}
+	}
 </script>
 
 <!-- NOTE: using stopPropagation to override Chrome for Windows search shortcut -->
@@ -123,12 +135,12 @@
 								<span class="w-6 text-center"><i class="fa-solid fa-user" /></span>
 								<span>Profile</span>
 							</a>
-							<a href="/billing">
+							<!-- <a href="/billing">
 								<span class="w-6 text-center"><i class="fa-solid fa-money-check-dollar" /></span>
 								<span>Billing</span>
-							</a>
+							</a> -->
 							<hr class="my-4">
-							<a href="/guides">
+							<a href="/logout" on:click|preventDefault={signOut}>
 								<span class="w-6 text-center"><i class="fa-solid fa-right-from-bracket" /></span>
 								<span>Log Out</span>
 							</a>
@@ -140,37 +152,10 @@
 
 		<!-- Theme -->
 		<div class="relative">
-			<button
-				class="btn hover:variant-soft-primary"
-				use:menu={{ menu: 'theme', fixed: true, interactive: true }}
-			>
-				<i class="fa-solid fa-palette text-lg md:hidden" />
-				<span class="hidden md:inline-block">Theme</span>
-				<i class="fa-solid fa-caret-down opacity-50" />
-			</button>
 			<!-- <div class="card w-64 shadow-xl max-w-fit menu-tr sm:max-w-none" data-menu="theme"> -->
-			<div class="card p-4 w-60 shadow-xl menu-tr " data-menu="theme">
-				<section class="flex justify-between items-center">
-					<h6>Mode</h6>
-					<LightSwitch />
-				</section>
-				<hr class="my-4" />
-				<nav class="list-nav p-4 -m-4 max-h-64 lg:max-h-[500px] overflow-y-auto">
-					<form action="/?/setTheme" method="POST" use:enhance={setTheme}>
-						<ul>
-							{#each themes as { icon, name, type }}
-								<li>
-									<!-- prettier-ignore -->
-									<button class="option w-full h-full" type="submit" name="theme" value={type} class:bg-primary-active-token={$storeTheme === type}>
-										<span>{icon}</span>
-										<span>{name}</span>
-									</button>
-								</li>
-							{/each}
-						</ul>
-					</form>
-				</nav>
-			</div>
+			<section class="flex justify-between items-center">
+				<LightSwitch />
+			</section>
 		</div>
 	</svelte:fragment>
 </AppBar>

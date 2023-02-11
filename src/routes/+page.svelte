@@ -23,10 +23,10 @@
 					Journal, chat and have fun with our many <i class="fa fa-robot" />
 				</p>
 				<nav class="flex space-x-4">
-					<!-- <a href="/guides/install" class="btn variant-filled-primary">
+					<a href="/journal" class="btn variant-filled-primary">
 						<span>Get Started for FREE</span>
 						<span>&rarr;</span>
-					</a> -->
+					</a>
 					<!-- <a href="/" class="btn variant-ghost-surface">Coming Soon!</a> -->
 				</nav>
 			</div>

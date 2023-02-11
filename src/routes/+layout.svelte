@@ -18,8 +18,9 @@
 	// Components & Utilities
 	import { AppShell, Modal, Toast } from '@skeletonlabs/skeleton';
 
-	// Docs Components
-	import AppBar from '$libSkeleton/AppBar/AppBarMinimal.svelte';
+	// Local Components
+	import AppBarMinimal from '$libSkeleton/AppBar/AppBarMinimal.svelte';
+	import AppBar from '$libSkeleton/AppBar/AppBar.svelte';
 	import Sidebar from '$libSkeleton/Navigation/DocsSidebar.svelte';
 	import Drawer from '$libSkeleton/Navigation/DocsDrawer.svelte';
 	import Footer from '$libSkeleton/Footer/DocsFooter.svelte';
@@ -144,12 +145,18 @@
 <AppShell {slotSidebarLeft} slotFooter="bg-black p-4">
 	<!-- Header -->
 	<svelte:fragment slot="header">
-		<AppBar />
+		{#if $page.data.session}
+			<AppBar />
+		{:else}
+			<AppBarMinimal />
+		{/if}
 	</svelte:fragment>
 
 	<!-- Sidebar (Left) -->
 	<svelte:fragment slot="sidebarLeft">
-		<!-- <Sidebar class="hidden lg:grid w-[360px] overflow-hidden" /> -->
+		{#if $page.data.session}
+			<Sidebar class="hidden lg:grid w-[360px] overflow-hidden" />
+		{/if}
 	</svelte:fragment>
 
 	<!-- Page Content -->

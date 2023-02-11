@@ -1,33 +1,12 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-
-	// Types
-	import type { ModalSettings, ModalComponent } from '@skeletonlabs/skeleton';
-	import type { DrawerSettings } from '@skeletonlabs/skeleton';
-
-	//
 	import LogoFull from '$libSkeleton/Logo/LogoFull.svelte';
-	import Search from '$libSkeleton/Search/Search.svelte';
 
 	// Components
 	import { AppBar } from '@skeletonlabs/skeleton';
+
 	// Utilities
 	import { LightSwitch } from '@skeletonlabs/skeleton';
-	import { menu } from '@skeletonlabs/skeleton';
-	import { modalStore } from '@skeletonlabs/skeleton';
-
-	// Stores
-	import { storeTheme } from '$lib/stores';
-	import { drawerStore } from '@skeletonlabs/skeleton';
-
-	// Local
-	let isOsMac = false;
-
-	// Set Search Shortkey Keys
-	if (browser) {
-		let os = navigator.userAgent;
-		isOsMac = os.search('Mac') !== -1;
-	}
 </script>
 
 <!-- NOTE: using stopPropagation to override Chrome for Windows search shortcut -->
