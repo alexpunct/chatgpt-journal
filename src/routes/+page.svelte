@@ -1,6 +1,9 @@
 <script lang="ts">
-	// Docs
+	// Components
 	import DocsLogoAnim from '$libSkeleton/Logo/DocsLogoAnim.svelte';
+
+	// Stores
+	import { page } from '$app/stores';
 </script>
 
 <div>
@@ -23,11 +26,18 @@
 					Journal, chat and have fun with our many <i class="fa fa-robot" />
 				</p>
 				<nav class="flex space-x-4">
-					<a href="/journal" class="btn variant-filled-primary">
-						<span>Get Started for FREE</span>
-						<span>&rarr;</span>
-					</a>
-					<!-- <a href="/" class="btn variant-ghost-surface">Coming Soon!</a> -->
+					{#if $page.data.session}
+						<a href="/profile" class="btn variant-filled-primary">
+							<span>Go to Dashboard</span>
+							<span>&rarr;</span>
+						</a>
+					{:else}
+						<a href="/auth/signup" class="btn variant-filled-primary">
+							<span>Get Started for FREE</span>
+							<span>&rarr;</span>
+						</a>
+						<a href="/auth/signin" class="btn variant-ghost-surface">Sign in</a>
+					{/if}
 				</nav>
 			</div>
 			<!-- Logo -->

@@ -6,7 +6,7 @@ import type { LayoutServerLoad } from './$types';
 
 export const load: LayoutServerLoad = async (event) => {
 	const session = await getServerSession(event);
-	if (!session) throw redirect(307, '/login');
+	if (!session) throw redirect(307, '/auth/signin');
 
 	return {
 		session
