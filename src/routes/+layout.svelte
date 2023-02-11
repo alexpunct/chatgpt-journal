@@ -21,7 +21,7 @@
 	// Local Components
 	import AppBarMinimal from '$libSkeleton/AppBar/AppBarMinimal.svelte';
 	import AppBar from '$libSkeleton/AppBar/AppBar.svelte';
-	import Sidebar from '$libSkeleton/Navigation/DocsSidebar.svelte';
+	import Sidebar from '$libSkeleton/Navigation/Sidebar.svelte';
 	import Drawer from '$libSkeleton/Navigation/DocsDrawer.svelte';
 	import Footer from '$libSkeleton/Footer/DocsFooter.svelte';
 
@@ -155,7 +155,7 @@
 	<!-- Sidebar (Left) -->
 	<svelte:fragment slot="sidebarLeft">
 		{#if $page.data.session}
-			<Sidebar class="hidden lg:grid w-[360px] overflow-hidden" />
+			<Sidebar class="hidden lg:grid overflow-hidden" />
 		{/if}
 	</svelte:fragment>
 

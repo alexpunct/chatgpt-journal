@@ -6,7 +6,7 @@
 		'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
 		'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 	--theme-font-color-base: var(--color-surface-900);
-	--theme-font-color-dark: var(--color-tertiary-200);
+	--theme-font-color-dark: var(--color-tertiary-50);
 	--theme-rounded-base: 0px;
 	--theme-rounded-container: 0px;
 	--theme-border-base: 4px;

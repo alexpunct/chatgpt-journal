@@ -1,6 +1,6 @@
 import type { Component } from './types';
 
-import type { TableSource } from './../../lib/components/Table/types';
+import type { TableSource } from '@skeletonlabs/skeleton';
 
 // Mapper: Props
 export function sveldMapperProps(component: Component): TableSource {
@@ -16,7 +16,12 @@ export function sveldMapperProps(component: Component): TableSource {
 	return {
 		head: propsHeadings,
 		body: propsFiltered.map((p: any) => {
-			return [`<code>${p.name}<?code>`, `<em>${p.type}</em>`, cleanValue(p.value), p.description ? p?.description : '-'];
+			return [
+				`<code>${p.name}<?code>`,
+				`<em>${p.type}</em>`,
+				cleanValue(p.value),
+				p.description ? p?.description : '-'
+			];
 		})
 	};
 }

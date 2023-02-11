@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Drawer, drawerStore } from '@skeletonlabs/skeleton';
-	import DocsSidebar from './DocsSidebar.svelte';
+	import Sidebar from './Sidebar.svelte';
 
 	$: classesDrawer = $drawerStore.id === 'doc-sidenav' ? 'lg:hidden' : '';
 </script>
@@ -8,7 +8,7 @@
 <Drawer class={classesDrawer}>
 	{#if $drawerStore.id === 'doc-sidenav'}
 		<!-- Doc Sidebar -->
-		<DocsSidebar embedded={true} />
+		<Sidebar embedded={true} />
 	{:else if $drawerStore.id === 'demo'}
 		<!-- Drawer Doc Demos -->
 		<div class="w-full h-full flex justify-center items-center">

@@ -1,15 +1,3 @@
-export enum DocsFeature {
-	Element = 'Tailwind',
-	Component = 'Svelte Component',
-	Action = 'Svelte Action',
-	Utility = 'Utility'
-}
-
-interface Link {
-	label: string;
-	url: string;
-}
-
 export interface Component {
 	/** Provide a semantic component label. */
 	label?: string;
@@ -39,36 +27,13 @@ export interface SveldJson {
 	[key: string]: unknown;
 }
 
-export interface DocsShellSettings {
-	/** Documentation | Element | Component | Action | Utility */
-	feature: DocsFeature;
+export interface ShellSettings {
 	/** The feature name. */
 	name: string;
 	/** The feature description */
-	description: string;
-	/** Specifiy the GitHub source path for the feature (partial) */
-	source?: string;
-	/** List of import alias names. */
-	imports?: string[];
-	/** List of import Typescript interface imports. */
-	types?: string[];
-	/** List of stylesheets that include the required styles. */
-	stylesheetIncludes?: string[];
-	/** List of CSS import paths (partials) */
-	stylesheets?: string[];
-	/** The NPM package this feature belongs to. */
-	package?: {
-		/** Package Name */
-		name: string;
-		/** Package URL */
-		url: string;
-	};
-	/** Specifify the GitHub documentation source for the feature (partial) */
-	docsPath?: string;
-	/** Provide list of depedency links.  */
-	dependencies?: Link[];
-	/** WAI-ARIA APG reference page URL. */
-	aria?: string;
+	description?: string;
+	/** Show Table of contents */
+	toc?: boolean;
 	/** Component documentation, which utilizes Sveld. */
 	components?: Component[];
 	/** Component element that uses restProps */
@@ -80,17 +45,3 @@ export interface DocsShellSettings {
 	/** Keyboard interaction table source [name, description]. */
 	keyboard?: [string, string][];
 }
-
-// NOTE: this will be removed alongside the move to the JSDocs documentation.
-// export interface DocsShellTable {
-// 	/** Provide a semantic label. */
-// 	label?: string;
-// 	/** Provide HTML for description region. */
-// 	description?: string;
-// 	/** Provide the table headings. */
-// 	headings?: string[];
-// 	/** Provide the table source data. */
-// 	source?: string[][];
-// 	/** WAI-ARIA APG page link. */
-// 	aria?: string; // TODO: remove this
-// }
