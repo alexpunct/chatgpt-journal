@@ -1,10 +1,7 @@
 <!-- Layout: (root) -->
 <script lang="ts">
-	import { inject } from '@vercel/analytics';
-	import hljs from 'highlight.js';
-	import '$libSkeleton/Styles/highlight-js.css'; // was: 'highlight.js/styles/github-dark.css';
-	import { storeHighlightJs } from '@skeletonlabs/skeleton';
-	storeHighlightJs.set(hljs);
+	import { webVitals } from '$lib/vitals';
+	let analyticsId = import.meta.env.VERCEL_ANALYTICS_ID;
 
 	// SvelteKit Imports
 	import { browser } from '$app/environment';
@@ -33,11 +30,14 @@
 	import type { LayoutServerData } from './$types';
 	export let data: LayoutServerData;
 
-	if (data.vercelEnv == 'production') {
-		inject();
-	}
-
 	$: ({ currentTheme } = data);
+	$: if (browser && analyticsId && data.vercelEnv == 'production') {
+		webVitals({
+			path: $page.url.pathname,
+			params: $page.params,
+			analyticsId
+		});
+	}
 
 	// Set body `data-theme` based on current theme status
 	storeTheme.subscribe(setBodyThemeAttribute);
@@ -103,6 +103,23 @@
 	$: slotSidebarLeft = matchPathWhitelist($page.url.pathname)
 		? 'w-0'
 		: 'bg-surface-50-900-token lg:w-auto';
+
+	// Auth
+	import { supabase } from '$lib/supabaseClient';
+	import { invalidate } from '$app/navigation';
+	import { onMount } from 'svelte';
+
+	onMount(() => {
+		const {
+			data: { subscription }
+		} = supabase.auth.onAuthStateChange(() => {
+			invalidate('supabase:auth');
+		});
+
+		return () => {
+			subscription.unsubscribe();
+		};
+	});
 </script>
 
 <svelte:head>

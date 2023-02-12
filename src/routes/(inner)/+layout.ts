@@ -1,7 +1,12 @@
+import { redirect } from '@sveltejs/kit';
+
+// types
 import type { LayoutLoad } from './$types';
-import { getSupabase } from '@supabase/auth-helpers-sveltekit';
 
 export const load: LayoutLoad = async (event) => {
-	const { session } = await getSupabase(event);
+	const { session } = await event.parent();
+	if (!session) {
+		throw redirect(307, '/');
+	}
 	return { session };
 };

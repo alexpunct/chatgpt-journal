@@ -7,13 +7,12 @@
 	import type { ModalSettings, ModalComponent } from '@skeletonlabs/skeleton';
 	import type { DrawerSettings } from '@skeletonlabs/skeleton';
 
-	//
+	// Components
+	import { AppBar } from '@skeletonlabs/skeleton';
 	import LogoFull from '../Logo/LogoFull.svelte';
 	import Search from '../Search/Search.svelte';
 	import { Avatar } from '@skeletonlabs/skeleton';
 
-	// Components
-	import { AppBar } from '@skeletonlabs/skeleton';
 	// Utilities
 	import { LightSwitch } from '@skeletonlabs/skeleton';
 	import { menu } from '@skeletonlabs/skeleton';

@@ -7,4 +7,13 @@ declare namespace App {
 	// interface PageData {}
 	// interface Error {}
 	// interface Platform {}
+	interface Supabase {
+		Database: import('./supabaseTypes').Database;
+		SchemaName: 'public';
+	}
+
+	// interface Locals {}
+	interface PageData {
+		session: import('@supabase/supabase-js').Session | null;
+	}
 }

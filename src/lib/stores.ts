@@ -5,6 +5,7 @@ import { localStorageStore } from '@skeletonlabs/skeleton';
 
 // Set within root layout, persists current SvelteKit $page.url.pathname
 export const storeCurrentUrl: Writable<string | undefined> = writable(undefined);
+export const userProfile: Writable<string | undefined> = writable(undefined);
 
 // Local Storage Stores ---
 
