@@ -27,12 +27,12 @@
 				</p>
 				<nav class="flex space-x-4">
 					{#if $page.data.session}
-						<a href="/profile" class="btn variant-filled-primary">
-							<span>Go to Dashboard</span>
+						<a href="/today" class="btn variant-filled-primary card-hover shadow">
+							<span>Go to App</span>
 							<span>&rarr;</span>
 						</a>
 					{:else}
-						<a href="/auth/signup" class="btn variant-filled-primary">
+						<a href="/auth/signup" class="btn variant-filled-primary card-hover shadow">
 							<span>Get Started for FREE</span>
 							<span>&rarr;</span>
 						</a>

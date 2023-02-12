@@ -10,7 +10,7 @@
 	//
 	import LogoFull from '../Logo/LogoFull.svelte';
 	import Search from '../Search/Search.svelte';
-	import SvgIcon from '../SvgIcon/SvgIcon.svelte';
+	import { Avatar } from '@skeletonlabs/skeleton';
 
 	// Components
 	import { AppBar } from '@skeletonlabs/skeleton';
@@ -122,7 +122,8 @@
 
 		<!-- Navigate -->
 		<div class="relative hidden lg:block">
-			<button class="btn hover:variant-soft-primary" use:menu={{ menu: 'user' }}>
+			<button class="btn hover:variant-soft-surface" use:menu={{ menu: 'user' }}>
+				<Avatar width="w-8" rounded="rounded-xl" src="https://i.pravatar.cc/" />
 				<span>Alex</span>
 				<i class="fa-solid fa-caret-down opacity-50" />
 			</button>

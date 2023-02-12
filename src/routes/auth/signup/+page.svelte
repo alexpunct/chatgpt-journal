@@ -95,7 +95,7 @@
 							</div>
 						</div>
 					{:else}
-						<button type="submit" class="btn variant-filled-primary pl-5 pr-5">
+						<button type="submit" class="btn variant-filled-primary card-hover shadow pl-5 pr-5">
 							<span>Submit</span>
 						</button>
 					{/if}

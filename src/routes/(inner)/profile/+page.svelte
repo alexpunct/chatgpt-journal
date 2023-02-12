@@ -19,24 +19,7 @@
 	const settings: ShellSettings = {
 		name: 'Profile',
 		description: '',
-		toc: false,
-		classes: [
-			['<code>.legend</code>', '', 'Provides theme styles to legend elements.'],
-			['<code>.label</code>', '', 'Provides theme styles to label elements.'],
-			['<code>.input</code>', '', 'Provides theme styles to input elements.'],
-			['<code>.textarea</code>', '', 'Provides theme styles to textarea elements.'],
-			['<code>.select</code>', '', 'Provides theme styles to select elements.'],
-			['<code>.checkbox</code>', '', 'Provides theme styles to checkbox elements.'],
-			['<code>.radio</code>', '', 'Provides theme styles to radio elements.'],
-			['<code>.input-group</code>', '', 'Creates a group of related inputs and information.'],
-			['<code>.input-group-divider</code>', '', 'Adds vertical lines between group segments.'],
-			['<code>.input-group-shim</code>', '', 'Provides a shaded background segment.'],
-			[
-				'<code>.input-[variant]</code>',
-				'succes | warning | error',
-				'Color highlights for input for validation states.'
-			]
-		]
+		toc: false
 	};
 
 	// Local
@@ -196,7 +179,9 @@
 								</div>
 							</div>
 						{:else}
-							<button class="btn variant-filled-primary">Update Settings &rarr;</button>
+							<button class="btn variant-filled-primary card-hover shadow"
+								>Update Settings &rarr;</button
+							>
 						{/if}
 					</div>
 				</div>

@@ -77,7 +77,7 @@
 							</div>
 						</div>
 					{:else}
-						<button type="submit" class="btn variant-filled-primary">
+						<button type="submit" class="btn variant-filled-primary card-hover shadow">
 							<span>Send magic link</span>
 						</button>
 					{/if}
