@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
 	import LogoFull from '$libSkeleton/Logo/LogoFull.svelte';
 
 	// Components

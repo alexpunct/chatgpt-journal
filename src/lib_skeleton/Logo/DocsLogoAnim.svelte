@@ -1,12 +1,8 @@
-<script lang="ts">
-	import { Avatar } from '@skeletonlabs/skeleton';
-</script>
-
 <!-- Source: https://twitter.com/_davideast/status/1586091388826886145 -->
 <!-- https://fjolt.com/article/css-3d-interactive-flippable-cards -->
 <figure>
 	<section class="img-bg" />
-	<img src="chatjournal-logo-no-bg-large.png" class="mr-2 w-auto" alt="Chat Journal" />
+	<img src="chatjournal-logo-no-bg-large.webp" class="mr-2 w-auto" alt="Chat Journal" />
 </figure>
 
 <style lang="postcss">
