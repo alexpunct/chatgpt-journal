@@ -1,5 +1,4 @@
 import type { LayoutServerLoad } from './$types';
-import { VERCEL_ENV } from '$env/static/private';
 import { getServerSession } from '@supabase/auth-helpers-sveltekit';
 
 export const load: LayoutServerLoad = async (event) => {
@@ -13,7 +12,6 @@ export const load: LayoutServerLoad = async (event) => {
 	const modules = import.meta.glob(`$lib/themes/*.css`, { as: 'raw' });
 	return {
 		currentTheme: modules[`/src/lib/themes/theme-${theme}.css`](),
-		vercelEnv: VERCEL_ENV,
 		session: await getServerSession(event)
 	};
 };

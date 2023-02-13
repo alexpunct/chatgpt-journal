@@ -5,7 +5,7 @@ import { supabase } from '$lib/supabaseClient';
 import type { PageLoad } from './$types';
 import type { Profile, ProfilePrivate } from '$lib/types';
 
-// @TODO move this to the main layout and add it to the store (public profile)
+// @TODO move the private profile to the server
 export const load: PageLoad = async ({ parent, depends }) => {
 	const result: {
 		error: string;

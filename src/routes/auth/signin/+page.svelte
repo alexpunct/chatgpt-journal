@@ -1,10 +1,16 @@
 <script lang="ts">
 	import { supabase } from '$lib/supabaseClient';
 	import { ProgressRadial, focusTrap, toastStore } from '@skeletonlabs/skeleton';
+	import { invalidateAll } from '$app/navigation';
+
+	// types
 	import type { ToastSettings } from '@skeletonlabs/skeleton';
+
+	// state
 
 	let loading = false;
 	let email: string;
+	let password: string;
 
 	const t: ToastSettings = {
 		message: '',
@@ -20,19 +26,19 @@
 		}
 		try {
 			loading = true;
-			const { error } = await supabase.auth.signInWithOtp({ email });
+			const { error } = await supabase.auth.signInWithPassword({ email, password });
 			if (error) throw error;
-			return toastStore.trigger({
+			toastStore.trigger({
 				...t,
-				message: 'Check your email for the login link!',
-				preset: 'success'
+				message: 'Signed in successfully!',
+				preset: 'success',
+				timeout: 1000
 			});
+			invalidateAll();
 		} catch (error) {
 			if (error instanceof Error) {
 				return toastStore.trigger({ ...t, message: error.message });
 			}
-		} finally {
-			loading = false;
 		}
 	};
 </script>
@@ -59,6 +65,18 @@
 					/>
 				</label>
 			</div>
+			<div class="space-y-4">
+				<label class="label">
+					<span>Password</span>
+					<input
+						class="input"
+						type="password"
+						autocomplete="password"
+						required
+						bind:value={password}
+					/>
+				</label>
+			</div>
 			<div class="mt-4">
 				<div class="flex justify-start float-left content-center">
 					<a class="btn variant-ringed-primary" href="/auth/signup">
@@ -78,7 +96,7 @@
 						</div>
 					{:else}
 						<button type="submit" class="btn variant-filled-primary card-hover shadow">
-							<span>Send magic link</span>
+							<span>Submit</span>
 						</button>
 					{/if}
 				</div>
