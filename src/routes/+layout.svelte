@@ -1,16 +1,11 @@
 <!-- Layout: (root) -->
 <script lang="ts">
-	import { webVitals } from '$lib/vitals';
-	let analyticsId = import.meta.env.VERCEL_ANALYTICS_ID;
-
 	// SvelteKit Imports
-	import { browser } from '$app/environment';
 	import { page } from '$app/stores';
 	import { afterNavigate } from '$app/navigation';
 
 	// Stores
-	import { storeCurrentUrl, storeTheme } from '$lib/stores';
-	import { storePreview } from '$libSkeleton/Themer/stores';
+	import { storeCurrentUrl } from '$lib/stores';
 
 	// Components & Utilities
 	import { AppShell, Modal, Toast } from '@skeletonlabs/skeleton';
@@ -22,30 +17,27 @@
 	import Drawer from '$libSkeleton/Navigation/DocsDrawer.svelte';
 	import Footer from '$libSkeleton/Footer/DocsFooter.svelte';
 
+	// Auth
+	import { supabase } from '$lib/supabaseClient';
+	import { invalidate } from '$app/navigation';
+	import { onMount } from 'svelte';
+
+	onMount(() => {
+		const {
+			data: { subscription }
+		} = supabase.auth.onAuthStateChange(() => {
+			invalidate('supabase:auth');
+		});
+
+		return () => {
+			subscription.unsubscribe();
+		};
+	});
+
 	// Skeleton Stylesheets
+	import '$lib/themes/theme-chatjournal.css';
 	import '@skeletonlabs/skeleton/styles/all.css';
 	import '../app.postcss';
-
-	// Theme stylesheet is loaded from LayoutServerData
-	import type { LayoutServerData } from './$types';
-	export let data: LayoutServerData;
-
-	$: ({ currentTheme } = data);
-	$: if (browser && analyticsId && data.vercelEnv == 'production') {
-		webVitals({
-			path: $page.url.pathname,
-			params: $page.params,
-			analyticsId
-		});
-	}
-
-	// Set body `data-theme` based on current theme status
-	storeTheme.subscribe(setBodyThemeAttribute);
-	storePreview.subscribe(setBodyThemeAttribute);
-	function setBodyThemeAttribute(): void {
-		if (!browser) return;
-		document.body.setAttribute('data-theme', $storePreview ? 'generator' : $storeTheme);
-	}
 
 	afterNavigate((params: any) => {
 		// Store current page route URL
@@ -103,23 +95,6 @@
 	$: slotSidebarLeft = matchPathWhitelist($page.url.pathname)
 		? 'w-0'
 		: 'bg-surface-50-900-token lg:w-auto';
-
-	// Auth
-	import { supabase } from '$lib/supabaseClient';
-	import { invalidate } from '$app/navigation';
-	import { onMount } from 'svelte';
-
-	onMount(() => {
-		const {
-			data: { subscription }
-		} = supabase.auth.onAuthStateChange(() => {
-			invalidate('supabase:auth');
-		});
-
-		return () => {
-			subscription.unsubscribe();
-		};
-	});
 </script>
 
 <svelte:head>
@@ -150,7 +125,6 @@
 	<meta name="twitter:image" content={meta.twitter.image} />
 
 	<!-- Select Preset Theme CSS DO NOT REMOVE ESCAPES-->
-	{@html `\<style\>${currentTheme}}\</style\>`}
 </svelte:head>
 
 <!-- Overlays -->

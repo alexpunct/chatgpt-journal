@@ -7,5 +7,7 @@ export const load: LayoutLoad = async (event) => {
 
 	event.data.session = session;
 
+	// @TODO add profile to store
+
 	return event.data;
 };

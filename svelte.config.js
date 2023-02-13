@@ -15,13 +15,6 @@ const config = {
 			postcss: true
 		})
 	],
-	vitePlugin: {
-		experimental: {
-			inspector: {
-				holdMode: true
-			}
-		}
-	},
 	package: {
 		// strip test files from packaging
 		files: (filepath) => {

@@ -8,7 +8,7 @@ declare namespace App {
 	// interface Error {}
 	// interface Platform {}
 	interface Supabase {
-		Database: import('./supabaseTypes').Database;
+		Database: import('./lib/supabaseTypes').Database;
 		SchemaName: 'public';
 	}
 

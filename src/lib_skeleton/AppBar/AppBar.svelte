@@ -121,7 +121,7 @@
 
 		<!-- Navigate -->
 		<div class="relative hidden lg:block">
-			<button class="btn hover:variant-soft-surface" use:menu={{ menu: 'user' }}>
+			<button class="btn hover:variant-soft-primary" use:menu={{ menu: 'user' }}>
 				<Avatar width="w-8" rounded="rounded-xl" src="https://i.pravatar.cc/" />
 				<span>Alex</span>
 				<i class="fa-solid fa-caret-down opacity-50" />
@@ -157,5 +157,6 @@
 				<LightSwitch />
 			</section>
 		</div>
+		<div />
 	</svelte:fragment>
 </AppBar>
