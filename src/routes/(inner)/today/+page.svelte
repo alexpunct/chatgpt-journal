@@ -18,7 +18,7 @@
 	//  Shell
 	const settings: ShellSettings = {
 		name: 'Today',
-		description: `<span class="badge variant-soft-primary">${new Date().toLocaleDateString(
+		description: `<span class="badge variant-soft-success">${new Date().toLocaleDateString(
 			'en-US',
 			{
 				weekday: 'long',
@@ -30,11 +30,11 @@
 		toc: false
 	};
 
+	let content = data.savedEntry?.content || '';
+
 	// Local
 	let loading = false;
-	let avatarUrl: string | null = data.profile.avatar_url || null;
-	let fullName: string | null = data.profile.full_name || null;
-	let openAiApiKey: string | null = data.profilePrivate.openai_api_key || null;
+	let saved = false;
 
 	const t: ToastSettings = {
 		message: '',
@@ -43,48 +43,27 @@
 		timeout: 5000
 	};
 
-	const dataChanged = () => {
-		return (
-			avatarUrl !== data.profile.avatar_url ||
-			fullName !== data.profile.full_name ||
-			openAiApiKey !== data.profilePrivate.openai_api_key
-		);
-	};
-
 	const handleSave = async ({ target }: Event) => {
 		toastStore.clear();
-		if (!openAiApiKey) {
-			return toastStore.trigger({ ...t, message: 'Please enter you OpenAI API Key.' });
-		}
-		if (!dataChanged()) {
-			return toastStore.trigger({ ...t, message: 'No changes to save.', preset: 'warning' });
-		}
+
 		try {
 			loading = true;
-			if (avatarUrl) avatarUrl = avatarUrl?.replace('http://', '').replace('https://', '');
-
 			// save the profile
-			let { data: profile, error } = await supabase
-				.from('profiles')
+			let { data: post, error } = await supabase
+				.from('journal')
 				.upsert({
-					id: data.profile.id,
-					avatar_url: avatarUrl,
-					full_name: fullName
+					// add the id if it exists
+					...(data.savedEntry ? { id: data.savedEntry.id } : {}),
+					user_id: data.session.user.id,
+					day: new Date().toISOString().split('T')[0],
+					content
 				})
 				.select('id');
-			if (error || !profile) throw error;
+			if (error || !post) throw error;
 
-			// save the private profile
-			({ error } = await supabase.from('profiles_private').upsert({
-				id: data.profilePrivate.id ?? profile[0].id,
-				openai_api_key: openAiApiKey
-			}));
-			if (error) throw error;
-			return toastStore.trigger({
-				...t,
-				message: 'Profile updated!',
-				preset: 'success'
-			});
+			setTimeout(() => {
+				saved = false;
+			}, 600);
 		} catch (error) {
 			if (error instanceof Error) {
 				return toastStore.trigger({ ...t, message: error.message });
@@ -92,8 +71,9 @@
 				return toastStore.trigger({ ...t, message: 'An unknown error occurred.' });
 			}
 		} finally {
+			saved = true;
 			loading = false;
-			invalidate('app:profile');
+			invalidate('journal:today');
 		}
 	};
 </script>
@@ -107,11 +87,41 @@
 				<div class="col-span-2 card variant-glass-surface p-4 shadow overflow-hidden">
 					<!-- Header -->
 					<header>
-						<h4>Journal your day below:</h4>
+						<h4 class="">Journal your day below:</h4>
 					</header>
 					<!-- Body -->
 					<div class="p-0 md:p-4 space-y-4 mt-4">
-						<textarea class="textarea" required rows="19" />
+						<textarea class="textarea" required rows="19" bind:value={content} />
+						{#if saved}
+							<div class="float-div-bottom-left text-center w-full pointer-events-none">
+								<div class="flex justify-center p-1 pb-1.5">
+									<div class="w-8">
+										<i class="fa-solid fa-check text-xl text-success-500" />
+									</div>
+								</div>
+							</div>
+						{/if}
+						{#if !saved && content && content !== data.savedEntry?.content}
+							<div class="float-div-bottom-left text-center w-full pointer-events-none">
+								{#if loading}
+									<div class="flex justify-center p-1 pb-1.5">
+										<div class="w-8">
+											<ProgressRadial
+												stroke={150}
+												meter="stroke-primary-500"
+												track="stroke-primary-500/30"
+											/>
+										</div>
+									</div>
+								{:else}
+									<button
+										on:click={handleSave}
+										class="btn variant-filled-primary card-hover shadow opacity-60 hover:opacity-100 pointer-events-auto"
+										>Save</button
+									>
+								{/if}
+							</div>
+						{/if}
 					</div>
 				</div>
 				<div class="col-span-1 p-4 card variant-glass-surface shadow">
@@ -171,7 +181,7 @@
 				</div>
 			</div>
 			<!-- See Also -->
-			<div class="card p-4 variant-glass-surface text-center w-full mt-4">
+			<!-- <div class="card p-4 variant-glass-surface text-center w-full mt-4">
 				{#if loading}
 					<div class="flex justify-center p-1 pb-1.5">
 						<div class="w-8">
@@ -183,10 +193,11 @@
 						</div>
 					</div>
 				{:else}
-					<button class="btn variant-filled-primary card-hover shadow">Save new entry &rarr;</button
+					<button on:click={handleSave} class="btn variant-filled-primary card-hover shadow"
+						>Save new entry &rarr;</button
 					>
 				{/if}
-			</div>
+			</div> -->
 		</div>
 	</svelte:fragment>
 </Shell>

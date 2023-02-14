@@ -1,4 +1,3 @@
 <div class="flex flex-row items-center">
-	<img src="/chatjournal-logo-no-bg-tiny.webp" class="mr-2 w-10" alt="Logo" />
-	<strong class="text-xl uppercase align-middle">Chat Journal</strong>
+	<strong class="text-xl align-middle font-extralight">ChatJournal.Ai</strong>
 </div>

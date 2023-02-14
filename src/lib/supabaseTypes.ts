@@ -9,6 +9,35 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      journal: {
+        Row: {
+          content: string | null
+          day: string | null
+          embedding: unknown | null
+          id: number
+          inserted_at: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          content?: string | null
+          day?: string | null
+          embedding?: unknown | null
+          id?: number
+          inserted_at?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          content?: string | null
+          day?: string | null
+          embedding?: unknown | null
+          id?: number
+          inserted_at?: string
+          updated_at?: string
+          user_id?: string
+        }
+      }
       journal_alex: {
         Row: {
           content: string | null
@@ -70,6 +99,20 @@ export interface Database {
           id?: string
           openai_api_key?: string | null
           updated_at?: string | null
+        }
+      }
+      test: {
+        Row: {
+          created_at: string | null
+          id: number
+        }
+        Insert: {
+          created_at?: string | null
+          id?: number
+        }
+        Update: {
+          created_at?: string | null
+          id?: number
         }
       }
     }

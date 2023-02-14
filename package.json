@@ -43,6 +43,8 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@fontsource/raleway": "^4.5.12",
+		"@fontsource/roboto": "^4.5.8",
 		"@supabase/auth-helpers-sveltekit": "^0.8.7",
 		"@supabase/supabase-js": "^2.7.1",
 		"openai": "^3.1.0"

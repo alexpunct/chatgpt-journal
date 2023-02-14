@@ -18,13 +18,20 @@
 			<div class="space-y-4">
 				<h1>
 					<span class="gradient-heading font-bold text-5xl"
-						><small>Your journal + ChatGPT = </small><br /><strong>ChatJournal.Ai</strong></span
-					>
+						><small>Chat with GPT as You Journal</small>
+					</span>
 				</h1>
 				<!-- <h2 class="md:text-4xl">Private and intelligent.</h2> -->
-				<p class="md:!text-lg">
-					Journal, chat and have fun with our many <i class="fa fa-robot" />
-				</p>
+				<div class="md:!text-lg pb-4">
+					The <span class="text-primary-500">AI-powered journaling app</span> that helps you
+					<span class="text-secondary-500">write</span>,
+					<span class="text-success-500">reflect</span> and
+					<span class="text-primary-500">connect</span>.
+					<em class="text-surface-200 text-base mt-2">
+						ChatJournal is more than just a diary. It's a smart and friendly companion that helps
+						you express yourself, understand your emotions and chat with your personal AI coach.
+					</em>
+				</div>
 				<nav class="flex space-x-4">
 					{#if $page.data.session}
 						<a href="/today" class="btn variant-filled-primary card-hover shadow">

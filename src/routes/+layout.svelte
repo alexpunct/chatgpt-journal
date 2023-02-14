@@ -35,6 +35,8 @@
 	});
 
 	// Skeleton Stylesheets
+	import '@fontsource/roboto';
+	import '@fontsource/raleway';
 	import '$lib/themes/theme-chatjournal.css';
 	import '@skeletonlabs/skeleton/styles/all.css';
 	import '../app.postcss';
@@ -77,7 +79,6 @@
 			image: metaDefaults.image
 		}
 	};
-	let isBlogArticle = false;
 
 	// Monitor $page for changes
 	page.subscribe((page) => {

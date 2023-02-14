@@ -2,7 +2,6 @@
 	import { page } from '$app/stores';
 	import { writable, type Writable } from 'svelte/store';
 
-	import SvgIcon from '../SvgIcon/SvgIcon.svelte';
 	import { menuNavLinks } from './links';
 	import { AppRail, AppRailTile, drawerStore } from '@skeletonlabs/skeleton';
 
@@ -56,24 +55,24 @@
 </script>
 
 <div
-	class="{sidebarWidth} grid grid-cols-[auto_1fr] pt-4 h-full bg-surface-50-900-token border-r border-surface-500/30 {$$props.class ??
+	class="{sidebarWidth} grid grid-cols-[auto_1fr] h-full bg-surface-50-900-token border-r border-surface-500/30 {$$props.class ??
 		''}"
 >
 	<!-- App Rail -->
 	<AppRail
 		selected={storeCategory}
 		background="bg-transparent"
-		border="border-r border-surface-500/30"
+		border="border-r border-surface-500/50"
 	>
-		<AppRailTile label="Today" value={'today'} tag="a" href="/today">
-			<i class="fa-solid fa-sheet-plastic text-2xl" />
+		<AppRailTile label="Today" class="mt-3" value={'today'} tag="a" href="/today">
+			<i class="fa-solid fa-sheet-plastic text-xl" />
 		</AppRailTile>
 		<AppRailTile label="Archive" value={'archive'} tag="a" href="/archive">
-			<i class="fa-solid fa-book text-2xl" />
+			<i class="fa-solid fa-book text-xl" />
 		</AppRailTile>
 		<hr class="opacity-30" />
 		<AppRailTile label="Chat" value={'chat'} tag="a" href="/chat">
-			<i class="fa-solid fa-message text-2xl" />
+			<i class="fa-solid fa-message text-xl" />
 		</AppRailTile>
 		<hr class="opacity-30" />
 		<svelte:fragment slot="trail">
