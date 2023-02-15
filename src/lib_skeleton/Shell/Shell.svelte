@@ -65,7 +65,9 @@
 			<!-- Intro -->
 			<section class="space-y-4">
 				<div class="flex items-center space-x-4">
-					<h1 class="gradient-heading pb-1">{@html pageSettings.name}</h1>
+					<h1 class="pb-1 box-decoration-clone">
+						{@html pageSettings.name}
+					</h1>
 				</div>
 				{#if pageSettings.description}
 					<p>{@html pageSettings.description}</p>
