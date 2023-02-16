@@ -135,7 +135,7 @@
 						<!-- Column 2 -->
 						<div class="space-y-4">
 							<label class="label">
-								<span>Full name</span>
+								<span>Display name</span>
 								<div class="grid-cols-[auto_1fr_auto]">
 									<input
 										class="input text-center md:text-left"

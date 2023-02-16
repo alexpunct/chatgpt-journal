@@ -1,5 +1,3 @@
-<!-- Source: https://twitter.com/_davideast/status/1586091388826886145 -->
-<!-- https://fjolt.com/article/css-3d-interactive-flippable-cards -->
 <figure>
 	<section class="img-bg" />
 	<img src="chatjournal-logo-no-bg-large.webp" class="mr-2 w-auto" alt="Chat Journal" />
@@ -15,25 +13,25 @@
 	}
 	.img-bg {
 		@apply absolute z-[-1] rounded-full blur-[50px] transition-all;
-		/* animation: pulse 5s cubic-bezier(0, 0, 0, 0.5) infinite, glow 5s linear infinite; */
+		animation: pulse 5s cubic-bezier(0, 0, 0, 0.5) infinite, glow 15s linear infinite;
 	}
-	/* @keyframes glow {
+	@keyframes glow {
 		0% {
-			@apply bg-secondary-400/50;
+			@apply bg-success-400/10;
 		}
 		33% {
-			@apply bg-secondary-400/50;
+			@apply bg-primary-400/30;
 		}
 		66% {
-			@apply bg-primary-400/50;
+			@apply bg-secondary-400/20;
 		}
 		100% {
-			@apply bg-secondary-400/50;
+			@apply bg-success-400/10;
 		}
 	}
 	@keyframes pulse {
 		50% {
 			transform: scale(1.2);
 		}
-	} */
+	}
 </style>
