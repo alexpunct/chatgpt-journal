@@ -14,7 +14,7 @@
 	import type { Database } from '$lib/supabaseTypes';
 
 	export const getPagination = (page: number, size: number) => {
-		const limit = size ? +size : 3;
+		const limit = size ? +size : 5;
 		const from = page ? page * limit : 0;
 		const to = page ? from + size : size;
 
@@ -115,57 +115,17 @@
 	<!-- Slot: Sandbox -->
 	<svelte:fragment slot="sandbox">
 		<div class="container">
-			<div class="mb-4 max-w-md mx-auto">
-				<span class="flex-auto">
-					<form use:focusTrap={true}>
-						<dt class="hidden">Search</dt>
-						<dd class="text-sm">
-							<div class="">
-								<label class="label">
-									<form on:submit|preventDefault={handleSearch}>
-										<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
-											<div class="input-group-shim"><i class="fa-solid fa-search" /></div>
-											<input
-												use:focusTrap={true}
-												type="search"
-												placeholder="Search..."
-												bind:value={search}
-												on:abort={() => {
-													search = '';
-													handleSearch();
-												}}
-											/>
-											{#if loadingSearch}
-												<div class="input-group-shim">
-													<ProgressRadial
-														stroke={100}
-														meter="stroke-success-500"
-														track="stroke-success-500/30"
-														class="w-4 h-4"
-													/>
-												</div>
-											{:else}
-												<button class="variant-soft-success">Go</button>
-											{/if}
-										</div>
-									</form>
-								</label>
-							</div>
-						</dd>
-					</form>
-				</span>
-			</div>
 			<div class="grid grid-cols-3 gap-2">
 				<!-- How are you feeling? -->
-				<div class="col-span-3 card variant-glass-surface p-4 shadow">
+				<div class="col-span-2 card variant-glass-surface p-4 px-8">
 					{#if entries.length === 0}
 						<div class="flex justify-center items-center flex-col p-20">
 							{#if loading}
 								<div class="w-8">
 									<ProgressRadial
 										stroke={350}
-										meter="stroke-success-500"
-										track="stroke-success-500/30"
+										meter="stroke-secondary-500"
+										track="stroke-secondary-500/30"
 									/>
 								</div>
 								<div class="mt-2">Loading, please wait...</div>
@@ -179,22 +139,24 @@
 					{/if}
 					{#each entries as entry}
 						{#if entry.day && entry.content}
-							<div class="entry pt-4 ">
+							<div class="entry pt-4">
 								<!-- Header -->
 								<header>
-									<div class="text-primary-700 pl-4 pr-4 ">
+									<div class="text-tertiary-700 pl-4 pr-4 ">
 										<i class="fa-solid fa-calendar-alt text-lg mr-2" />
 										{new Date(entry.day).toLocaleDateString('en', {
 											weekday: 'long',
 											year: 'numeric',
-											month: 'long',
+											month: 'short',
 											day: 'numeric'
 										})}
 									</div>
 								</header>
 								<!-- Body -->
-								<div class="p-0 md:p-4 space-y-4 mt-4 mb-4 rounded-xl">
-									{entry.content}
+								<div class="p-0 md:p-4 space-y-4 mt-4 mb-4">
+									<p class="rounded-xl text-justify leading-6 tracking-wide whitespace-pre-line">
+										{entry.content}
+									</p>
 								</div>
 							</div>
 						{/if}
@@ -211,7 +173,7 @@
 						</div>
 					{/if}
 				</div>
-				<!-- <div class="col-span-1 p-4 card variant-glass-surface shadow text-center">
+				<div class="col-span-1 p-4 card variant-glass-surface shadow text-center">
 					<h4 class="mb-4">
 						<i class="fa-solid fa-filter text-lg mr-2" />
 						Narrow down
@@ -219,42 +181,43 @@
 					<hr />
 					<dl class="list pl-4">
 						<div class="pt-4 mt-4">
-							<span class="flex-auto">
+							<form use:focusTrap={true} on:submit|preventDefault={handleSearch}>
 								<dt class="hidden">Search</dt>
 								<dd class="text-sm">
 									<div class="">
 										<label class="label">
 											<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
 												<div class="input-group-shim"><i class="fa-solid fa-search" /></div>
-												<input type="search" placeholder="Search..." />
-												<button class="variant-soft-success">Go</button>
+												<input
+													type="search"
+													placeholder="Search..."
+													bind:value={search}
+													on:abort={() => {
+														search = '';
+														handleSearch();
+													}}
+												/>
+												{#if loadingSearch}
+													<div class="input-group-shim">
+														<ProgressRadial
+															stroke={100}
+															meter="stroke-secondary-500"
+															track="stroke-secondary-500/30"
+															class="w-4 h-4"
+														/>
+													</div>
+												{:else}
+													<button class="variant-soft-secondary">Go</button>
+												{/if}
 											</div>
 										</label>
 									</div>
 								</dd>
-							</span>
+							</form>
 						</div>
 					</dl>
-				</div> -->
+				</div>
 			</div>
-			<!-- See Also -->
-			<!-- <div class="card p-4 variant-glass-surface text-center w-full mt-4">
-				{#if loading}
-					<div class="flex justify-center p-1 pb-1.5">
-						<div class="w-8">
-							<ProgressRadial
-								stroke={150}
-								meter="stroke-primary-500"
-								track="stroke-primary-500/30"
-							/>
-						</div>
-					</div>
-				{:else}
-					<button on:click={handleSave} class="btn variant-filled-primary card-hover shadow"
-						>Save new entry &rarr;</button
-					>
-				{/if}
-			</div> -->
 		</div>
 	</svelte:fragment>
 </Shell>

@@ -18,7 +18,7 @@
 	//  Shell
 	const settings: ShellSettings = {
 		name: 'Today',
-		description: `<span class="badge variant-soft-success">${new Date().toLocaleDateString(
+		description: `<span class="badge variant-soft-secondary">${new Date().toLocaleDateString(
 			'en-US',
 			{
 				weekday: 'long',
@@ -91,7 +91,12 @@
 					</header>
 					<!-- Body -->
 					<div class="p-0 md:p-4 space-y-4 mt-4">
-						<textarea class="textarea" required rows="19" bind:value={content} />
+						<textarea
+							class="textarea text-justify leading-6 tracking-wide"
+							required
+							rows="19"
+							bind:value={content}
+						/>
 						{#if saved}
 							<div class="float-div-bottom-left text-center w-full pointer-events-none">
 								<div class="flex justify-center p-1 pb-1.5">

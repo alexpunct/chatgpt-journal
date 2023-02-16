@@ -19,3 +19,14 @@ label:not(.unstyled) span:first-of-type:not(.unstyled):is(:not(.input-chip *)) {
 	bottom: 10%;
 	left: 0;
 }
+
+.gradient-heading {
+	@apply bg-clip-text text-transparent box-decoration-clone;
+	/* Direction */
+	@apply bg-gradient-to-br;
+	/* Color Stops */
+	@apply from-tertiary-900 via-primary-600 to-secondary-700;
+}
+.dark .gradient-heading {
+	@apply from-secondary-300 via-primary-500 to-success-300;
+}

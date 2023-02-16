@@ -15,22 +15,18 @@
 			class="container max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 place-items-center md:text-left sm:text-center"
 		>
 			<!-- Text -->
-			<div class="space-y-4">
+			<div class="space-y-4 tracking-wide">
 				<h1>
-					<span class="gradient-heading font-bold text-5xl"
-						><small>Chat with GPT as You Journal</small>
+					<span class="gradient-heading font-bold text-5xl "
+						><small>Chat with GPT as you Journal</small>
 					</span>
 				</h1>
 				<!-- <h2 class="md:text-4xl">Private and intelligent.</h2> -->
-				<div class="md:!text-lg pb-4">
-					The <span class="text-primary-500">AI-powered journaling app</span> that helps you
-					<span class="text-secondary-500">write</span>,
-					<span class="text-success-500">reflect</span> and
-					<span class="text-primary-500">connect</span>.
-					<em class="text-surface-200 text-base mt-2">
-						ChatJournal is more than just a diary. It's a smart and friendly companion that helps
-						you express yourself, understand your emotions and chat with your personal AI coach.
-					</em>
+				<div class="text-2xl pb-4 ">
+					The AI-powered journaling app that helps you
+					<span class="badge variant-soft-primary text-2xl">write</span>,
+					<span class="badge variant-soft-secondary text-2xl">reflect</span> and
+					<span class="badge variant-soft-success text-2xl">connect</span>.<br />
 				</div>
 				<nav class="flex space-x-4">
 					{#if $page.data.session}
@@ -53,6 +49,12 @@
 	</header>
 
 	<div class="container max-w-[1200px] mx-auto px-4 py-10 md:py-20 space-y-20">
+		<div class="p-4 max-w-2xl mx-auto">
+			<span class="text-xl italic">
+				Chat Journal is more than just a diary. It's a smart and friendly companion that helps you
+				express yourself, understand your emotions and chat with your personal AI coach.
+			</span>
+		</div>
 		<!-- Pre-Release Alert -->
 		<aside class="alert variant-ghost-warning text-center">
 			<i class="fa-solid fa-triangle-exclamation text-4xl" />
