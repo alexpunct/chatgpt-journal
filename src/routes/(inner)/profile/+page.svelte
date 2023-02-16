@@ -93,7 +93,11 @@
 <Shell {settings}>
 	<!-- Slot: Sandbox -->
 	<svelte:fragment slot="sandbox">
-		<form use:focusTrap={true} on:submit|preventDefault={handleSave}>
+		<form
+			class="text-center md:text-left"
+			use:focusTrap={true}
+			on:submit|preventDefault={handleSave}
+		>
 			<section class="space-y-4">
 				<div class="card">
 					<!-- Card Body -->
@@ -145,12 +149,12 @@
 					</div>
 				</div>
 			</section>
-			<section class="card variant-ghost-warning p-4 mt-12">
-				<div class="flex items-center space-x-2">
+			<section class="card variant-ghost-warning p-4 mt-4 md:mt-12">
+				<div class="flex items-center space-x-2 justify-center md:justify-start">
 					<h2>OpenAI Configuration</h2>
 					<span class="badge variant-filled-warning">Required</span>
 				</div>
-				<div class="space-y-4">
+				<div class="space-y-4 mt-4">
 					<label class="label">
 						<span>API Key</span>
 						<input
@@ -165,7 +169,7 @@
 				</div>
 			</section>
 			<!-- See Also -->
-			<section class="mt-12">
+			<section class="mt-4 md:mt-12">
 				<div class="grid grid-cols-1 gap-4">
 					<div class="card p-4 variant-glass-surface text-center">
 						{#if loading}

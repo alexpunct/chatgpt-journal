@@ -32,7 +32,7 @@
 
 	// Drawer Handler
 	function drawerOpen(): void {
-		const s: DrawerSettings = { id: 'doc-sidenav' };
+		const s: DrawerSettings = { id: 'left-sidenav' };
 		drawerStore.open(s);
 	}
 
@@ -59,7 +59,7 @@
 				<i class="fa-solid fa-bars text-xl" />
 			</button>
 			<!-- Logo -->
-			<a class="lg:!ml-0 w-[38px] lg:w-auto overflow-hidden" href="/" title="Go to Homepage">
+			<a class="lg:!ml-0 w-[150px] lg:w-auto overflow-hidden" href="/" title="Go to Homepage">
 				<LogoFull />
 			</a>
 		</div>

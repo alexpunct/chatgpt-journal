@@ -82,23 +82,25 @@
 	<!-- Slot: Sandbox -->
 	<svelte:fragment slot="sandbox">
 		<div class="container">
-			<div class="grid grid-cols-3 gap-2">
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-2">
 				<!-- How are you feeling? -->
-				<div class="col-span-2 card variant-glass-surface p-4 shadow overflow-hidden">
+				<div
+					class="col-span-1 md:col-span-2 md:card md:variant-glass-surface md:p-4 shadow overflow-hidden"
+				>
 					<!-- Header -->
 					<header>
-						<h4 class="">Journal your day below:</h4>
+						<h4 class="text-center md:text-left">Journal your day below:</h4>
 					</header>
 					<!-- Body -->
 					<div class="p-0 md:p-4 space-y-4 mt-4">
 						<textarea
-							class="textarea text-justify leading-6 tracking-wide"
+							class="textarea text-justify leading-6 tracking-wide max-h-80 md:max-h-max"
 							required
 							rows="19"
 							bind:value={content}
 						/>
 						{#if saved}
-							<div class="float-div-bottom-left text-center w-full pointer-events-none">
+							<div class="md:float-div-bottom-left text-center w-full pointer-events-none">
 								<div class="flex justify-center p-1 pb-1.5">
 									<div class="w-8">
 										<i class="fa-solid fa-check text-xl text-success-500" />
@@ -107,7 +109,7 @@
 							</div>
 						{/if}
 						{#if !saved && content && content !== data.savedEntry?.content}
-							<div class="float-div-bottom-left text-center w-full pointer-events-none">
+							<div class="md:float-div-bottom-left text-center w-full pointer-events-none">
 								{#if loading}
 									<div class="flex justify-center p-1 pb-1.5">
 										<div class="w-8">
@@ -121,7 +123,7 @@
 								{:else}
 									<button
 										on:click={handleSave}
-										class="btn variant-filled-primary card-hover shadow opacity-60 hover:opacity-100 pointer-events-auto"
+										class="btn variant-filled-primary card-hover shadow md:opacity-60 hover:opacity-100 pointer-events-auto"
 										>Save</button
 									>
 								{/if}
@@ -129,7 +131,7 @@
 						{/if}
 					</div>
 				</div>
-				<div class="col-span-1 p-4 card variant-glass-surface shadow">
+				<div class="hidden lg:grid col-span-1 p-4 card variant-glass-surface shadow">
 					<h4 class="text-center mb-4">
 						<i class="fa-solid fa-lightbulb text-lg mr-2" />
 						Suggestions

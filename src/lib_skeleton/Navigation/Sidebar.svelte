@@ -5,9 +5,6 @@
 	import { menuNavLinks } from './links';
 	import { AppRail, AppRailTile, drawerStore } from '@skeletonlabs/skeleton';
 
-	// Stores
-	import { storeCurrentUrl } from '$lib/stores';
-
 	// Props
 	export let embedded = false;
 
@@ -41,21 +38,10 @@
 		setNavCategory(pathMatch);
 	});
 	storeCategory.subscribe((c: string) => setNavCategory(c));
-
-	// Reactive
-	$: classesActive = (href: string) =>
-		$storeCurrentUrl?.includes(href) ? 'bg-primary-active-token' : '';
-
-	let submenu = false;
-	let sidebarWidth = '';
-
-	if (submenu) {
-		sidebarWidth = 'w-[360px]';
-	}
 </script>
 
 <div
-	class="{sidebarWidth} grid grid-cols-[auto_1fr] h-full bg-surface-50-900-token border-r border-surface-500/30 {$$props.class ??
+	class="w-[70px] grid grid-cols-[auto_1fr] h-full bg-surface-50-900-token border-r border-surface-500/30 {$$props.class ??
 		''}"
 >
 	<!-- App Rail -->
@@ -64,14 +50,27 @@
 		background="bg-transparent"
 		border="border-r border-surface-500/50"
 	>
-		<AppRailTile label="Today" class="mt-3" value={'today'} tag="a" href="/today">
+		<AppRailTile
+			label="Today"
+			class="mt-3"
+			value={'today'}
+			tag="a"
+			href="/today"
+			on:click={onListItemClick}
+		>
 			<i class="fa-solid fa-sheet-plastic text-xl" />
 		</AppRailTile>
-		<AppRailTile label="Archive" value={'archive'} tag="a" href="/archive">
+		<AppRailTile
+			label="Archive"
+			value={'archive'}
+			tag="a"
+			href="/archive"
+			on:click={onListItemClick}
+		>
 			<i class="fa-solid fa-book text-xl" />
 		</AppRailTile>
 		<hr class="opacity-30" />
-		<AppRailTile label="Chat" value={'chat'} tag="a" href="/chat">
+		<AppRailTile label="Chat" value={'chat'} tag="a" href="/chat" on:click={onListItemClick}>
 			<i class="fa-solid fa-message text-xl" />
 		</AppRailTile>
 		<hr class="opacity-30" />
@@ -87,32 +86,4 @@
 			</AppRailTile>
 		</svelte:fragment>
 	</AppRail>
-	{#if submenu}
-		<!-- Nav Links -->
-		<section class="p-4 pb-20 space-y-4 overflow-y-auto">
-			{#each filteredMenuNavLinks as { id, title, list }, i}
-				{#if list.length > 0}
-					<!-- Title -->
-					<div {id} class="text-primary-700 dark:text-primary-500 font-bold uppercase px-4">
-						{title}
-					</div>
-					<!-- Navigation List -->
-					<nav class="list-nav">
-						<ul>
-							{#each list as { href, label, badge }}
-								<li on:click={onListItemClick} on:keypress>
-									<a {href} class={classesActive(href)} data-sveltekit-preload-data="hover">
-										<span class="flex-auto">{@html label}</span>
-										{#if badge}<span class="badge variant-filled-secondary">{badge}</span>{/if}
-									</a>
-								</li>
-							{/each}
-						</ul>
-					</nav>
-					<!-- Divider -->
-					{#if i + 1 < filteredMenuNavLinks.length}<hr class="!my-6 opacity-50" />{/if}
-				{/if}
-			{/each}
-		</section>
-	{/if}
 </div>

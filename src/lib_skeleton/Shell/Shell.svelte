@@ -59,12 +59,12 @@
 
 <div class="doc-shell {classesBase}">
 	<!-- Region: Header -->
-	<header class="doc-shell-header {classesRegionHeader}">
+	<header class="doc-shell-header {classesRegionHeader} p-4 md:p-0 text-center md:text-left">
 		<!-- Information -->
 		<div class="doc-shell-info page-container lg:!space-y-10">
 			<!-- Intro -->
 			<section class="space-y-4">
-				<div class="flex items-center space-x-4">
+				<div class="text-center md:text-left space-x-4">
 					<h1 class="gradient-heading pb-1 box-decoration-clone">
 						{@html pageSettings.name}
 					</h1>

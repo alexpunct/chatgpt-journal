@@ -116,64 +116,7 @@
 	<svelte:fragment slot="sandbox">
 		<div class="container">
 			<div class="grid grid-cols-3 gap-2">
-				<!-- How are you feeling? -->
-				<div class="col-span-2 card variant-glass-surface p-4 px-8">
-					{#if entries.length === 0}
-						<div class="flex justify-center items-center flex-col p-20">
-							{#if loading}
-								<div class="w-8">
-									<ProgressRadial
-										stroke={350}
-										meter="stroke-secondary-500"
-										track="stroke-secondary-500/30"
-									/>
-								</div>
-								<div class="mt-2">Loading, please wait...</div>
-							{:else}
-								<div class="text-2xl text-primary-700">
-									<i class="fa-solid fa-face-sad-tear mr-1" />
-									No data yet, please add some entries.
-								</div>
-							{/if}
-						</div>
-					{/if}
-					{#each entries as entry}
-						{#if entry.day && entry.content}
-							<div class="entry pt-4">
-								<!-- Header -->
-								<header>
-									<div class="text-tertiary-700 pl-4 pr-4 ">
-										<i class="fa-solid fa-calendar-alt text-lg mr-2" />
-										{new Date(entry.day).toLocaleDateString('en', {
-											weekday: 'long',
-											year: 'numeric',
-											month: 'short',
-											day: 'numeric'
-										})}
-									</div>
-								</header>
-								<!-- Body -->
-								<div class="p-0 md:p-4 space-y-4 mt-4 mb-4">
-									<p class="rounded-xl text-justify leading-6 tracking-wide whitespace-pre-line">
-										{entry.content}
-									</p>
-								</div>
-							</div>
-						{/if}
-					{/each}
-					{#if entries.length > 0}
-						<div
-							class="max-w-xl mx-auto mt-4 pt-4 border-surface-500 border-solid border-x-slate-300"
-						>
-							<Paginator
-								on:page={onPageChange}
-								on:amount={onAmountChange}
-								bind:settings={paginationSettings}
-							/>
-						</div>
-					{/if}
-				</div>
-				<div class="col-span-1 p-4 card variant-glass-surface shadow text-center">
+				<div class="col-span-3 lg:col-span-1 p-4 card variant-glass-surface shadow text-center">
 					<h4 class="mb-4">
 						<i class="fa-solid fa-filter text-lg mr-2" />
 						Narrow down
@@ -216,6 +159,63 @@
 							</form>
 						</div>
 					</dl>
+				</div>
+				<!-- How are you feeling? -->
+				<div class="col-span-3 lg:col-span-2 card variant-glass-surface p-4 lg:px-8">
+					{#if entries.length === 0}
+						<div class="flex justify-center items-center flex-col p-20">
+							{#if loading}
+								<div class="w-8">
+									<ProgressRadial
+										stroke={350}
+										meter="stroke-secondary-500"
+										track="stroke-secondary-500/30"
+									/>
+								</div>
+								<div class="mt-2">Loading, please wait...</div>
+							{:else}
+								<div class="text-2xl text-primary-700">
+									<i class="fa-solid fa-face-sad-tear mr-1" />
+									No data yet, please add some entries.
+								</div>
+							{/if}
+						</div>
+					{/if}
+					{#each entries as entry}
+						{#if entry.day && entry.content}
+							<div class="entry pt-4">
+								<!-- Header -->
+								<header>
+									<div class="text-tertiary-700 lg:pl-4 pr-4 text-center md:text-left ">
+										<i class="fa-solid fa-calendar-alt text-lg mr-2" />
+										{new Date(entry.day).toLocaleDateString('en', {
+											weekday: 'long',
+											year: 'numeric',
+											month: 'short',
+											day: 'numeric'
+										})}
+									</div>
+								</header>
+								<!-- Body -->
+								<div class="p-0 md:p-4 space-y-4 mt-4 mb-4">
+									<p class="rounded-xl text-justify leading-6 tracking-wide whitespace-pre-line">
+										{entry.content}
+									</p>
+								</div>
+							</div>
+						{/if}
+					{/each}
+					{#if entries.length > 0}
+						<div
+							class="max-w-xl mx-auto mt-4 pt-4 border-surface-500 border-solid border-x-slate-300"
+						>
+							<Paginator
+								on:page={onPageChange}
+								on:amount={onAmountChange}
+								bind:settings={paginationSettings}
+							/>
+						</div>
+					{/if}
 				</div>
 			</div>
 		</div>
