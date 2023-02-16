@@ -109,7 +109,7 @@
 								<!-- NOTE: we recommend setting the tabindex to -1 as well -->
 								<div class="input-group-divider grid-cols-[auto_1fr_auto] pt-1">
 									<input
-										class="input"
+										class="input text-center md:text-left"
 										type="text"
 										placeholder="john@example.com"
 										readonly
@@ -124,7 +124,7 @@
 								<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
 									<div class="input-group-shim">https://</div>
 									<input
-										class="input"
+										class="input text-center md:text-left"
 										type="text"
 										placeholder="www.example.com"
 										bind:value={avatarUrl}
@@ -138,7 +138,7 @@
 								<span>Full name</span>
 								<div class="grid-cols-[auto_1fr_auto]">
 									<input
-										class="input"
+										class="input text-center md:text-left"
 										type="text"
 										placeholder="eg. John Smith"
 										bind:value={fullName}
@@ -151,14 +151,22 @@
 			</section>
 			<section class="card variant-ghost-warning p-4 mt-4 md:mt-12">
 				<div class="flex items-center space-x-2 justify-center md:justify-start">
-					<h2>OpenAI Configuration</h2>
+					<h2 class="!text-xl">OpenAI Configuration</h2>
 					<span class="badge variant-filled-warning">Required</span>
 				</div>
+				<small
+					>Create your free API key <a
+						href="https://platform.openai.com/account/api-keys"
+						rel="noopener noreferrer"
+						target="_blank"
+						class="link">here</a
+					>.</small
+				>
 				<div class="space-y-4 mt-4">
 					<label class="label">
 						<span>API Key</span>
 						<input
-							class="input"
+							class="input text-center md:text-left"
 							bind:value={openAiApiKey}
 							type="password"
 							required

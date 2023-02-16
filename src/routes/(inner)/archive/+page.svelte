@@ -130,7 +130,9 @@
 									<div class="">
 										<label class="label">
 											<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
-												<div class="input-group-shim"><i class="fa-solid fa-search" /></div>
+												<div class="input-group-shim  ">
+													<i class="fa-solid fa-search hidden md:block" />
+												</div>
 												<input
 													type="search"
 													placeholder="Search..."
@@ -150,7 +152,7 @@
 														/>
 													</div>
 												{:else}
-													<button class="variant-soft-secondary">Go</button>
+													<button class="variant-soft-secondary">Go </button>
 												{/if}
 											</div>
 										</label>
