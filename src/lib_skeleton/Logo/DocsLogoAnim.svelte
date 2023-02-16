@@ -13,9 +13,9 @@
 	}
 	.img-bg {
 		@apply absolute z-[-1] rounded-full blur-[50px] transition-all;
-		animation: pulse 5s cubic-bezier(0, 0, 0, 0.5) infinite, glow 15s linear infinite;
+		/* animation: pulse 5s cubic-bezier(0, 0, 0, 0.5) infinite, glow 15s linear infinite; */
 	}
-	@keyframes glow {
+	/* @keyframes glow {
 		0% {
 			@apply bg-success-400/10;
 		}
@@ -33,5 +33,5 @@
 		50% {
 			transform: scale(1.2);
 		}
-	}
+	} */
 </style>
