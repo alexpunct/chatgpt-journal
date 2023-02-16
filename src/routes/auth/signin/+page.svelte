@@ -47,7 +47,7 @@
 	<!-- Card Header -->
 	<div class="text-center p-4">
 		<h1><span class="gradient-heading">Sign in</span></h1>
-		<p class="mt-4"><small>Send a magic link to your email</small></p>
+		<!-- <p class="mt-4"><small>Send a magic link to your email</small></p> -->
 	</div>
 	<!-- Card Body -->
 	<form use:focusTrap={true} on:submit|preventDefault={handleLogin}>
