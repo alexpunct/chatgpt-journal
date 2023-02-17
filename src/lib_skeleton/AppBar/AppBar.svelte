@@ -66,7 +66,7 @@
 	</svelte:fragment>
 	<svelte:fragment slot="trail">
 		<!-- Navigate -->
-		<div class="relative hidden lg:block">
+		<div class="relative">
 			<button class="btn hover:variant-soft-primary" use:menu={{ menu: 'user' }}>
 				{#if $userProfile}
 					<Avatar
@@ -99,14 +99,5 @@
 				</nav>
 			</div>
 		</div>
-
-		<!-- Theme -->
-		<div class="relative">
-			<!-- <div class="card w-64 shadow-xl max-w-fit menu-tr sm:max-w-none" data-menu="theme"> -->
-			<section class="flex justify-between items-center">
-				<LightSwitch />
-			</section>
-		</div>
-		<div />
 	</svelte:fragment>
 </AppBar>

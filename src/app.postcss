@@ -30,3 +30,7 @@ label:not(.unstyled) span:first-of-type:not(.unstyled):is(:not(.input-chip *)) {
 .dark .gradient-heading {
 	@apply from-secondary-300 via-primary-500 to-success-300;
 }
+
+::selection {
+	@apply bg-primary-500/40;
+}

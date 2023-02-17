@@ -20,13 +20,5 @@
 			</a>
 		</div>
 	</svelte:fragment>
-	<svelte:fragment slot="trail">
-		<!-- Theme -->
-		<div class="relative">
-			<!-- <div class="card w-64 shadow-xl max-w-fit menu-tr sm:max-w-none" data-menu="theme"> -->
-			<section class="flex justify-between items-center">
-				<LightSwitch />
-			</section>
-		</div>
-	</svelte:fragment>
+	<svelte:fragment slot="trail" />
 </AppBar>
