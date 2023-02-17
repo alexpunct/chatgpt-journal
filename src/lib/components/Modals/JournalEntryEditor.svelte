@@ -5,8 +5,9 @@
 	export let parent: any;
 	export let handleEditEntry: CallableFunction;
 	export let entry: Database['public']['Tables']['journal']['Row'] | null;
+	export let addEntryDay: Date | null;
 
-	let day = entry?.day ? new Date(entry.day) : new Date();
+	let day = entry?.day ? new Date(entry.day) : addEntryDay ? new Date(addEntryDay) : new Date();
 	const isToday = day.setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0);
 
 	// Stores
@@ -18,7 +19,7 @@
 	};
 	// We've created a custom submit function to pass the response and close the modal.
 	function onFormSubmit(): void {
-		handleEditEntry(entry?.id, formData.content);
+		handleEditEntry(formData.content, entry?.id);
 		modalStore.close();
 	}
 </script>
@@ -53,7 +54,7 @@
 		<!-- prettier-ignore -->
 		<footer class="modal-footer {parent.regionFooter}">
         	<button class="btn {parent.buttonNeutral}" on:click|preventDefault={parent.onClose}>{parent.buttonTextCancel}</button>
-        	<button class="btn {parent.buttonPositive}">Save update</button>
+        	<button class="btn {parent.buttonPositive}">{parent.buttonTextConfirm}</button>
     	</footer>
 	</form>
 </div>

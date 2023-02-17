@@ -18,15 +18,7 @@
 	//  Shell
 	const settings: ShellSettings = {
 		name: 'Today',
-		description: `<span class="badge variant-soft-secondary text-sm">${new Date().toLocaleDateString(
-			'en-US',
-			{
-				weekday: 'long',
-				year: 'numeric',
-				month: 'long',
-				day: 'numeric'
-			}
-		)}</span>`,
+		description: '',
 		toc: false
 	};
 
@@ -88,11 +80,19 @@
 					class="col-span-1 md:col-span-2 md:card md:variant-glass-surface md:p-4 shadow overflow-hidden"
 				>
 					<!-- Header -->
-					<header>
-						<h4 class="text-center md:text-left">Journal your day below:</h4>
+					<header class="text-center md:text-left p-4">
+						<h4 class="text-tertiary-700">
+							<i class="fa-solid fa-calendar-alt text-lg mr-2" />
+							{new Date().toLocaleDateString('en-US', {
+								weekday: 'long',
+								year: 'numeric',
+								month: 'long',
+								day: 'numeric'
+							})}
+						</h4>
 					</header>
 					<!-- Body -->
-					<div class="p-0 md:p-4 space-y-4 mt-4">
+					<div class="p-0 md:p-3 space-y-4">
 						<textarea
 							use:focusTrap={true}
 							class="textarea text-justify leading-6 tracking-wide max-h-60 md:max-h-max pb-4"
@@ -101,7 +101,7 @@
 							bind:value={content}
 						/>
 						{#if saved}
-							<div class="md:float-div-bottom-left text-center w-full pointer-events-none">
+							<div class="float-div-bottom-left text-center w-full pointer-events-none">
 								<div class="flex justify-center p-1 pb-1.5">
 									<div class="w-8">
 										<i class="fa-solid fa-check text-xl text-success-500" />
@@ -110,7 +110,7 @@
 							</div>
 						{/if}
 						{#if !saved && content && content !== data.savedEntry?.content}
-							<div class="md:float-div-bottom-left text-center w-full pointer-events-none">
+							<div class="float-div-bottom-left text-center w-full pointer-events-none">
 								{#if loading}
 									<div class="flex justify-center p-1 pb-1.5">
 										<div class="w-8">
@@ -132,14 +132,16 @@
 						{/if}
 					</div>
 				</div>
-				<div class="hidden lg:grid col-span-1 p-4 card variant-glass-surface shadow">
-					<h4 class="text-center mb-4">
-						<i class="fa-solid fa-lightbulb text-lg mr-2" />
-						Suggestions
-					</h4>
+				<div class="hidden md:block col-span-1 p-4 card variant-glass-surface shadow">
+					<header class="text-center p-4">
+						<h4 class="text-center mb-4">
+							<i class="fa-solid fa-lightbulb text-lg mr-2" />
+							Suggestions
+						</h4>
+					</header>
 					<hr />
 					<dl class="list pl-4">
-						<div class="pt-4">
+						<div class="pt-2">
 							<span class="flex-auto">
 								<dt class="">Physical condition</dt>
 								<dd class="text-sm opacity-50">
@@ -188,24 +190,6 @@
 					</dl>
 				</div>
 			</div>
-			<!-- See Also -->
-			<!-- <div class="card p-4 variant-glass-surface text-center w-full mt-4">
-				{#if loading}
-					<div class="flex justify-center p-1 pb-1.5">
-						<div class="w-8">
-							<ProgressRadial
-								stroke={150}
-								meter="stroke-primary-500"
-								track="stroke-primary-500/30"
-							/>
-						</div>
-					</div>
-				{:else}
-					<button on:click={handleSave} class="btn variant-filled-primary card-hover shadow"
-						>Save new entry &rarr;</button
-					>
-				{/if}
-			</div> -->
 		</div>
 	</svelte:fragment>
 </Shell>
