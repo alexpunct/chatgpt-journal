@@ -14,9 +14,10 @@
 		modalStore,
 		toastStore
 	} from '@skeletonlabs/skeleton';
+	import JournalEntryEditor from '$lib/components/Modals/JournalEntryEditor.svelte';
 
 	// Types
-	import type { ToastSettings, ModalSettings, ModalComponent } from '@skeletonlabs/skeleton';
+	import type { ToastSettings, ModalSettings } from '@skeletonlabs/skeleton';
 	import type { ShellSettings } from '$libSkeleton/Shell/types';
 	import type { Database } from '$lib/supabaseTypes';
 	import type { PageData } from './$types';
@@ -64,7 +65,7 @@
 			.order('day', { ascending: false })
 			.limit(paginationSettings.limit);
 
-		if (search) query.like('content', `%${search}%`);
+		if (search) query.ilike('content', `%${search}%`);
 
 		try {
 			const res = await query;
@@ -119,6 +120,27 @@
 		}
 	};
 
+	const handleEditEntry = async (id: number, content: string) => {
+		loading = true;
+		try {
+			let { error } = await supabase.from('journal').update({ content }).eq('id', id);
+			if (error) throw error;
+
+			loadEntries(paginationSettings.search, () => {
+				loading = false;
+				toastStore.trigger({
+					...t,
+					message: 'Entry updated successfully.',
+					preset: 'success'
+				});
+			});
+		} catch (error) {
+			console.log('error', error);
+			toastStore.trigger({ ...t, message: 'An unknown error occurred.' });
+			loading = false;
+		}
+	};
+
 	// Component configuration
 
 	const t: ToastSettings = {
@@ -133,6 +155,26 @@
 		description: ``,
 		toc: false
 	};
+
+	function triggerEdit(entryId: number): void {
+		const d: ModalSettings = {
+			type: 'component',
+			// NOTE: title, body, response, etc are supported!
+			component: {
+				// Pass a reference to your custom component
+				ref: JournalEntryEditor,
+				// Add your props as key/value pairs
+				props: {
+					entry: entries.find((e) => e.id === entryId),
+					handleEditEntry
+				},
+				slot: '<p>Entry Editor</p>'
+			},
+			// make background lighter
+			modalClasses: 'bg-surface-200'
+		};
+		modalStore.trigger(d);
+	}
 
 	function triggerDeleteConfirm(entryId: number): void {
 		const alert: ModalSettings = {
@@ -229,12 +271,17 @@
 								<header>
 									<div class="text-tertiary-700 lg:pl-4 pr-4 text-center md:text-left ">
 										<i class="fa-solid fa-calendar-alt text-lg mr-2" />
-										{new Date(entry.day).toLocaleDateString('en', {
-											weekday: 'long',
-											year: 'numeric',
-											month: 'short',
-											day: 'numeric'
-										})}
+										<span>
+											{new Date(entry.day).toLocaleDateString('en', {
+												weekday: 'long',
+												year: 'numeric',
+												month: 'short',
+												day: 'numeric'
+											})}
+											{#if new Date(entry.day).setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0)}
+												<span class="ml-1 badge variant-soft-secondary">Today</span>
+											{/if}
+										</span>
 										<span class="actions relative float-right">
 											<!-- Trigger: apply the 'use:menu' action and supply the unique menu ID -->
 											<button
@@ -253,8 +300,11 @@
 											>
 												<ul>
 													<li>
-														<button class="option w-full hover:text-primary-400-500-token"
-															><i class="fa-solid fa-pen-to-square mr-2" /> Edit</button
+														<button
+															class="option w-full hover:text-primary-400-500-token"
+															on:click={(e) => {
+																triggerEdit(entry.id);
+															}}><i class="fa-solid fa-pen-to-square mr-2" /> Edit</button
 														>
 													</li>
 													<li>
