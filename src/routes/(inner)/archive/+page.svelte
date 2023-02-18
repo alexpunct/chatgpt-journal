@@ -280,7 +280,7 @@
 								<svelte:fragment slot="lead"
 									><i class="fa-solid fa-plus text-lg mr-2" /></svelte:fragment
 								>
-								<svelte:fragment slot="summary">Create single entry</svelte:fragment>
+								<svelte:fragment slot="summary">Create/Edit single entry</svelte:fragment>
 								<svelte:fragment slot="content">
 									<label class="label py-4 mb-1 md:px-12">
 										<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
@@ -296,7 +296,7 @@
 												class="variant-soft-secondary"
 												on:click={(e) => {
 													triggerEdit();
-												}}>Show form</button
+												}}>Edit</button
 											>
 										</div>
 									</label>
