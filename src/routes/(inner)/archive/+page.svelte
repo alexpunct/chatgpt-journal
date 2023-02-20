@@ -3,6 +3,7 @@
 	import { onMount } from 'svelte';
 	import { supabase, getPagination } from '$lib/supabaseClient';
 	import { dateToHtml5Format } from '$lib/helpers/datetime';
+	import { userProfile } from '$lib/stores';
 
 	// Components
 	import Shell from '$libSkeleton/Shell/Shell.svelte';
@@ -145,7 +146,7 @@
 			toastStore.trigger({ ...t, message: 'An unknown error occurred.' });
 		} finally {
 			supabase.functions.invoke('create-embeddings-for-all', {
-				body: { name: 'Functions' }
+				body: { name: 'Functions', customOpenAiKey: $userProfile?.profiles_private?.openai_api_key }
 			});
 			loading = false;
 		}
@@ -347,7 +348,13 @@
 						{#if entry.day && entry.content}
 							<div class="pt-4">
 								<!-- Header -->
-								<header>
+								<header
+									class="cursor-pointer"
+									use:menu={{
+										menu: `menu_entry_${entry.id}`,
+										interactive: true
+									}}
+								>
 									<div class="text-tertiary-700 md:px-4 text-center md:text-left ">
 										<i class="fa-solid fa-calendar-alt text-lg mr-2" />
 										<span>
@@ -364,11 +371,7 @@
 												<!-- Trigger: apply the 'use:menu' action and supply the unique menu ID -->
 												<button
 													class="px-4 text-tertiary-700 hover:text-tertiary-400-500-token focus:text-tertiary-400-500-token"
-													use:menu={{
-														menu: `menu_entry_${entry.id}`,
-														interactive: true,
-														fixed: true
-													}}><i class="fa-solid fa-ellipsis-vertical" /></button
+													><i class="fa-solid fa-ellipsis-vertical" /></button
 												>
 
 												<!-- Menu: set a matching 'data-menu-[menuId]' attribute -->

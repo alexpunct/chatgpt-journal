@@ -1,7 +1,7 @@
 <script lang="ts">
 	// Utilities
 	import { supabase } from '$lib/supabaseClient';
-	import { invalidate } from '$app/navigation';
+	import { userProfile } from '$lib/stores';
 
 	// Components
 	import Shell from '$libSkeleton/Shell/Shell.svelte';
@@ -66,7 +66,7 @@
 			}
 		} finally {
 			supabase.functions.invoke('create-embeddings-for-all', {
-				body: { name: 'Functions' }
+				body: { name: 'Functions', customOpenAiKey: $userProfile?.profiles_private?.openai_api_key }
 			});
 			saved = true;
 			loading = false;
