@@ -1,6 +1,6 @@
 import { writable, type Writable } from 'svelte/store';
 import { localStorageStore } from '@skeletonlabs/skeleton';
-import type { Database } from '$lib/supabaseTypes';
+import type { Database } from '$lib/types/supabaseTypes';
 
 // types
 // import type { Profile } from '$lib/types';

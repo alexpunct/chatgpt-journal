@@ -14,7 +14,7 @@ export const load: PageLoad = async ({ parent, depends }) => {
 	try {
 		const { data, error, status } = await supabase
 			.from('journal')
-			.select(`id, day, content`)
+			.select(`id, day, content, embedding`)
 			.eq('user_id', session.user.id)
 			.eq('day', new Date().toISOString().split('T')[0])
 			.single();

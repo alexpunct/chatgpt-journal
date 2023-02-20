@@ -21,15 +21,19 @@
 	// Types
 	import type { ToastSettings, ModalSettings } from '@skeletonlabs/skeleton';
 	import type { ShellSettings } from '$libSkeleton/Shell/types';
-	import type { Database } from '$lib/supabaseTypes';
+	import type { Database } from '$lib/types/supabaseTypes';
 	import type { PageData } from './$types';
+	type JournalEntry = Pick<
+		Database['public']['Tables']['journal']['Row'],
+		'content' | 'day' | 'id'
+	>;
 
 	// State variables
 	export let data: PageData;
 
 	let { session } = data;
 	let loading = false;
-	let entries: Database['public']['Tables']['journal']['Row'][] = [];
+	let entries: JournalEntry[] = [];
 	let paginationSettings = {
 		offset: 0,
 		limit: 5,
@@ -54,7 +58,7 @@
 		const { from, to } = getPagination(paginationSettings.offset, paginationSettings.limit);
 		const query = supabase
 			.from('journal')
-			.select('*', { count: 'exact' })
+			.select('content, day, id', { count: 'exact' })
 			.eq('user_id', session.user.id)
 			.range(from, to)
 			.order('day', { ascending: false })
@@ -103,7 +107,6 @@
 			if (error) throw error;
 
 			loadEntries(paginationSettings.search, () => {
-				loading = false;
 				toastStore.trigger({
 					...t,
 					message: 'Entry deleted successfully.',
@@ -113,6 +116,7 @@
 		} catch (error) {
 			console.log('error', error);
 			toastStore.trigger({ ...t, message: 'An unknown error occurred.' });
+		} finally {
 			loading = false;
 		}
 	};
@@ -124,12 +128,12 @@
 				// add the id if it exists, otherwise add the day if it's a new entry
 				...(id ? { id } : { day: new Date(addEntryDay).toISOString().split('T')[0] }),
 				user_id: data.session.user.id,
+				embedding: null,
 				content
 			});
 			if (error) throw error;
 
 			loadEntries(paginationSettings.search, () => {
-				loading = false;
 				toastStore.trigger({
 					...t,
 					message: 'Entry saved successfully.',
@@ -139,6 +143,10 @@
 		} catch (error) {
 			console.log('error', error);
 			toastStore.trigger({ ...t, message: 'An unknown error occurred.' });
+		} finally {
+			supabase.functions.invoke('create-embeddings-for-all', {
+				body: { name: 'Functions' }
+			});
 			loading = false;
 		}
 	};

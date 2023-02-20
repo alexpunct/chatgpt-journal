@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Database } from '$lib/supabaseTypes';
+	import type { Database } from '$lib/types/supabaseTypes';
 	// Props
 	/** Exposes parent props to this component. */
 	export let parent: any;

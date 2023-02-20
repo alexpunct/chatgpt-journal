@@ -45,9 +45,6 @@
 
 	const handleSave = async ({ target }: Event) => {
 		toastStore.clear();
-		if (!openAiApiKey) {
-			return toastStore.trigger({ ...t, message: 'Please enter you OpenAI API Key.' });
-		}
 		if (!dataChanged()) {
 			return toastStore.trigger({ ...t, message: 'No changes to save.', preset: 'warning' });
 		}
@@ -149,13 +146,12 @@
 					</div>
 				</div>
 			</section>
-			<section class="card variant-ghost-warning p-4 mt-4 md:mt-12">
+			<section class="card p-4 mt-4 md:mt-12">
 				<div class="flex items-center space-x-2 justify-center md:justify-start">
 					<h2 class="!text-xl">OpenAI Configuration</h2>
-					<span class="badge variant-filled-warning">Required</span>
 				</div>
 				<small
-					>Create your free API key <a
+					>If set, you will use the most powerful AI models. Create your free API key <a
 						href="https://platform.openai.com/account/api-keys"
 						rel="noopener noreferrer"
 						target="_blank"
@@ -169,7 +165,6 @@
 							class="input text-center md:text-left"
 							bind:value={openAiApiKey}
 							type="password"
-							required
 							pattern="^sk-[a-zA-Z0-9]+$"
 							title="begins with sk-"
 						/>

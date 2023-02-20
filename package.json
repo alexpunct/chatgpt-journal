@@ -47,6 +47,7 @@
 		"@fontsource/roboto": "^4.5.8",
 		"@supabase/auth-helpers-sveltekit": "^0.8.7",
 		"@supabase/supabase-js": "^2.7.1",
-		"openai": "^3.1.0"
+		"openai": "^3.1.0",
+		"sse.js": "^0.6.1"
 	}
 }

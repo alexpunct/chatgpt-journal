@@ -40,6 +40,7 @@
 
 		try {
 			loading = true;
+
 			// save the profile
 			let { data: post, error } = await supabase
 				.from('journal')
@@ -48,6 +49,7 @@
 					...(data.savedEntry ? { id: data.savedEntry.id } : {}),
 					user_id: data.session.user.id,
 					day: new Date().toISOString().split('T')[0],
+					embedding: null,
 					content
 				})
 				.select('id');
@@ -63,9 +65,11 @@
 				return toastStore.trigger({ ...t, message: 'An unknown error occurred.' });
 			}
 		} finally {
+			supabase.functions.invoke('create-embeddings-for-all', {
+				body: { name: 'Functions' }
+			});
 			saved = true;
 			loading = false;
-			invalidate('journal:today');
 		}
 	};
 </script>
