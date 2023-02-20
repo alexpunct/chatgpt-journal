@@ -9,8 +9,12 @@ import type { Database } from '$lib/types/supabaseTypes';
 
 // Set within root layout, persists current SvelteKit $page.url.pathname
 export const storeCurrentUrl: Writable<string | undefined> = writable(undefined);
-export const userProfile: Writable<Database['public']['Tables']['profiles']['Row'] | undefined> =
-	writable(undefined);
+export const userProfile: Writable<
+	| (Database['public']['Tables']['profiles']['Row'] & {
+			profiles_private: Database['public']['Tables']['profiles_private']['Row'];
+	  })
+	| undefined
+> = writable(undefined);
 
 // Local Storage Stores ---
 

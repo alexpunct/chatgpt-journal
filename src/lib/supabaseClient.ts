@@ -15,7 +15,12 @@ export const getPagination = (page: number, size: number) => {
 	return { from, to };
 };
 
-export const createEventSource = async (query: string, name = 'me', conversationHistory = '') => {
+export const createEventSource = async (
+	query: string,
+	name = 'me',
+	conversationHistory = '',
+	customOpenAiKey: string | null = null
+) => {
 	const {
 		data: { session }
 	} = await supabase.auth.getSession();
@@ -33,8 +38,8 @@ export const createEventSource = async (query: string, name = 'me', conversation
 			query,
 			name,
 			conversationHistory,
-			currentTime: new Date().toLocaleString()
-			// customOpenAiKey: null // @TODO fetch the user's custom key
+			currentTime: new Date().toLocaleString(),
+			customOpenAiKey
 		})
 	});
 	return eventSource;

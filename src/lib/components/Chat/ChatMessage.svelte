@@ -1,7 +1,10 @@
 <script lang="ts">
+	import { ProgressRadial, ProgressBar } from '@skeletonlabs/skeleton';
+
 	import type { Message } from '$lib/types/chatTypes';
-	export let alignRight = false;
+
 	export let message: Message;
+	$: alignRight = !message?.ownerChatbot;
 </script>
 
 <div class="root {alignRight && `align-right`}">
@@ -27,7 +30,7 @@
 	{/if}
 </div>
 <div class="message {alignRight ? `other-message` : `my-message`} {alignRight && `float-right`}">
-	{message.text}
+	{message.text || '...'}
 </div>
 
 <style>
@@ -61,6 +64,9 @@
 		border-bottom-color: #86bb71;
 		border-width: 10px;
 		margin-left: -10px;
+	}
+	.message.other-message {
+		width: 50%;
 	}
 	.my-message {
 		background: #86bb71;

@@ -3,10 +3,10 @@
 	import { onMount, beforeUpdate, afterUpdate } from 'svelte';
 	import { createEventSource } from '$lib/supabaseClient';
 	import { userProfile } from '$lib/stores';
-	import ChatMessage from './ChatMessage.svelte';
 
 	// Components
 	import ChatHeader from '$lib/components/Chat/ChatHeader.svelte';
+	import ChatMessage from './ChatMessage.svelte';
 	import ChatInput from '$lib/components/Chat/ChatInput.svelte';
 
 	// Types
@@ -21,7 +21,8 @@
 		{
 			username: 'CJ',
 			text: 'Hello friend, what do you want to talk about?',
-			time: new Date()
+			time: new Date(),
+			ownerChatbot: true
 		}
 	];
 
@@ -67,8 +68,9 @@
 
 		const eventSource = await createEventSource(
 			event.detail.text,
-			event.detail.username,
-			messages.length > 10 ? recentConversationHistory : conversationHistory
+			$userProfile?.full_name || event.detail.username,
+			messages.length > 10 ? recentConversationHistory : conversationHistory,
+			$userProfile?.profiles_private?.openai_api_key
 		);
 
 		eventSource.addEventListener('error', (e) => {
@@ -84,7 +86,8 @@
 				messages.push({
 					username: 'CJ',
 					text: answer,
-					time: new Date()
+					time: new Date(),
+					ownerChatbot: true
 				});
 				answer = '';
 				messages = [...messages];
@@ -125,15 +128,24 @@
 			{#each messages as message, i (message.time)}
 				{#if message.text}
 					<li class="clearfix">
-						<ChatMessage alignRight={i % 2 === 0} {message} />
+						<ChatMessage {message} />
 					</li>
 				{/if}
 			{/each}
+			<!-- {#if loading}
+				<li class="clearfix">
+					<ChatMessage loading />
+				</li>
+			{/if} -->
 			{#if answer}
 				<li class="clearfix">
 					<ChatMessage
-						alignRight={messages.length % 2 === 0}
-						message={{ username: 'CJ (typing...)', text: answer, time: new Date() }}
+						message={{
+							username: 'CJ',
+							text: answer,
+							time: new Date(),
+							ownerChatbot: true
+						}}
 					/>
 				</li>
 			{/if}
@@ -141,6 +153,21 @@
 	</div>
 	<ChatInput on:message={handleSendMessage} />
 </div>
+{#if !$userProfile?.profiles_private?.openai_api_key}
+	<aside class="alert variant-soft-warning mt-8">
+		<!-- Icon -->
+		<div><i class="fa fa-warning text-3xl" /></div>
+		<!-- Message -->
+		<div class="alert-message">
+			<h3>Chatbot Model</h3>
+			<p>
+				Currently you are using the 'text-curie-001' OpenAi model.
+				<br />To use the most powerful 'text-davinci-003', please set your own OpenAi key in the
+				Settings.
+			</p>
+		</div>
+	</aside>
+{/if}
 
 <style>
 	.root .history {

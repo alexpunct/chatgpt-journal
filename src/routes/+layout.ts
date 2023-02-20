@@ -14,7 +14,7 @@ export const load: LayoutLoad = async (event) => {
 		try {
 			const { data, error, status } = await supabaseClient
 				.from('profiles')
-				.select(`*`)
+				.select(`*, profiles_private (*)`)
 				.eq('id', session.user.id)
 				.single();
 
