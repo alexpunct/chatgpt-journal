@@ -3,9 +3,6 @@
 
 	// Components
 	import { AppBar } from '@skeletonlabs/skeleton';
-
-	// Utilities
-	import { LightSwitch } from '@skeletonlabs/skeleton';
 </script>
 
 <!-- NOTE: using stopPropagation to override Chrome for Windows search shortcut -->

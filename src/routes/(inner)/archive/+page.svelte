@@ -11,7 +11,7 @@
 		ProgressRadial,
 		focusTrap,
 		Paginator,
-		menu,
+		popup,
 		Accordion,
 		AccordionItem,
 		modalStore,
@@ -350,9 +350,10 @@
 								<!-- Header -->
 								<header
 									class="cursor-pointer"
-									use:menu={{
-										menu: `menu_entry_${entry.id}`,
-										interactive: true
+									use:popup={{
+										target: `menu_entry_${entry.id}`,
+										event: 'click',
+										placement: 'bottom-end'
 									}}
 								>
 									<div class="text-tertiary-700 md:px-4 text-center md:text-left ">
@@ -377,7 +378,7 @@
 												<!-- Menu: set a matching 'data-menu-[menuId]' attribute -->
 												<div
 													class="card p-2 w-24 shadow-xl menu-tr hidden text-sm bg-surface-300-600-token text-surface-900-50-token"
-													data-menu={`menu_entry_${entry.id}`}
+													data-popup={`menu_entry_${entry.id}`}
 												>
 													<ul>
 														<li>

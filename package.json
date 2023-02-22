@@ -16,7 +16,7 @@
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",
-		"@skeletonlabs/skeleton": "^0.124.2",
+		"@skeletonlabs/skeleton": "^0.132.5",
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/kit": "^1.5.0",
 		"@tailwindcss/forms": "^0.5.3",
@@ -39,10 +39,11 @@
 		"tslib": "^2.4.1",
 		"typescript": "^4.9.3",
 		"vite": "^4.0.0",
-		"vitest": "^0.25.3"
+		"vitest": "^0.28.5"
 	},
 	"type": "module",
 	"dependencies": {
+		"@floating-ui/dom": "^1.2.1",
 		"@fontsource/raleway": "^4.5.12",
 		"@fontsource/roboto": "^4.5.8",
 		"@supabase/auth-helpers-sveltekit": "^0.8.7",

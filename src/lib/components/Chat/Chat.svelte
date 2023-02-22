@@ -1,18 +1,16 @@
 <script lang="ts">
 	// Utilities
-	import { onMount, beforeUpdate, afterUpdate } from 'svelte';
+	import { beforeUpdate, afterUpdate } from 'svelte';
 	import { createEventSource } from '$lib/supabaseClient';
 	import { userProfile } from '$lib/stores';
 
 	// Components
 	import { toastStore } from '@skeletonlabs/skeleton';
-	import ChatHeader from '$lib/components/Chat/ChatHeader.svelte';
 	import ChatMessage from './ChatMessage.svelte';
 	import ChatInput from '$lib/components/Chat/ChatInput.svelte';
 
 	// Types
 	import type { ToastSettings } from '@skeletonlabs/skeleton';
-	import type { CreateCompletionResponse } from 'openai';
 	import type { Message } from '$lib/types/chatTypes';
 
 	// Data
@@ -29,7 +27,7 @@
 
 	const t: ToastSettings = {
 		message: '',
-		preset: 'error',
+		preset: 'warning',
 		autohide: true,
 		timeout: 3000
 	};
@@ -38,11 +36,6 @@
 	let answer = '';
 	let loading = false;
 	let isResponding = false;
-	$: status = loading
-		? 'looking through your journal...'
-		: isResponding
-		? 'responding...'
-		: 'waiting for your message...';
 
 	let div: HTMLDivElement;
 	let autoscroll: boolean = false;
@@ -101,7 +94,7 @@
 
 				isResponding = true;
 
-				const completionResponse: CreateCompletionResponse = JSON.parse(e.data);
+				const completionResponse: { choices: [{ text: string }] } = JSON.parse(e.data);
 				const [{ text }] = completionResponse.choices;
 
 				if (text?.trim() === '') return;
@@ -123,19 +116,7 @@
 </script>
 
 <div class="root">
-	<!-- <ChatHeader title={`Chat on ${conversationId}`} /> -->
-	<!-- <hr /> -->
-	<!-- <div>{$userProfile?.full_name}: <br /> {status}</div> -->
-	<!-- <div class="p-4 text-surface-600-300-token">
-		<div class="mb-2">Bot <span class="badge bg-surface-600">{status}</span></div>
-		{#if loading}
-			<div class="p-2 bg-surface-400-500-token">Loading...</div>
-		{/if}
-		{#if answer}
-			<div class="p-2 bg-surface-400-500-token">{answer}</div>
-		{/if}
-	</div> -->
-	<div class="history" bind:this={div}>
+	<div class="history md:p-2 overflow-y-scroll h-[300px] md:h-[500]" bind:this={div}>
 		<ul>
 			{#each messages as message, i (message.time)}
 				{#if message.text}
@@ -144,11 +125,6 @@
 					</li>
 				{/if}
 			{/each}
-			<!-- {#if loading}
-				<li class="clearfix">
-					<ChatMessage loading />
-				</li>
-			{/if} -->
 			{#if answer}
 				<li class="clearfix">
 					<ChatMessage
@@ -165,28 +141,8 @@
 	</div>
 	<ChatInput on:message={handleSendMessage} />
 </div>
-{#if !$userProfile?.profiles_private?.openai_api_key}
-	<aside class="alert variant-soft-warning mt-8">
-		<!-- Icon -->
-		<div><i class="fa fa-warning text-3xl" /></div>
-		<!-- Message -->
-		<div class="alert-message">
-			<h3>Chatbot Model</h3>
-			<p>
-				Currently you are using the 'text-curie-001' OpenAi model.
-				<br />To use the most powerful 'text-davinci-003', please set your own OpenAi key in the
-				Settings.
-			</p>
-		</div>
-	</aside>
-{/if}
 
 <style>
-	.root .history {
-		padding: 30px 30px 20px;
-		overflow-y: scroll;
-		height: 400px;
-	}
 	.root .history ul {
 		list-style-type: none;
 	}

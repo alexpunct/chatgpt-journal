@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { ProgressRadial, ProgressBar } from '@skeletonlabs/skeleton';
-
 	import type { Message } from '$lib/types/chatTypes';
 
 	export let message: Message;
@@ -29,7 +27,10 @@
 		<i class="fa fa-circle me" />
 	{/if}
 </div>
-<div class="message {alignRight ? `other-message` : `my-message`} {alignRight && `float-right`}">
+<div
+	class="message p-3 md:p-5 font-mono {alignRight ? `other-message` : `my-message`} {alignRight &&
+		`float-right`}"
+>
 	{message.text || '...'}
 </div>
 
@@ -43,10 +44,7 @@
 	}
 	.message {
 		color: #000000;
-		font-weight: bold;
-		padding: 18px 20px;
-		line-height: 26px;
-		font-size: 16px;
+		line-height: 22px;
 		border-radius: 7px;
 		margin-bottom: 30px;
 		width: 90%;
@@ -61,15 +59,15 @@
 		width: 0;
 		position: absolute;
 		pointer-events: none;
-		border-bottom-color: #86bb71;
+		border-bottom-color: #a5cb95;
 		border-width: 10px;
 		margin-left: -10px;
 	}
 	.message.other-message {
-		width: 50%;
+		width: 70%;
 	}
 	.my-message {
-		background: #86bb71;
+		background: #a5cb95;
 	}
 	.other-message {
 		background: #94c2ed;
@@ -84,7 +82,7 @@
 		font-size: 10px;
 	}
 	.online {
-		color: #86bb71;
+		color: #a5cb95;
 	}
 	.me {
 		color: #94c2ed;

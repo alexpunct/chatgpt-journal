@@ -13,15 +13,26 @@
 </script>
 
 <div class="container">
-	<form class="space-y-4" on:submit|preventDefault={handleSubmit}>
-		<label class="label">
-			<div class="input-group input-group-divider grid-cols-[1fr_auto]">
-				<input class="input p-3 px-4 rounded-r-none" bind:value placeholder="Type your message" />
-				<button type="submit" class="variant-filled-primary">send</button>
-			</div>
-			<!-- <small class="pl-4 text-surface-600-300-token"
+	<form class="py-4 pr-5" on:submit|preventDefault={handleSubmit}>
+		<div class="input-group input-group-divider grid-cols-[1fr_auto] snap-center mx-auto">
+			<textarea
+				on:keydown={(e) => {
+					if (e.key === 'Enter' && !e.shiftKey) {
+						e.preventDefault();
+						handleSubmit();
+					}
+				}}
+				rows="1"
+				class="input p-3 px-4 rounded-r-none resize-none"
+				bind:value
+				placeholder="Type your message"
+			/>
+			<button type="submit" class="variant-filled-primary w-24"
+				><i class="fa-solid fa-paper-plane" /> Send</button
+			>
+		</div>
+		<!-- <small class="pl-4 text-surface-600-300-token"
 				>Remaining: {remainingCharacters} characters.</small
 			> -->
-		</label>
 	</form>
 </div>

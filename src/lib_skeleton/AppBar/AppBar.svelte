@@ -13,9 +13,7 @@
 	import { Avatar } from '@skeletonlabs/skeleton';
 
 	// Utilities
-	import { LightSwitch } from '@skeletonlabs/skeleton';
-	import { menu } from '@skeletonlabs/skeleton';
-	import { modalStore } from '@skeletonlabs/skeleton';
+	import { popup } from '@skeletonlabs/skeleton';
 
 	// Stores
 	import { userProfile } from '$lib/stores';
@@ -67,21 +65,21 @@
 	<svelte:fragment slot="trail">
 		<!-- Navigate -->
 		<div class="relative">
-			<button class="btn hover:variant-soft-primary" use:menu={{ menu: 'user' }}>
+			<button class="btn hover:variant-soft-primary" use:popup={{ event: 'click', target: 'user' }}>
 				{#if $userProfile}
 					<Avatar
 						width="w-8"
 						rounded="rounded-xl"
 						src={$userProfile ? 'https://' + $userProfile.avatar_url : 'https://i.pravatar.cc/'}
 					/>
-					<span>{$userProfile.full_name}</span>
+					<span class="hidden md:block">{$userProfile.full_name}</span>
 				{:else}
 					<span>Manage profile</span>
 				{/if}
 				<i class="fa-solid fa-caret-down opacity-50" />
 			</button>
 			<!-- prettier-ignore -->
-			<div class="card p-4 w-60 shadow-xl" data-menu="user">
+			<div class="card p-4 w-60 shadow-xl" data-popup="user">
 				<nav class="list-nav">
 					<ul>
 						<li>

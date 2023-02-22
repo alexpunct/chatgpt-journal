@@ -1,17 +1,10 @@
 <script lang="ts">
-	// Utilities
-	import { supabase } from '$lib/supabaseClient';
-	import { invalidate } from '$app/navigation';
-
 	// Components
 	import Shell from '$libSkeleton/Shell/Shell.svelte';
-	import { ProgressRadial, focusTrap, toastStore } from '@skeletonlabs/skeleton';
 	import Chat from '$lib/components/Chat/Chat.svelte';
 
 	// Types
 	import type { ShellSettings } from '$libSkeleton/Shell/types';
-	import type { PageData } from './$types';
-	import type { ToastSettings } from '@skeletonlabs/skeleton';
 
 	//  Shell
 	const settings: ShellSettings = {
@@ -39,7 +32,7 @@
 							Agents
 						</h4>
 						<ul class="space-y-4">
-							<li class="card space-y-4 p-4 !bg-success-900">Psychologist (active)</li>
+							<li class="card space-y-4 p-4 !bg-success-900">Therapist (active)</li>
 							<li class="card space-y-4 p-4 !bg-surface-900">Comedian (coming soon)</li>
 							<li class="card space-y-4 p-4 !bg-surface-900">Friend (coming soon)</li>
 						</ul>

@@ -3,8 +3,7 @@
 	import type { ShellSettings } from '$libSkeleton/Shell/types';
 
 	// Components
-	import { TableOfContents, toastStore } from '@skeletonlabs/skeleton';
-	import type { ToastSettings } from '@skeletonlabs/skeleton';
+	import { TableOfContents } from '@skeletonlabs/skeleton';
 
 	// Props
 	export let settings: ShellSettings;
