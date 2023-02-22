@@ -4,11 +4,9 @@
 	import { page } from '$app/stores';
 	import { afterNavigate } from '$app/navigation';
 	import { dev } from '$app/environment';
-	import { inject } from '@vercel/analytics';
 
 	import GoogleAnalytics from '@sajuthankappan/sveltekit-google-analytics';
 	const gaKey = import.meta.env.VITE_GA_KEY;
-	inject({ mode: dev ? 'development' : 'production' });
 
 	// Floating UI for Popups
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
