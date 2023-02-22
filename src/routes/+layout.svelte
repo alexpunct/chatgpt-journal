@@ -3,6 +3,10 @@
 	// SvelteKit Imports
 	import { page } from '$app/stores';
 	import { afterNavigate } from '$app/navigation';
+	import { dev } from '$app/environment';
+	import { inject } from '@vercel/analytics';
+
+	inject({ mode: dev ? 'development' : 'production' });
 
 	// Stores
 	import { storeCurrentUrl } from '$lib/stores';
