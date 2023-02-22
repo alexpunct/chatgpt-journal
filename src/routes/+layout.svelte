@@ -6,6 +6,8 @@
 	import { dev } from '$app/environment';
 	import { inject } from '@vercel/analytics';
 
+	import GoogleAnalytics from '@sajuthankappan/sveltekit-google-analytics';
+	const gaKey = import.meta.env.VITE_GA_KEY;
 	inject({ mode: dev ? 'development' : 'production' });
 
 	// Floating UI for Popups
@@ -136,6 +138,10 @@
 
 	<!-- Select Preset Theme CSS DO NOT REMOVE ESCAPES-->
 </svelte:head>
+
+{#if !dev && gaKey}
+	<GoogleAnalytics {page} key={gaKey} />
+{/if}
 
 <!-- Overlays -->
 <Modal />
