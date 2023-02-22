@@ -5,6 +5,7 @@
 	import { userProfile } from '$lib/stores';
 
 	// Components
+	import { toastStore } from '@skeletonlabs/skeleton';
 	import ChatHeader from '$lib/components/Chat/ChatHeader.svelte';
 	import ChatMessage from './ChatMessage.svelte';
 	import ChatInput from '$lib/components/Chat/ChatInput.svelte';
@@ -26,12 +27,12 @@
 		}
 	];
 
-	$: dynamicMessages = messages.map((message) => {
-		return {
-			...message,
-			text: message.text.replace(/<[^>]*>?/gm, '')
-		};
-	});
+	const t: ToastSettings = {
+		message: '',
+		preset: 'error',
+		autohide: true,
+		timeout: 3000
+	};
 
 	// Real time
 	let answer = '';
@@ -66,47 +67,58 @@
 
 		// @TODO if the conversation history is too long, trim it down or create summary
 
-		const eventSource = await createEventSource(
-			event.detail.text,
-			$userProfile?.full_name || event.detail.username,
-			messages.length > 10 ? recentConversationHistory : conversationHistory,
-			$userProfile?.profiles_private?.openai_api_key
-		);
+		try {
+			const eventSource = await createEventSource(
+				event.detail.text,
+				$userProfile?.full_name || event.detail.username,
+				messages.length > 10 ? recentConversationHistory : conversationHistory,
+				$userProfile?.profiles_private?.openai_api_key
+			);
 
-		eventSource.addEventListener('error', (e) => {
-			console.error(e);
-		});
-
-		// @TODO if there's an error, show a toast
-		eventSource.addEventListener('message', (e) => {
-			loading = false;
-
-			if (e.data === '[DONE]') {
-				isResponding = false;
-				messages.push({
-					username: 'CJ',
-					text: answer,
-					time: new Date(),
-					ownerChatbot: true
+			eventSource.addEventListener('error', (e) => {
+				console.error(e);
+				toastStore.trigger({
+					...t,
+					message: 'OpenAI Error. Please try again later...'
 				});
-				answer = '';
-				messages = [...messages];
-				return;
-			}
+			});
 
-			isResponding = true;
+			eventSource.addEventListener('message', (e) => {
+				loading = false;
 
-			const completionResponse: CreateCompletionResponse = JSON.parse(e.data);
-			const [{ text }] = completionResponse.choices;
+				if (e.data === '[DONE]') {
+					isResponding = false;
+					messages.push({
+						username: 'CJ',
+						text: answer,
+						time: new Date(),
+						ownerChatbot: true
+					});
+					answer = '';
+					messages = [...messages];
+					return;
+				}
 
-			if (text?.trim() === '') return;
+				isResponding = true;
 
-			answer = (answer ?? '') + text;
-		});
+				const completionResponse: CreateCompletionResponse = JSON.parse(e.data);
+				const [{ text }] = completionResponse.choices;
 
-		eventSource.stream();
+				if (text?.trim() === '') return;
 
-		loading = true;
+				answer = (answer ?? '') + text;
+			});
+
+			eventSource.stream();
+
+			loading = true;
+		} catch (error) {
+			toastStore.trigger({
+				...t,
+				message: 'OpenAI Error'
+			});
+			return;
+		}
 	};
 </script>
 
