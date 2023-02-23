@@ -22,13 +22,15 @@
 		handleEditEntry(formData.content, entry?.id);
 		modalStore.close();
 	}
+
+	// Base Classes
+	const cBase = 'card p-4 w-modal shadow-xl space-y-4';
+	const cHeader = 'text-2xl font-bold';
+	const cForm = 'p-4 space-y-4 rounded-container-token';
 </script>
 
-<div class="space-y-4">
-	<form
-		class="modal-form space-y-4 rounded-container-token"
-		on:submit|preventDefault={onFormSubmit}
-	>
+<div class="space-y-4 {cBase}">
+	<form class={cForm} on:submit|preventDefault={onFormSubmit}>
 		<div class="inner">
 			<label class="label">
 				<header>
@@ -54,7 +56,7 @@
 		<!-- prettier-ignore -->
 		<footer class="modal-footer {parent.regionFooter}">
         	<button class="btn {parent.buttonNeutral}" on:click|preventDefault={parent.onClose}>{parent.buttonTextCancel}</button>
-        	<button class="btn {parent.buttonPositive}">{parent.buttonTextConfirm}</button>
+        	<button class="btn variant-filled-primary">{parent.buttonTextConfirm}</button>
     	</footer>
 	</form>
 </div>

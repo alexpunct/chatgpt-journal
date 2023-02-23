@@ -84,7 +84,7 @@
 					class="col-span-1 md:col-span-2 md:card md:variant-glass-surface md:p-4 shadow overflow-hidden"
 				>
 					<!-- Header -->
-					<header class="text-center md:text-left p-4">
+					<header class="text-center p-4">
 						<h4 class="text-tertiary-700">
 							<i class="fa-solid fa-calendar-alt text-lg mr-2" />
 							{new Date().toLocaleDateString('en-US', {

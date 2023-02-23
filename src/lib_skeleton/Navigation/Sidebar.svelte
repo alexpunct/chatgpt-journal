@@ -49,15 +49,9 @@
 		selected={storeCategory}
 		background="bg-transparent"
 		border="border-r border-surface-500/50"
+		regionDefault="flex justify-center flex-col md:justify-start md:pt-8 space-y-6"
 	>
-		<AppRailTile
-			label="Today"
-			class="mt-3"
-			value={'today'}
-			tag="a"
-			href="/today"
-			on:click={onListItemClick}
-		>
+		<AppRailTile label="Today" value={'today'} tag="a" href="/today" on:click={onListItemClick}>
 			<i class="fa-solid fa-sheet-plastic text-xl" />
 		</AppRailTile>
 		<AppRailTile
@@ -69,11 +63,9 @@
 		>
 			<i class="fa-solid fa-book text-xl" />
 		</AppRailTile>
-		<hr class="opacity-30" />
 		<AppRailTile label="Chat" value={'chat'} tag="a" href="/chat" on:click={onListItemClick}>
 			<i class="fa-solid fa-message text-xl" />
 		</AppRailTile>
-		<hr class="opacity-30" />
 		<svelte:fragment slot="trail">
 			<AppRailTile
 				label="Settings"
@@ -87,3 +79,9 @@
 		</svelte:fragment>
 	</AppRail>
 </div>
+
+<style>
+	.app-bar-default {
+		background-color: red;
+	}
+</style>

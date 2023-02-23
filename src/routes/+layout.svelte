@@ -70,9 +70,9 @@
 
 	// SEO Metatags
 	const metaDefaults = {
-		title: 'Chat Journal - The Best Journaling App (Powered by GPT-3)',
+		title: 'Chat Journal - Express, Understand and Connect with AI',
 		description:
-			'Chat Journal is the best journaling app. It uses GPT-3 to help you undertake a daily journaling practice and improve your mental health.',
+			'Chat Journal is a web app that combines journaling and chatting with AI. It helps you express, understand yourself and connect with yourself.  Chat Journal  is not just a diary. It is your personal AI coach that you can access from any device, anywhere, anytime.',
 		image: 'chatjournal-logo-no-bg-tiny.png'
 	};
 	const meta = {

@@ -195,11 +195,9 @@
 					entry: currentEntry,
 					addEntryDay: !entryId && addEntryDay,
 					handleEditEntry
-				},
-				slot: '<p>Entry Editor</p>'
+				}
 			},
 			// make background lighter
-			modalClasses: 'bg-surface-200',
 			buttonTextConfirm: 'Save entry'
 		};
 		modalStore.trigger(d);
@@ -356,7 +354,7 @@
 										placement: 'bottom-end'
 									}}
 								>
-									<div class="text-tertiary-700 md:px-4 text-center md:text-left ">
+									<div class="text-tertiary-700 md:px-4 text-center">
 										<i class="fa-solid fa-calendar-alt text-lg mr-2" />
 										<span>
 											{new Date(entry.day).toLocaleDateString('en', {

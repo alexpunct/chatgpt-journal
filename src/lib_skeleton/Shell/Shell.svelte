@@ -58,11 +58,11 @@
 
 <div class="doc-shell {classesBase}">
 	<!-- Region: Header -->
-	<header class="doc-shell-header {classesRegionHeader} p-4 md:p-0 text-center md:text-left">
-		<!-- Information -->
-		<div class="doc-shell-info page-container lg:!space-y-10">
-			<!-- Intro -->
-			<section class="space-y-4">
+	<!-- <header class="doc-shell-header {classesRegionHeader} p-4 md:p-0 text-center md:text-left"> -->
+	<!-- Information -->
+	<!-- <div class="doc-shell-info page-container lg:!space-y-10"> -->
+	<!-- Intro -->
+	<!-- <section class="space-y-4">
 				<div class="text-center md:text-left space-x-4">
 					<h1 class="gradient-heading pb-1 box-decoration-clone">
 						{@html pageSettings.name}
@@ -71,9 +71,9 @@
 				{#if pageSettings.description}
 					<p>{@html pageSettings.description}</p>
 				{/if}
-			</section>
-		</div>
-	</header>
+			</section> -->
+	<!-- </div> -->
+	<!-- </header> -->
 
 	<!-- Tab Panels -->
 	<div class="doc-shell-tab-panels relative">
@@ -120,3 +120,9 @@
 		</div>
 	</div>
 </div>
+
+<style>
+	.doc-shell-usage {
+		padding: 2rem;
+	}
+</style>

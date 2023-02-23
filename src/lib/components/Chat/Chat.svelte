@@ -116,7 +116,7 @@
 </script>
 
 <div class="root">
-	<div class="history md:p-2 overflow-y-scroll h-[300px] md:h-[500]" bind:this={div}>
+	<div class="history md:p-2 overflow-y-scroll h-[350px] md:h-[450px]" bind:this={div}>
 		<ul>
 			{#each messages as message, i (message.time)}
 				{#if message.text}
