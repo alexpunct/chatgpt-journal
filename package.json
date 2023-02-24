@@ -12,7 +12,7 @@
 		"test:unit": "vitest",
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
 		"format": "prettier --plugin-search-dir . --write .",
-		"types": "npx supabase gen types typescript --project-id $(grep SUPABASE_PROJECT_ID .env | cut -d '=' -d '\"' -f2) --schema public > src/lib/supabaseTypes.ts"
+		"types": "npx supabase gen types typescript --project-id $(grep SUPABASE_PROJECT_ID .env | cut -d '=' -d '\"' -f2) --schema public > src/lib/types/supabaseTypes.ts"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",

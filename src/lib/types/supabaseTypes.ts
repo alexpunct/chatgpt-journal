@@ -9,6 +9,81 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      chat_agent: {
+        Row: {
+          avatar: string | null
+          created_at: string | null
+          id: number
+          name: string
+          prompt: string
+        }
+        Insert: {
+          avatar?: string | null
+          created_at?: string | null
+          id?: number
+          name: string
+          prompt: string
+        }
+        Update: {
+          avatar?: string | null
+          created_at?: string | null
+          id?: number
+          name?: string
+          prompt?: string
+        }
+      }
+      conversation: {
+        Row: {
+          chat_agent: number
+          created_at: string | null
+          id: number
+          name: string
+          session: string
+          summary: string | null
+          user_id: string
+        }
+        Insert: {
+          chat_agent: number
+          created_at?: string | null
+          id?: number
+          name: string
+          session: string
+          summary?: string | null
+          user_id: string
+        }
+        Update: {
+          chat_agent?: number
+          created_at?: string | null
+          id?: number
+          name?: string
+          session?: string
+          summary?: string | null
+          user_id?: string
+        }
+      }
+      conversation_message: {
+        Row: {
+          conversation: number
+          created_at: string | null
+          id: number
+          text: string
+          user_id: string | null
+        }
+        Insert: {
+          conversation: number
+          created_at?: string | null
+          id?: number
+          text: string
+          user_id?: string | null
+        }
+        Update: {
+          conversation?: number
+          created_at?: string | null
+          id?: number
+          text?: string
+          user_id?: string | null
+        }
+      }
       journal: {
         Row: {
           content: string | null
@@ -36,29 +111,6 @@ export interface Database {
           inserted_at?: string
           updated_at?: string
           user_id?: string
-        }
-      }
-      journal_alex: {
-        Row: {
-          content: string | null
-          created_at: string | null
-          date: string | null
-          embedding: unknown | null
-          id: number
-        }
-        Insert: {
-          content?: string | null
-          created_at?: string | null
-          date?: string | null
-          embedding?: unknown | null
-          id?: number
-        }
-        Update: {
-          content?: string | null
-          created_at?: string | null
-          date?: string | null
-          embedding?: unknown | null
-          id?: number
         }
       }
       profiles: {
@@ -101,26 +153,12 @@ export interface Database {
           updated_at?: string | null
         }
       }
-      test: {
-        Row: {
-          created_at: string | null
-          id: number
-        }
-        Insert: {
-          created_at?: string | null
-          id?: number
-        }
-        Update: {
-          created_at?: string | null
-          id?: number
-        }
-      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      match_documents: {
+      match_entries: {
         Args: {
           query_embedding: unknown
           similarity_threshold: number
@@ -128,7 +166,8 @@ export interface Database {
         }
         Returns: {
           id: number
-          date: string
+          user_id: string
+          entry_day: string
           content: string
           similarity: number
         }[]
