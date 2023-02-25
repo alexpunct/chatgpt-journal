@@ -1,34 +1,15 @@
-// utilities
-import { supabase } from '$lib/supabaseClient';
-
 // types
 import type { PageLoad } from './$types';
 
-export const load: PageLoad = async ({ parent, depends }) => {
-	const { session } = await parent();
+export const load: PageLoad = async ({ fetch, parent }) => {
+	const response = await fetch('/api/journal/today');
+	const journalEntry = await response.json();
 
-	if (!session) return { redirect: { destination: '/auth/signin', permanent: false } };
-
-	depends('journal:today');
-
-	try {
-		const { data, error, status } = await supabase
-			.from('journal')
-			.select(`id, day, content, embedding`)
-			.eq('user_id', session.user.id)
-			.eq('day', new Date().toISOString().split('T')[0])
-			.single();
-
-		if (error && status !== 406) throw error;
-
+	if (response.status === 200) {
 		return {
-			savedEntry: data
+			journalEntry,
+			parentData: await parent()
 		};
-	} catch (error) {
-		if (error instanceof Error) {
-			console.error(error);
-		}
 	}
-
 	return { status: 406 };
 };
