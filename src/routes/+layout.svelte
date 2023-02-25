@@ -141,7 +141,7 @@
 
 <!-- Overlays -->
 <Modal />
-<Toast background="bg-gradient-to-tr from-error-900 via-error-700 to-error-500" autohide={true} />
+<Toast />
 <Drawer />
 
 <!-- App Shell -->

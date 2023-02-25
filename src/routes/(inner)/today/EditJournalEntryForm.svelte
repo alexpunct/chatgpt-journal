@@ -1,12 +1,12 @@
 <script lang="ts">
 	// Utilities
 	import { enhance } from '$app/forms';
+	import { successToast, errorToast } from '$lib/helpers/triggerToast';
 
 	// Components
-	import { ProgressRadial, focusTrap, toastStore } from '@skeletonlabs/skeleton';
+	import { ProgressRadial, focusTrap } from '@skeletonlabs/skeleton';
 
 	// Types
-	import type { ToastSettings } from '@skeletonlabs/skeleton';
 	import type { Database } from '$lib/types/supabaseTypes';
 
 	// Props
@@ -14,32 +14,18 @@
 
 	// Local
 	let loading = false;
-
-	const t: ToastSettings = {
-		message: '',
-		timeout: 2000
-	};
 </script>
 
 <div class="edit-journal-entry">
 	<form
 		method="POST"
 		use:enhance={() => {
-			toastStore.clear();
 			loading = true;
 			return async ({ result }) => {
 				if (result.status === 200) {
-					toastStore.trigger({
-						...t,
-						background:
-							'bg-gradient-to-tr from-success-900 via-success-700 to-success-500 text-black',
-						message: `Saved successfully!`
-					});
+					successToast(`Saved successfully!`);
 				} else {
-					toastStore.trigger({
-						...t,
-						message: `Unexpected error, please try again later...`
-					});
+					errorToast(`Unexpected error, please try again later...`);
 				}
 				loading = false;
 			};
@@ -67,7 +53,7 @@
 				use:focusTrap={true}
 				class="textarea text-justify leading-5 tracking-wide max-h-60 md:max-h-max pb-4"
 				required
-				rows="19">{journalEntry?.content}</textarea
+				rows="19">{journalEntry?.content || null}</textarea
 			>
 			<div class="text-center w-full pointer-events-none">
 				{#if loading}
