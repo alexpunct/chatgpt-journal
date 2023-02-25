@@ -34,3 +34,15 @@ label:not(.unstyled) span:first-of-type:not(.unstyled):is(:not(.input-chip *)) {
 ::selection {
 	@apply bg-primary-500/40;
 }
+
+.btn-gradient-primary {
+	@apply bg-gradient-to-tl hover:bg-gradient-to-br from-primary-700 via-primary-600 to-primary-400 text-black;
+}
+
+.bg-gradient-success {
+	@apply bg-gradient-to-tr from-success-900 via-success-700 to-success-500 text-black;
+}
+
+.bg-gradient-error {
+	@apply bg-gradient-to-tr from-error-900 via-error-700 to-error-500;
+}

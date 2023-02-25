@@ -28,10 +28,7 @@
 				</div>
 			</div>
 		{:else}
-			<button
-				class="btn min-w-[150px] pointer-events-auto bg-gradient-to-tl hover:bg-gradient-to-br from-primary-700 via-primary-600 to-primary-400 text-black"
-				>Save</button
-			>
+			<button class="btn min-w-[150px] pointer-events-auto btn-gradient-primary">Save</button>
 		{/if}
 	</div>
 </div>

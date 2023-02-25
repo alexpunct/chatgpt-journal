@@ -13,7 +13,7 @@ export const successToast = (message: string, settings = {}) => {
 	toastStore.trigger({
 		...t,
 		...settings,
-		background: 'bg-gradient-to-tr from-success-900 via-success-700 to-success-500 text-black',
+		background: 'bg-gradient-success',
 		message
 	});
 };
@@ -21,7 +21,7 @@ export const errorToast = (message: string, settings = {}) => {
 	toastStore.trigger({
 		...t,
 		...settings,
-		background: 'bg-gradient-to-tr from-error-900 via-error-700 to-error-500',
+		background: 'bg-gradient-error',
 		message
 	});
 };
