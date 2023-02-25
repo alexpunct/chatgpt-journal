@@ -4,7 +4,7 @@
 	import { successToast, errorToast } from '$lib/helpers/triggerToast';
 
 	// Components
-	import { ProgressRadial, focusTrap } from '@skeletonlabs/skeleton';
+	import EditFormFields from '$lib/components/Journal/EditFormFields.svelte';
 
 	// Types
 	import type { Database } from '$lib/types/supabaseTypes';
@@ -33,7 +33,7 @@
 	>
 		<!-- Header -->
 		<header class="text-center p-4">
-			<h4 class="text-tertiary-700">
+			<h4 class="gradient-heading">
 				<i class="fa-solid fa-calendar-alt text-lg mr-2" />
 				{new Date().toLocaleDateString('en-US', {
 					weekday: 'long',
@@ -43,36 +43,6 @@
 				})}
 			</h4>
 		</header>
-		<!-- Body -->
-		<div class="p-0 md:p-3 space-y-4">
-			{#if journalEntry?.id}
-				<input type="hidden" name="id" value={journalEntry?.id} />
-			{/if}
-			<textarea
-				name="content"
-				use:focusTrap={true}
-				class="textarea text-justify leading-5 tracking-wide max-h-60 md:max-h-max pb-4"
-				required
-				rows="19">{journalEntry?.content || null}</textarea
-			>
-			<div class="text-center w-full pointer-events-none">
-				{#if loading}
-					<div class="flex justify-center p-1 pb-1.5">
-						<div class="w-8">
-							<ProgressRadial
-								stroke={150}
-								meter="stroke-primary-500"
-								track="stroke-primary-500/30"
-							/>
-						</div>
-					</div>
-				{:else}
-					<button
-						class="btn variant-filled-primary card-hover shadow md:opacity-60 hover:opacity-100 pointer-events-auto"
-						>Save</button
-					>
-				{/if}
-			</div>
-		</div>
+		<EditFormFields {journalEntry} {loading} />
 	</form>
 </div>
