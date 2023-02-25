@@ -44,8 +44,6 @@
 	});
 
 	// Skeleton Stylesheets
-	import '@fontsource/roboto';
-	import '@fontsource/raleway';
 	import '$lib/themes/theme-chatjournal.css';
 	import '@skeletonlabs/skeleton/styles/all.css';
 	import '../app.postcss';
@@ -143,7 +141,7 @@
 
 <!-- Overlays -->
 <Modal />
-<Toast />
+<Toast background="bg-gradient-to-tr from-error-900 via-error-700 to-error-500" autohide={true} />
 <Drawer />
 
 <!-- App Shell -->
