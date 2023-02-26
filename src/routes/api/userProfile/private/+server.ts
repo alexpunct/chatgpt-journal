@@ -25,3 +25,29 @@ export const GET: RequestHandler = async (event: RequestEvent) => {
 
 	return json({ data, success: true });
 };
+
+export const PUT: RequestHandler = async (event) => {
+	const { session, supabaseClient } = await getSupabase(event);
+	if (!session) {
+		// the user is not signed in
+		throw error(403, { message: 'Unauthorized' });
+	}
+
+	const privateProfileData = await event.request.json();
+
+	// Save the profile updates or remove the profile if there is no data
+	const { error: dbError } =
+		Object.keys(privateProfileData).length === 0
+			? await supabaseClient.from('profiles_private').delete().eq('id', session.user.id)
+			: await supabaseClient
+					.from('profiles_private')
+					.upsert({ ...privateProfileData, id: session.user.id });
+
+	if (dbError) {
+		throw fail(500, {
+			supabaseErrorMessage: dbError.message
+		});
+	}
+
+	return json({ success: true });
+};

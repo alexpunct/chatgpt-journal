@@ -35,15 +35,15 @@
 	>
 		<!-- Header -->
 		<header class="text-center p-4">
-			<h4 class="gradient-heading">
+			<h2 class="gradient-heading">
 				<i class="fa-solid fa-calendar-alt text-lg mr-2" />
 				{new Date().toLocaleDateString('en-US', {
 					weekday: 'long',
 					year: 'numeric',
-					month: 'long',
+					month: 'short',
 					day: 'numeric'
 				})}
-			</h4>
+			</h2>
 		</header>
 		<EditFormFields {journalEntry} {loading} />
 	</form>
