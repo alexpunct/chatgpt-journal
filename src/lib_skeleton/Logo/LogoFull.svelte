@@ -1,4 +1,4 @@
-<div class="flex flex-row items-center">
-	<strong class="hidden md:block text-xl align-middle font-extralight">Chat Journal</strong>
-	<strong class="md:hidden text-xl align-middle font-extralight">CJ</strong>
+<div class="flex flex-row items-center relative">
+	<strong class="text-xl align-middle font-extralight relative">Chat Journal</strong>
+	<span class="badge variant-glass-success absolute -top-1 -right-12 z-10">BETA</span>
 </div>

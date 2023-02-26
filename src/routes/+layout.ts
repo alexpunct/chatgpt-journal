@@ -1,30 +1,23 @@
-import { getSupabase } from '@supabase/auth-helpers-sveltekit';
 import { userProfile } from '$lib/stores';
 
 // types
 import type { LayoutLoad } from './$types';
 
 export const load: LayoutLoad = async (event) => {
-	const { session, supabaseClient } = await getSupabase(event);
-
-	event.data.session = session;
-
-	if (session) {
+	if (event.data.session) {
+		// If logged in, fetch the user profile
 		event.depends('app:profile');
-		try {
-			const { data, error, status } = await supabaseClient
-				.from('profiles')
-				.select(`*, profiles_private (*)`)
-				.eq('id', session.user.id)
-				.single();
+		const fetchPrivateProfileResponse = await event.fetch('/api/userProfile/public');
+		if (fetchPrivateProfileResponse.status === 200) {
+			const publicUserProfile = await fetchPrivateProfileResponse.json();
+			// Set the user profile on the store
+			userProfile.set(publicUserProfile?.data);
 
-			if (error && status !== 406) throw error;
-
-			userProfile.set(data?.id ? data : undefined);
-		} catch (error) {
-			console.error(`Error fetching profile: ${error}`);
+			// Return the layout data and the public user profile
+			return { publicUserProfile: publicUserProfile?.data, ...event.data };
 		}
 	}
 
-	return event.data;
+	// Return the layout data and the public user profile
+	return { ...event.data };
 };

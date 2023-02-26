@@ -12,28 +12,22 @@ export const POST: RequestHandler = async (event: RequestEvent) => {
 		throw error(403, { message: 'Unauthorized' });
 	}
 
-	const {
-		data,
-		error: dbError,
-		status
-	} = await supabaseClient
-		.from('profiles_private')
-		.select(`openai_api_key`)
-		.eq('id', session.user.id)
-		.single();
-
-	if (dbError && status !== 406)
+	// Get the private profile for the current user
+	const fetchPrivateProfileResponse = await event.fetch('/api/userProfile/private');
+	if (fetchPrivateProfileResponse.status !== 200) {
 		throw fail(500, {
-			error: dbError.message
+			error: 'Could not fetch private profile details'
 		});
+	}
 
+	// Call the embeddings function to create the embeddings for all journal entries
+	const privateProfile = await fetchPrivateProfileResponse.json();
 	const { error: functionError } = await supabaseClient.functions.invoke(
 		'create-embeddings-for-all',
 		{
-			body: { name: 'Functions', customOpenAiKey: data?.openai_api_key }
+			body: { name: 'Functions', customOpenAiKey: privateProfile?.openai_api_key }
 		}
 	);
-
 	if (functionError && functionError.context.status === 401) {
 		throw error(401, { message: 'OpenAI API Error. Please make sure your API Key is correct.' });
 	}

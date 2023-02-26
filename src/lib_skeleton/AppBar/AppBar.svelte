@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import type { SubmitFunction } from '$app/forms';
 	import { supabase } from '$lib/supabaseClient';
 
 	// Types
@@ -38,6 +37,7 @@
 		try {
 			let { error } = await supabase.auth.signOut();
 			if (error) throw error;
+			window.location.replace('/');
 		} catch (error) {
 			if (error instanceof Error) {
 				alert(error.message);
@@ -57,7 +57,7 @@
 				<i class="fa-solid fa-bars text-xl" />
 			</button>
 			<!-- Logo -->
-			<a class="lg:!ml-0 w-[150px] lg:w-auto overflow-hidden" href="/" title="Go to Homepage">
+			<a class="" href="/" title="Go to Homepage">
 				<LogoFull />
 			</a>
 		</div>

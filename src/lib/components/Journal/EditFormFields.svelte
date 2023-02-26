@@ -9,14 +9,14 @@
 	export let loading: boolean = false;
 </script>
 
-<div class="p-0 md:p-3 space-y-4">
+<div class="p-0 md:p-3">
 	{#if journalEntry?.id}
-		<input type="hidden" name="id" value={journalEntry?.id} />
+		<input type="hidden" name="id" value={journalEntry?.id} class="hidden" />
 	{/if}
 	<textarea
 		name="content"
 		use:focusTrap={true}
-		class="textarea text-justify leading-5 tracking-wide max-h-60 md:max-h-max pb-4"
+		class="textarea text-justify leading-5 tracking-wide max-h-60 md:max-h-max pb-4 border-none"
 		required
 		rows="19">{journalEntry?.content || ''}</textarea
 	>
@@ -28,7 +28,7 @@
 				</div>
 			</div>
 		{:else}
-			<button class="btn min-w-[150px] pointer-events-auto btn-gradient-primary">Save</button>
+			<button class="btn mt-4 min-w-[150px] pointer-events-auto btn-gradient-primary">Save</button>
 		{/if}
 	</div>
 </div>

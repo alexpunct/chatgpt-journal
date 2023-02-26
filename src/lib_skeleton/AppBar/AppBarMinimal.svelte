@@ -12,7 +12,7 @@
 	<svelte:fragment slot="lead">
 		<div class="flex items-center space-x-4">
 			<!-- Logo -->
-			<a class="lg:!ml-0 w-[38px] lg:w-auto overflow-hidden" href="/" title="Go to Homepage">
+			<a class="" href="/" title="Go to Homepage">
 				<LogoFull />
 			</a>
 		</div>
