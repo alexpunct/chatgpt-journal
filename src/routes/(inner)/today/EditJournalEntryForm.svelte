@@ -2,6 +2,7 @@
 	// Utilities
 	import { enhance } from '$app/forms';
 	import { successToast, errorToast } from '$lib/helpers/triggerToast';
+	import { invalidate } from '$app/navigation';
 
 	// Components
 	import EditFormFields from '$lib/components/Journal/EditFormFields.svelte';
@@ -24,6 +25,7 @@
 			return async ({ result }) => {
 				if (result.status === 200) {
 					successToast(`Saved successfully!`);
+					invalidate('journal:today');
 				} else {
 					errorToast(`Unexpected error, please try again later...`);
 				}

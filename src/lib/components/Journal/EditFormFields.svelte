@@ -18,7 +18,7 @@
 		use:focusTrap={true}
 		class="textarea text-justify leading-5 tracking-wide max-h-60 md:max-h-max pb-4"
 		required
-		rows="19">{journalEntry?.content || null}</textarea
+		rows="19">{journalEntry?.content || ''}</textarea
 	>
 	<div class="text-center w-full pointer-events-none">
 		{#if loading}
