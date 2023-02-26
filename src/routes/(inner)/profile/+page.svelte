@@ -41,6 +41,7 @@
 				return async ({ result }) => {
 					if (result.status === 200) {
 						successToast(`Saved successfully!`);
+						invalidate('userProfile:public');
 						invalidate('userProfile:private');
 					} else {
 						errorToast(`Unexpected error, please try again later...`);

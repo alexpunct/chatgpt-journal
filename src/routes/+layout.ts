@@ -6,7 +6,7 @@ import type { LayoutLoad } from './$types';
 export const load: LayoutLoad = async (event) => {
 	if (event.data.session) {
 		// If logged in, fetch the user profile
-		event.depends('app:profile');
+		event.depends('userProfile:public');
 		const fetchPrivateProfileResponse = await event.fetch('/api/userProfile/public');
 		if (fetchPrivateProfileResponse.status === 200) {
 			const publicUserProfile = await fetchPrivateProfileResponse.json();
