@@ -32,14 +32,16 @@
 	// State variables
 	export let data: PageData;
 
+	console.log(data);
+
 	let { session } = data;
 	let loading = false;
-	let entries: JournalEntry[] = [];
+	let entries: JournalEntry[] = data.journalEntries;
 	let paginationSettings = {
 		offset: 0,
 		limit: 5,
-		size: 0,
-		amounts: [1, 2, 5, 10],
+		size: data.count,
+		amounts: [1, 5, 20],
 		search: ''
 	};
 	let addEntryDay = dateToHtml5Format(new Date());
@@ -49,9 +51,9 @@
 
 	// Local functions
 
-	onMount(() => {
-		loadEntries();
-	});
+	// onMount(() => {
+	// 	loadEntries();
+	// });
 
 	const loadEntries = async (search = '', cb: CallableFunction | null = null) => {
 		loading = true;

@@ -12,7 +12,7 @@ export const menuNavLinks: any = [
 	// Archive ---
 
 	{
-		id: 'archive',
+		id: 'journal',
 		title: 'Archive',
 		list: []
 	},

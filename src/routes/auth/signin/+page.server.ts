@@ -34,6 +34,6 @@ export const actions: Actions = {
 			});
 		}
 
-		throw redirect(303, '/today');
+		throw redirect(303, '/journal/today');
 	}
 };

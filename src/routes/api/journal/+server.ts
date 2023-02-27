@@ -4,6 +4,38 @@ import { getSupabase } from '@supabase/auth-helpers-sveltekit';
 // types
 import type { RequestHandler, RequestEvent } from './$types';
 
+export const GET: RequestHandler = async (event) => {
+	const { session, supabaseClient } = await getSupabase(event);
+	if (!session) {
+		throw error(403, { message: 'Unauthorized' });
+	}
+
+	const query = supabaseClient
+		.from('journal')
+		.select('content, day, id', { count: 'exact' })
+		.eq('user_id', session.user.id)
+		// .range(from, to)
+		.order('day', { ascending: false });
+	// .limit(paginationSettings.limit);
+
+	// if (search) query.ilike('content', `%${search}%`);
+
+	try {
+		const res = await query;
+
+		const { count, data, error, status } = res;
+
+		if (error && status !== 406) throw error;
+		return json({ data, count });
+	} catch (e) {
+		if (e instanceof Error) {
+			console.error(e);
+			throw error(500, e.message);
+		}
+	}
+	return json({ success: true });
+};
+
 export const POST: RequestHandler = async (event) => {
 	const { session, supabaseClient } = await getSupabase(event);
 	if (!session) {

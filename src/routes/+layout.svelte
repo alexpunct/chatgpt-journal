@@ -147,7 +147,7 @@
 <!-- App Shell -->
 <AppShell {slotSidebarLeft} slotFooter="bg-black p-4">
 	<!-- Header -->
-	<svelte:fragment slot="header">
+	<svelte:fragment slot="pageHeader">
 		{#if $page.data.session}
 			<AppBar />
 		{:else}

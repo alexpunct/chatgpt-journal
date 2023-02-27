@@ -2,6 +2,8 @@
 	// Components
 	import DocsLogoAnim from '$libSkeleton/Logo/DocsLogoAnim.svelte';
 
+	export const prerender = true;
+
 	// Stores
 	import { page } from '$app/stores';
 </script>
@@ -30,7 +32,7 @@
 				</div>
 				<nav class="md:flex space-x-4 text-center md:text-left">
 					{#if $page.data.session}
-						<a href="/today" class="btn variant-filled-primary card-hover shadow">
+						<a href="/journal/today" class="btn variant-filled-primary card-hover shadow">
 							<span>Go to App</span>
 							<span>&rarr;</span>
 						</a>

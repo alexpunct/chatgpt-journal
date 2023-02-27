@@ -49,7 +49,7 @@
 <!-- NOTE: using stopPropagation to override Chrome for Windows search shortcut -->
 <svelte:window />
 
-<AppBar padding="p-2 pl-4 pr-4" shadow="shadow-lg">
+<AppBar padding="p-2 pl-4 pr-4 relative z-20" shadow="shadow-lg">
 	<svelte:fragment slot="lead">
 		<div class="flex items-center space-x-4">
 			<!-- Hamburger Menu -->
