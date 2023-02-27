@@ -20,7 +20,7 @@ export const GET: RequestHandler = async (event) => {
 			.single();
 
 		if (error && status !== 406) throw error;
-		return json(data);
+		return json(data || {});
 	} catch (e) {
 		if (e instanceof Error) {
 			console.error(e);
