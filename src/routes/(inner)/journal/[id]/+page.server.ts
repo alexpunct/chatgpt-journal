@@ -1,5 +1,29 @@
-import type { Actions } from './$types';
 import { fail } from '@sveltejs/kit';
+
+// types
+import type { Actions, PageServerLoad } from './$types';
+
+export const load: PageServerLoad = async ({ fetch, depends, params }) => {
+	// if it's a new entry we don't need to fetch anything
+	if (!params.id || params.id === 'new') {
+		return {
+			status: 200
+		};
+	}
+
+	// fetch the entry (by id or the current day)
+	const response = await fetch('/api/journal/' + (params.id || 'today'));
+	const journalEntry = await response.json();
+
+	depends('journal:today');
+
+	if (response.status === 200) {
+		return {
+			journalEntry
+		};
+	}
+	return { status: 406 };
+};
 
 export const actions: Actions = {
 	default: async (event) => {
@@ -10,9 +34,11 @@ export const actions: Actions = {
 		const saveData: {
 			content: FormDataEntryValue | null;
 			id?: FormDataEntryValue | null;
+			day?: FormDataEntryValue | null;
 		} = {
 			content: formData.get('content'),
-			...(formData.has('id') ? { id: formData.get('id') } : {})
+			...(formData.has('id') ? { id: formData.get('id') } : {}), // only include if it's an update
+			...(formData.has('day') ? { day: formData.get('day') } : {}) // only include if it's a new entry
 		};
 
 		if (!saveData.content) {

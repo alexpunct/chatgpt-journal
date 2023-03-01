@@ -1,7 +1,10 @@
 <!-- Layout: (root) -->
 <script lang="ts">
 	// SvelteKit Imports
-	import { page } from '$app/stores';
+	import { supabase } from '$lib/supabaseClient';
+	import { invalidate } from '$app/navigation';
+	import { onMount } from 'svelte';
+	import { page, navigating } from '$app/stores';
 	import { afterNavigate } from '$app/navigation';
 	import { dev } from '$app/environment';
 
@@ -17,7 +20,7 @@
 	import { storeCurrentUrl } from '$lib/stores';
 
 	// Components & Utilities
-	import { AppShell, Modal, Toast } from '@skeletonlabs/skeleton';
+	import { AppShell, Modal, Toast, ProgressBar } from '@skeletonlabs/skeleton';
 
 	// Local Components
 	import AppBarMinimal from '$libSkeleton/AppBar/AppBarMinimal.svelte';
@@ -25,11 +28,6 @@
 	import Sidebar from '$libSkeleton/Navigation/Sidebar.svelte';
 	import Drawer from '$libSkeleton/Navigation/DocsDrawer.svelte';
 	import Footer from '$libSkeleton/Footer/DocsFooter.svelte';
-
-	// Auth
-	import { supabase } from '$lib/supabaseClient';
-	import { invalidate } from '$app/navigation';
-	import { onMount } from 'svelte';
 
 	onMount(() => {
 		const {
@@ -144,6 +142,17 @@
 <Toast />
 <Drawer />
 
+{#if $navigating}
+	<div class="absolute w-[100%] top-0 z-50">
+		<ProgressBar
+			value={undefined}
+			height="h-0.5"
+			meter="bg-primary-500"
+			track="bg-primary-500/30"
+		/>
+	</div>
+{/if}
+
 <!-- App Shell -->
 <AppShell {slotSidebarLeft} slotFooter="bg-black p-4">
 	<!-- Header -->
@@ -161,7 +170,6 @@
 			<Sidebar class="hidden lg:grid overflow-hidden" />
 		{/if}
 	</svelte:fragment>
-
 	<!-- Page Content -->
 	<slot />
 

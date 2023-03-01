@@ -2,7 +2,7 @@
 	// Components
 	import DocsLogoAnim from '$libSkeleton/Logo/DocsLogoAnim.svelte';
 
-	export const prerender = true;
+	// export const prerender = true;
 
 	// Stores
 	import { page } from '$app/stores';
@@ -19,25 +19,25 @@
 			<!-- Text -->
 			<div class="space-y-4 tracking-wide">
 				<h1>
-					<span class="gradient-heading font-bold text-5xl "
+					<span class="gradient-heading font-medium text-5xl "
 						><small>Chat with GPT as you Journal</small>
 					</span>
 				</h1>
 				<!-- <h2 class="md:text-4xl">Private and intelligent.</h2> -->
-				<div class="text-2xl pb-4 pt-8 md:pt-0">
+				<div class="text-2xl pb-4 pt-8 md:pt-0 tracking-wide leading-10 font-light">
 					The AI-powered journaling app that helps you
-					<span class="badge variant-soft-primary text-2xl">write</span>,
-					<span class="badge variant-soft-secondary text-2xl">reflect</span> and
-					<span class="badge variant-soft-success text-2xl">connect</span>.<br />
+					<span class="badge variant-soft-primary text-2xl px-4 pb-2">write</span>
+					<span class="badge variant-soft-secondary text-2xl px-4 pb-2">reflect</span> and
+					<span class="badge variant-soft-success text-2xl px-4 pb-2">connect</span><br />
 				</div>
 				<nav class="md:flex space-x-4 text-center md:text-left">
 					{#if $page.data.session}
-						<a href="/journal/today" class="btn variant-filled-primary card-hover shadow">
+						<a href="/journal/today" class="btn btn-gradient-primary">
 							<span>Go to App</span>
 							<span>&rarr;</span>
 						</a>
 					{:else}
-						<a href="/auth/signup" class="btn variant-filled-primary card-hover shadow">
+						<a href="/auth/signup" class="btn btn-gradient-primary">
 							<span>Get Started for FREE</span>
 							<span>&rarr;</span>
 						</a>

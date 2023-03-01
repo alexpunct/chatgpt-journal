@@ -77,8 +77,8 @@
 
 	<!-- Row 2 -->
 	<section class={cRowTwo}>
-		<p class="text-xs">
-			<!-- <a
+		<!-- <p class="text-xs"> -->
+		<!-- <a
 				href="https://github.com/skeletonlabs/skeleton/blob/master/LICENSE"
 				target="_blank"
 				rel="noreferrer">MIT License</a
@@ -89,8 +89,8 @@
 				target="_blank"
 				rel="noreferrer">Contributors</a
 			> -->
-		</p>
-		<div class="flex space-x-4">
+		<!-- </p> -->
+		<div class="flex space-x-4 mx-auto">
 			<a
 				class="btn bg-[#7289da] text-white"
 				href="https://discord.gg/REYCS3HuM4"

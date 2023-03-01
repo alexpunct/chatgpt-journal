@@ -96,9 +96,3 @@
 		</svelte:fragment>
 	</AppRail>
 </div>
-
-<style>
-	.app-bar-default {
-		background-color: red;
-	}
-</style>

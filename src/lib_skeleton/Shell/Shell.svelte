@@ -122,7 +122,4 @@
 </div>
 
 <style>
-	.doc-shell-usage {
-		padding: 2rem;
-	}
 </style>

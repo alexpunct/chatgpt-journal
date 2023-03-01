@@ -1,5 +1,6 @@
 import { error, fail, json } from '@sveltejs/kit';
 import { getSupabase } from '@supabase/auth-helpers-sveltekit';
+import { getFromTo, supabasePaginationDefaults } from '$lib/helpers/pagination';
 
 // types
 import type { RequestHandler, RequestEvent } from './$types';
@@ -10,15 +11,26 @@ export const GET: RequestHandler = async (event) => {
 		throw error(403, { message: 'Unauthorized' });
 	}
 
+	const { searchParams } = event.url;
+	const offset = searchParams.get('offset') || supabasePaginationDefaults.offset;
+	const limit = searchParams.get('limit') || supabasePaginationDefaults.limit;
+	const day = searchParams.get('day');
+
+	const { from, to } = getFromTo(Number(offset), Number(limit));
+
 	const query = supabaseClient
 		.from('journal')
 		.select('content, day, id', { count: 'exact' })
 		.eq('user_id', session.user.id)
-		// .range(from, to)
-		.order('day', { ascending: false });
-	// .limit(paginationSettings.limit);
+		.range(from, to)
+		.order('day', { ascending: false })
+		.limit(parseInt(limit as string));
 
-	// if (search) query.ilike('content', `%${search}%`);
+	if (searchParams.has('q')) query.ilike('content', `%${searchParams.get('q')}%`);
+
+	if (day) {
+		query.eq('day', day);
+	}
 
 	try {
 		const res = await query;
