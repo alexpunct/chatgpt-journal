@@ -18,6 +18,10 @@
 	<!-- Slot: Sandbox -->
 	<svelte:fragment slot="sandbox">
 		<div class="container">
+			<div class="pb-4 text-center text-warning-800">
+				<i class="fa-solid fa-info-circle mr-2" />
+				Currently the conversation will be cleared if you leave the page. We're working on a fix!
+			</div>
 			<div class="grid grid-cols-1 md:grid-cols-3 gap-2">
 				<!-- How are you feeling? -->
 				<div class="col-span-1 md:col-span-2 md:card md:p-4 shadow overflow-hidden">

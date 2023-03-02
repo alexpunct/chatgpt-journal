@@ -39,12 +39,20 @@ label:not(.unstyled) span:first-of-type:not(.unstyled):is(:not(.input-chip *)) {
 .bg-primary-active-token {
 	@apply bg-gradient-to-tl from-primary-700 via-primary-600 to-primary-400 text-black;
 }
-.btn-gradient-primary {
-	@apply hover:bg-gradient-to-br;
+.btn-gradient-primary,
+.btn-gradient-secondary {
+	@apply hover:bg-gradient-to-tr;
 }
-
-.bg-gradient-success {
-	@apply bg-gradient-to-tr from-success-900 via-success-700 to-success-500 text-black;
+.bg-gradient-secondary,
+.btn-gradient-secondary {
+	@apply bg-gradient-to-tl from-secondary-900 via-secondary-800 to-secondary-700 text-black;
+}
+.bg-gradient-success,
+.btn-gradient-success {
+	@apply bg-gradient-to-tr from-success-900 via-success-800 to-success-600 text-black;
+}
+.btn-gradient-success {
+	@apply hover:bg-gradient-to-tl;
 }
 
 .bg-gradient-error {

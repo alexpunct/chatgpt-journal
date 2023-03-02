@@ -52,7 +52,7 @@
 			<a
 				href="/journal/new"
 				title="Create new entry"
-				class="btn btn-xl bg-secondary-backdrop-token mt-10 mx-auto"
+				class="btn btn-xl btn-gradient-secondary mt-10 mx-auto"
 			>
 				<i class="fa-solid fa-plus mr-2" />
 				New Entry

@@ -12,7 +12,7 @@ export const actions: Actions = {
 		const email = formData.get('email') as string;
 		const password = formData.get('password') as string;
 
-		const { error } = await supabaseClient.auth.signUp({
+		const { data, error } = await supabaseClient.auth.signUp({
 			email,
 			password
 		});
@@ -34,6 +34,6 @@ export const actions: Actions = {
 			});
 		}
 
-		throw redirect(303, '/journal/today');
+		return { success: true };
 	}
 };

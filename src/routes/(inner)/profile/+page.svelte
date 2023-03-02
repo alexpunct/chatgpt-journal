@@ -71,7 +71,7 @@
 										readonly
 										disabled
 										tabindex="-1"
-										value={data.session.user.email}
+										value={data.session?.user.email}
 									/>
 								</div>
 							</label>

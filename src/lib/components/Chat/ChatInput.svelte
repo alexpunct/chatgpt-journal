@@ -27,7 +27,7 @@
 				bind:value
 				placeholder="Type your message"
 			/>
-			<button type="submit" class="btn-gradient-primary w-24"
+			<button type="submit" class="btn-gradient-success w-24"
 				><i class="fa-solid fa-paper-plane" /> Send</button
 			>
 		</div>
