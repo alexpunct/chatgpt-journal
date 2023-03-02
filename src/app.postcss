@@ -35,8 +35,7 @@ label:not(.unstyled) span:first-of-type:not(.unstyled):is(:not(.input-chip *)) {
 	@apply bg-primary-500/40;
 }
 
-.btn-gradient-primary,
-.bg-primary-active-token {
+.btn-gradient-primary {
 	@apply bg-gradient-to-tl from-primary-700 via-primary-600 to-primary-400 text-black;
 }
 .btn-gradient-primary,
@@ -49,7 +48,7 @@ label:not(.unstyled) span:first-of-type:not(.unstyled):is(:not(.input-chip *)) {
 }
 .bg-gradient-success,
 .btn-gradient-success {
-	@apply bg-gradient-to-tr from-success-900 via-success-800 to-success-600 text-black;
+	@apply bg-gradient-to-tr from-success-900 via-success-800 to-success-700 text-black;
 }
 .btn-gradient-success {
 	@apply hover:bg-gradient-to-tl;
@@ -61,4 +60,19 @@ label:not(.unstyled) span:first-of-type:not(.unstyled):is(:not(.input-chip *)) {
 
 .textarea#edit-form {
 	@apply text-lg font-light leading-6 tracking-wide !overflow-y-auto !bg-transparent !border-none !outline-none resize-none absolute w-full h-full top-0;
+}
+
+/* Chat Styles */
+.bg-chat-user {
+	@apply bg-blue-900;
+}
+.bg-chat-bot {
+	@apply bg-teal-900;
+}
+.bg-gradient-chat-user {
+	@apply bg-gradient-to-t from-blue-900 via-indigo-800 to-indigo-900;
+}
+
+.bg-gradient-chat-bot {
+	@apply bg-gradient-to-t from-emerald-900 via-teal-800 to-teal-900;
 }

@@ -1,9 +1,9 @@
 import { writable, type Writable } from 'svelte/store';
 import { localStorageStore } from '@skeletonlabs/skeleton';
-import type { Database } from '$lib/types/supabaseTypes';
 
 // types
-// import type { Profile } from '$lib/types';
+import type { Database } from '$lib/types/supabaseTypes';
+import type { Message } from '$lib/types/chatTypes';
 
 // Svelte Writable Stores ---
 
@@ -19,3 +19,12 @@ export const storeTheme: Writable<string> = localStorageStore('storeTheme', 'cha
 
 // Persists the tab selection for the user's preferred framework
 export const storeFramework: Writable<string> = localStorageStore('storeFramework', 'sveltekit');
+
+// Persist the user conversation
+export const userConversation: Writable<Message[] | []> = localStorageStore('userConversation', [
+	{
+		role: 'assistant',
+		content: 'Welcome to Chat Journal! What do you want to talk about?',
+		time: new Date()
+	}
+]);

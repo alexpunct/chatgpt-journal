@@ -3,33 +3,34 @@
 
 	export let message: Message;
 	$: alignRight = message?.role === 'user';
+	$: username = message?.role === 'user' ? 'You' : 'ChatGPT';
 </script>
 
 <div class="root {alignRight && `align-right`}">
 	{#if !alignRight}
-		<span>{message.role}</span>
+		<span>{username}</span>
 		<i class="fa fa-circle online" /> |
 	{/if}
-	<span class="time">
+	<span class="time text-surface-500-400-token">
 		<small
 			>{`${new Date().toLocaleDateString('en', {
-				weekday: 'short',
 				month: 'short',
 				day: 'numeric'
-			})}`}</small
+			})}`}
+			<i class="fa-solid fa-clock text-xs" />
+			{`${new Date(message.time).toLocaleTimeString()}`}</small
 		>
-		<i class="fa-solid fa-clock text-xs" />
-		{`${new Date(message.time).toLocaleTimeString()}`}
 	</span>
 	{#if alignRight}
 		|
-		<span>{message.role}</span>
+		<span>{username}</span>
 		<i class="fa fa-circle me" />
 	{/if}
 </div>
 <div
-	class="message p-3 md:p-5 font-mono {alignRight ? `other-message` : `my-message`} {alignRight &&
-		`float-right`}"
+	class="message p-3 md:p-5 tracking-wide {alignRight
+		? `other-message`
+		: `my-message`} {alignRight && `float-right`}"
 >
 	{message.content || '...'}
 </div>
@@ -39,12 +40,9 @@
 		margin-bottom: 15px;
 	}
 	.time {
-		color: #a8aab1;
 		padding-left: 6px;
 	}
 	.message {
-		color: #000000;
-		line-height: 22px;
 		border-radius: 7px;
 		margin-bottom: 30px;
 		width: 90%;
@@ -59,7 +57,7 @@
 		width: 0;
 		position: absolute;
 		pointer-events: none;
-		border-bottom-color: #a5cb95;
+		border-bottom-color: #2c3627;
 		border-width: 10px;
 		margin-left: -10px;
 	}
@@ -67,13 +65,13 @@
 		width: 70%;
 	}
 	.my-message {
-		background: #a5cb95;
+		background: #2c3627;
 	}
 	.other-message {
-		background: #94c2ed;
+		background: #232f39;
 	}
 	.other-message:after {
-		border-bottom-color: #94c2ed;
+		border-bottom-color: #232f39;
 		left: 93%;
 	}
 	.online,
@@ -82,10 +80,10 @@
 		font-size: 10px;
 	}
 	.online {
-		color: #a5cb95;
+		color: #2c3627;
 	}
 	.me {
-		color: #94c2ed;
+		color: #232f39;
 	}
 	.align-right {
 		text-align: right;

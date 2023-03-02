@@ -3,7 +3,6 @@
 	import { supabase } from '$lib/supabaseClient';
 
 	// Types
-	import type { ModalSettings, ModalComponent } from '@skeletonlabs/skeleton';
 	import type { DrawerSettings } from '@skeletonlabs/skeleton';
 
 	// Components
