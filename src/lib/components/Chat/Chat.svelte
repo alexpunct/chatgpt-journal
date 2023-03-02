@@ -18,16 +18,14 @@
 	// export let conversationId: string;
 	let messages: Message[] = [
 		{
-			username: 'CJ',
-			text: 'Hello friend, what do you want to talk about?',
-			time: new Date(),
-			ownerChatbot: true
+			role: 'assistant',
+			content: 'Hello, what do you want to talk about?',
+			time: new Date()
 		}
 	];
 
 	const t: ToastSettings = {
 		message: '',
-		preset: 'warning',
 		autohide: true,
 		timeout: 3000
 	};
@@ -51,8 +49,9 @@
 	});
 
 	const handleSendMessage = async (event: { detail: Message }) => {
-		const conversationHistory = messages.map((msg) => `${msg.username}: ${msg.text}`).join('\n');
-		const recentConversationHistory = conversationHistory.split('\n').slice(-6).join('\n');
+		const conversationHistory = messages;
+		// take the last 6 messages
+		const recentConversationHistory = conversationHistory.slice(-6);
 		answer = '';
 		loading = true;
 		messages.push(event.detail);
@@ -62,10 +61,9 @@
 
 		try {
 			const eventSource = await createEventSource(
-				event.detail.text,
-				$userProfile?.full_name || event.detail.username,
-				messages.length > 10 ? recentConversationHistory : conversationHistory,
-				$userProfile?.profiles_private?.openai_api_key
+				event.detail.content,
+				'user',
+				messages.length > 10 ? recentConversationHistory : conversationHistory
 			);
 
 			eventSource.addEventListener('error', (e) => {
@@ -82,10 +80,9 @@
 				if (e.data === '[DONE]') {
 					isResponding = false;
 					messages.push({
-						username: 'CJ',
-						text: answer,
-						time: new Date(),
-						ownerChatbot: true
+						role: 'assistant',
+						content: answer,
+						time: new Date()
 					});
 					answer = '';
 					messages = [...messages];
@@ -94,12 +91,18 @@
 
 				isResponding = true;
 
-				const completionResponse: { choices: [{ text: string }] } = JSON.parse(e.data);
-				const [{ text }] = completionResponse.choices;
+				const completionResponse: { choices: [{ delta: { content: string } }] } = JSON.parse(
+					e.data
+				);
+				const [
+					{
+						delta: { content }
+					}
+				] = completionResponse.choices;
 
-				if (text?.trim() === '') return;
+				if (!content || content.trim() === '') return;
 
-				answer = (answer ?? '') + text;
+				answer = (answer ?? '') + content;
 			});
 
 			eventSource.stream();
@@ -119,7 +122,7 @@
 	<div class="history md:p-2 overflow-y-scroll h-[350px] md:h-[450px] pr-2" bind:this={div}>
 		<ul>
 			{#each messages as message, i (message.time)}
-				{#if message.text}
+				{#if message.content}
 					<li class="clearfix">
 						<ChatMessage {message} />
 					</li>
@@ -129,10 +132,9 @@
 				<li class="clearfix">
 					<ChatMessage
 						message={{
-							username: 'CJ',
-							text: answer,
-							time: new Date(),
-							ownerChatbot: true
+							role: 'assistant',
+							content: answer,
+							time: new Date()
 						}}
 					/>
 				</li>

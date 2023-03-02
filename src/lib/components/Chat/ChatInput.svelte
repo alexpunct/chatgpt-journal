@@ -5,7 +5,7 @@
 	let value = '';
 
 	const handleSubmit = () => {
-		dispatch('message', { text: value, time: new Date(), username: 'me' });
+		dispatch('message', { content: value, time: new Date(), role: 'user' });
 
 		value = '';
 	};

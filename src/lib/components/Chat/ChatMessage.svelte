@@ -2,12 +2,12 @@
 	import type { Message } from '$lib/types/chatTypes';
 
 	export let message: Message;
-	$: alignRight = !message?.ownerChatbot;
+	$: alignRight = message?.role === 'user';
 </script>
 
 <div class="root {alignRight && `align-right`}">
 	{#if !alignRight}
-		<span>{message.username}</span>
+		<span>{message.role}</span>
 		<i class="fa fa-circle online" /> |
 	{/if}
 	<span class="time">
@@ -23,7 +23,7 @@
 	</span>
 	{#if alignRight}
 		|
-		<span>{message.username}</span>
+		<span>{message.role}</span>
 		<i class="fa fa-circle me" />
 	{/if}
 </div>
@@ -31,7 +31,7 @@
 	class="message p-3 md:p-5 font-mono {alignRight ? `other-message` : `my-message`} {alignRight &&
 		`float-right`}"
 >
-	{message.text || '...'}
+	{message.content || '...'}
 </div>
 
 <style>

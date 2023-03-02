@@ -1,6 +1,5 @@
 export interface Message {
-	ownerChatbot: boolean;
-	username: string;
-	text: string;
+	content: string;
 	time: Date;
+	role: string;
 }
