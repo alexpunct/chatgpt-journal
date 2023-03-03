@@ -1,7 +1,4 @@
 <script lang="ts">
-	// Logo
-	import DocsLogoIcon from '../Logo/DocsLogoIcon.svelte';
-
 	// Base Classes
 	const cBase =
 		'bg-surface-100-800-token text-xs md:text-base mx-auto px-4 py-8 md:p-10 space-y-10';
@@ -77,19 +74,6 @@
 
 	<!-- Row 2 -->
 	<section class={cRowTwo}>
-		<!-- <p class="text-xs"> -->
-		<!-- <a
-				href="https://github.com/skeletonlabs/skeleton/blob/master/LICENSE"
-				target="_blank"
-				rel="noreferrer">MIT License</a
-			>
-			<span class="opacity-10 mx-2">|</span>
-			<a
-				href="https://github.com/skeletonlabs/skeleton/graphs/contributors"
-				target="_blank"
-				rel="noreferrer">Contributors</a
-			> -->
-		<!-- </p> -->
 		<div class="flex space-x-4 mx-auto">
 			<a
 				class="btn bg-[#7289da] text-white"
