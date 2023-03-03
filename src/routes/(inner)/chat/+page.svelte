@@ -34,25 +34,27 @@
 		<div class="container">
 			<div class="grid grid-cols-1 md:grid-cols-3 gap-2">
 				<!-- How are you feeling? -->
-				<div class="col-span-1 md:col-span-2 md:card md:p-4 shadow overflow-hidden">
+				<div class="col-span-1 md:col-span-2">
 					<Chat on:addMessage={handleAddMessage} conversation={$userConversation} />
 				</div>
-				<div class="hidden md:block col-span-1 p-4 card variant-glass-surface shadow">
+				<div
+					class="hidden md:block col-span-1 p-4 card variant-soft-surface max-h-[450px] ml-2 xl:ml-16"
+				>
 					<header class="text-center p-4">
 						<h4 class="text-center mb-4">
 							<i class="fa-solid fa-users text-lg mr-2" />
 							Agents
 						</h4>
 						<ul class="space-y-4">
-							<li class="card space-y-4 p-4 !bg-success-900">Therapist (active)</li>
+							<li class="card space-y-4 p-4 !bg-surface-500">Therapist (active)</li>
 							<li class="card space-y-4 p-4 !bg-surface-900">Comedian (coming soon)</li>
 							<li class="card space-y-4 p-4 !bg-surface-900">Friend (coming soon)</li>
 						</ul>
 					</header>
-					<div class="list px-4 text-center">
+					<div class="list px-4 pb-6 text-center">
 						<button
 							title="Start a new conversation"
-							class="btn btn-xl btn-gradient-success mt-10 mx-auto"
+							class="btn p-0 lg:p-4 xl:btn-xl btn-gradient-surface mt-10 mx-auto"
 							on:click={handleClearConversation}
 						>
 							<i class="fa-solid fa-plus mr-2" />

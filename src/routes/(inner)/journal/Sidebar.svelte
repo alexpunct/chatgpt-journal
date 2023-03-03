@@ -19,11 +19,14 @@
 				<div class="hidden">Search</div>
 				<div class="text-sm">
 					<label class="label">
-						<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
+						<div
+							class="input-group input-group-divider grid-cols-[auto_1fr_auto] !border-transparent"
+						>
 							<div class="input-group-shim  ">
 								<i class="fa-solid fa-search hidden md:block" />
 							</div>
 							<input
+								class="!border-transparent"
 								type="search"
 								value={$page.url.searchParams.get('q')}
 								name="q"
@@ -52,7 +55,7 @@
 			<a
 				href="/journal/new"
 				title="Create new entry"
-				class="btn btn-xl btn-gradient-secondary mt-10 mx-auto"
+				class="btn btn-xl text-secondary-800 mt-10 mx-auto"
 			>
 				<i class="fa-solid fa-plus mr-2" />
 				New Entry

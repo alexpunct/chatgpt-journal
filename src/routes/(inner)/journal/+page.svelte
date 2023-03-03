@@ -24,11 +24,13 @@
 		<div class="container">
 			<div class="grid grid-cols-1 md:grid-cols-3 gap-2">
 				<!-- How are you feeling? -->
-				<div class="col-span-1 md:col-span-2 card p-4 pt-8 mx-auto shadow overflow-hidden">
+				<div class="col-span-1 md:col-span-2 p-4 pt-8">
 					<JournalEntriesList {data} />
 					<Pagination {data} />
 				</div>
-				<div class="hidden md:block col-span-1 p-4 card variant-glass-surface shadow">
+				<div
+					class="hidden md:block col-span-1 p-4 card variant-soft-surface max-h-[320px] ml-2 xl:ml-16"
+				>
 					<Sidebar />
 				</div>
 			</div>

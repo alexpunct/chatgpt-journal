@@ -23,12 +23,12 @@
 		<div class="container">
 			<div class="grid grid-cols-1 md:grid-cols-3 gap-2">
 				<!-- How are you feeling? -->
-				<div
-					class="col-span-1 md:col-span-2 md:w-[90%] xl:w-[80%] pt-5 mx-auto shadow overflow-hidden"
-				>
+				<div class="col-span-1 md:col-span-2 md:w-[90%] pt-5 mx-auto shadow overflow-hidden">
 					<EditJournalEntryForm journalEntry={data.journalEntry} />
 				</div>
-				<div class="hidden md:block col-span-1 p-4 card variant-glass-surface shadow">
+				<div
+					class="hidden md:block col-span-1 p-4 card variant-soft-surface max-h-[560px] ml-2 xl:ml-16"
+				>
 					<Suggestions />
 				</div>
 			</div>

@@ -81,8 +81,8 @@
 	};
 </script>
 
-<div class="root">
-	<div class="history md:p-2 overflow-y-scroll h-[350px] md:h-[450px] pr-2" bind:this={div}>
+<div class="root overflow-hidden">
+	<div class="history md:p-2 overflow-y-scroll h-[450px] md:h-[600px] md:pr-2" bind:this={div}>
 		<ul>
 			{#each conversation as message, i (message.time)}
 				{#if message.content}

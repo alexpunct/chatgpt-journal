@@ -84,7 +84,6 @@
 					<!-- Slot: Examples Sandbox -->
 					{#if $$slots.sandbox}
 						<div>
-							<h2 class="sr-only">Examples</h2>
 							<div class="doc-shell-sandbox {spacing}">
 								<slot name="sandbox">(sandbox)</slot>
 							</div>
