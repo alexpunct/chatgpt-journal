@@ -14,6 +14,7 @@
 
 	// Data
 	export let conversation: Message[];
+	export let activeAgent: string;
 	const dispatch = createEventDispatcher();
 
 	// Real time
@@ -40,7 +41,7 @@
 		try {
 			const eventSource = await createEventSource(
 				event.detail.content,
-				'user',
+				activeAgent,
 				conversation.length > 10 ? recentConversationHistory : conversationHistory
 			);
 

@@ -11,7 +11,7 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export const createEventSource = async (
 	query: string,
-	name = 'user',
+	agentId: string,
 	conversationHistory: Message[] = []
 ) => {
 	const {
@@ -29,9 +29,9 @@ export const createEventSource = async (
 		},
 		payload: JSON.stringify({
 			query,
-			name,
 			conversationHistory,
-			currentTime: new Date().toLocaleString()
+			agentId,
+			temperature: 0
 		})
 	});
 	return eventSource;

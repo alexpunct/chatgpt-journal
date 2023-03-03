@@ -28,3 +28,5 @@ export const userConversation: Writable<Message[] | []> = localStorageStore('use
 		time: new Date()
 	}
 ]);
+
+export const activeAgent: Writable<string> = localStorageStore('activeAgent', '1');
