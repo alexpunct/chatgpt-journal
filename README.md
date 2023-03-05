@@ -1,6 +1,6 @@
 # Chat Journal (ChatGPT + Your journal/diary)
 
-This is the opensource application that powers [`ChatJournal.Ai`](https://www.chatjournal.ai). It's an app that allows users to store their journal/diary entries and chat with ChatGPT using the journal as context. The users can choose among a few different agents to chat to.
+This is the Open Source application that powers [ChatJournal.Ai](https://www.chatjournal.ai). Chat Journal allows users to store their journal/diary and chat with ChatGPT (using a few different agents/prompts) about it.
 
 The application is built using:
 
