@@ -2,7 +2,7 @@
 <script lang="ts">
 	// SvelteKit Imports
 	import { supabase } from '$lib/supabaseClient';
-	import { invalidate } from '$app/navigation';
+	import { invalidate, invalidateAll } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import { page, navigating } from '$app/stores';
 	import { afterNavigate } from '$app/navigation';
