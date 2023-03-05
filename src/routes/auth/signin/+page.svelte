@@ -68,7 +68,7 @@
 					</button>
 				</div>
 			</div>
-			<div class="mt-4">
+			<!-- <div class="mt-4">
 				<hr />
 			</div>
 			<div class="mt-4 text-center mx-auto">
@@ -89,7 +89,7 @@
 						/></svg
 					> Sign in with Google
 				</button>
-			</div>
+			</div> -->
 		</div>
 	</form>
 </div>
