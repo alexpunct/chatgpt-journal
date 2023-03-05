@@ -42,7 +42,6 @@
 	</div>
 	<!-- Card Body -->
 	<form
-		action="?/emailSignup"
 		method="POST"
 		use:focusTrap={true}
 		use:enhance={() => {
