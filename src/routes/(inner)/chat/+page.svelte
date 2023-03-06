@@ -46,7 +46,7 @@
 					/>
 				</div>
 				<div
-					class="md:block col-span-1 md:p-4 card variant-soft-surface max-h-[450px] ml-2 xl:ml-16"
+					class="md:block col-span-1 md:p-4 card variant-soft-surface max-h-[500px] ml-2 xl:ml-16 pb-16"
 				>
 					<header class="text-center p-2 md:p-4">
 						<h4 class="text-center mb-4">
@@ -70,6 +70,15 @@
 									on:click={handleChangeAgent.bind(null, '2')}
 								>
 									A comedian
+								</button>
+							</li>
+							<li class="">
+								<button
+									class="card space-y-4 p-4 w-full {$activeAgent === '5' ? '!bg-surface-500' : ''}"
+									title="George from Seinfeld"
+									on:click={handleChangeAgent.bind(null, '5')}
+								>
+									A trader
 								</button>
 							</li>
 							<li class="">
