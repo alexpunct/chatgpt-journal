@@ -8,9 +8,9 @@
 		'flex flex-col md:flex-row justify-between items-center md:items-start space-y-4 md:space-y-0';
 </script>
 
-<div class="page-footer {cBase}">
-	<!-- Row 1 -->
-	<!-- <section class={cRowOne}>
+<!-- <div class="page-footer {cBase}"> -->
+<!-- Row 1 -->
+<!-- <section class={cRowOne}>
 		<div
 			class="grid grid-cols-1 gap-2 place-content-center place-items-center md:place-items-start"
 		>
@@ -72,8 +72,8 @@
 
 	<hr /> -->
 
-	<!-- Row 2 -->
-	<section class={cRowTwo}>
+<!-- Row 2 -->
+<!-- <section class={cRowTwo}>
 		<div class="flex space-x-4 mx-auto">
 			<a
 				class="btn bg-[#7289da] text-white"
@@ -85,5 +85,5 @@
 				<span class="hidden md:inline-block ml-2">Discord</span>
 			</a>
 		</div>
-	</section>
-</div>
+	</section> -->
+<!-- </div> -->

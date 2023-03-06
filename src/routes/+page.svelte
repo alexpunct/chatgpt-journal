@@ -2,8 +2,6 @@
 	// Components
 	import DocsLogoAnim from '$libSkeleton/Logo/DocsLogoAnim.svelte';
 
-	// export const prerender = true;
-
 	// Stores
 	import { page } from '$app/stores';
 </script>
@@ -102,11 +100,63 @@
 					<span class="fas fa-file-shield text-3xl" />
 				</div>
 				<h4>Private, Fast and Secure</h4>
-				<p>
-					We don't share any data with 3rd parties. <br />Optionally you to use your own storage
-					(addon)
-				</p>
+				<p>No data is shared with 3rd parties. You can also run it on your own backend.</p>
 			</div>
+		</section>
+
+		<!-- Pre-Release Alert -->
+		<aside class="alert variant-ghost-warning">
+			<i class="fa-solid fa-triangle-exclamation text-4xl" />
+			<div class="alert-message">
+				Chat Journal is currently in beta. Please report bugs on GitHub.
+			</div>
+			<div class="alert-actions">
+				<a
+					href="https://github.com/alexpunct/chatgpt-journal/issues"
+					target="_blank"
+					rel="noreferrer"
+					class="btn variant-filled">Report Issue</a
+				>
+			</div>
+		</aside>
+
+		<!-- Team -->
+		<section class="text-center space-y-6">
+			<h2>Created By</h2>
+			<ul class="grid grid-cols-1 gap-4 max-w-[800px] mx-auto">
+				<li class="card variant-glass-surface p-4 space-y-4">
+					<div>
+						<h3>Alex Bejan</h3>
+						<p>Founder and core maintainer.</p>
+					</div>
+					<div class="flex justify-center space-x-4">
+						<a
+							class="unstyled"
+							href="https://github.com/alexpunct"
+							target="_blank"
+							rel="noreferrer"
+						>
+							<i class="fa-brands fa-github text-xl" />
+						</a>
+						<a
+							class="unstyled"
+							href="https://twitter.com/alexpunct"
+							target="_blank"
+							rel="noreferrer"
+						>
+							<i class="fa-brands fa-twitter text-xl" />
+						</a>
+						<a
+							class="unstyled"
+							href="https://www.linkedin.com/in/alexpunct"
+							target="_blank"
+							rel="noreferrer"
+						>
+							<i class="fa-brands fa-linkedin text-xl" />
+						</a>
+					</div>
+				</li>
+			</ul>
 		</section>
 	</div>
 </div>
