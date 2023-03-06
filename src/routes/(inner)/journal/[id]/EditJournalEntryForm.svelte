@@ -94,7 +94,7 @@
 		<div class="p-0">
 			<div class="relative">
 				<pre
-					class="invisible !text-[10px]"
+					class="invisible !text-[11px]"
 					aria-hidden="true"
 					style="min-height: {minHeight}; max-height: {maxHeight}">{content + '\n\n'}</pre>
 				<textarea
