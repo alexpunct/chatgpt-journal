@@ -16,7 +16,7 @@
 </script>
 
 <div
-	class="fixed md:absolute bottom-0 p-2 py-6 md:py-4 md:pb-0 w-full md:left-0 bg-surface-900 md:variant-glass-surface ml-[-7px]"
+	class="fixed md:absolute bottom-0 p-2 py-6 md:py-4 w-full md:left-0 bg-surface-900 md:variant-glass-surface ml-[-7px]"
 >
 	<form on:submit|preventDefault={handleSubmit}>
 		<div
