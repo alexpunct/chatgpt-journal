@@ -14,7 +14,10 @@
 	let loading = false;
 
 	const success = () => {
-		successToast('Account created, please verify your email address.', { autohide: false });
+		successToast(
+			'Account created, please verify your email address. The sender is supabase.io, please also check your junk folder.',
+			{ autohide: false }
+		);
 	};
 
 	if (form?.error) {

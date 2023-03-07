@@ -8,7 +8,6 @@
 	// Components
 	import { AppBar } from '@skeletonlabs/skeleton';
 	import LogoFull from '../Logo/LogoFull.svelte';
-	import { Avatar } from '@skeletonlabs/skeleton';
 
 	// Utilities
 	import { popup } from '@skeletonlabs/skeleton';
@@ -65,12 +64,17 @@
 		<!-- Navigate -->
 		<div class="relative">
 			<button class="btn hover:variant-soft-primary" use:popup={{ event: 'click', target: 'user' }}>
-				{#if $userProfile}
-					<Avatar
-						width="w-8"
-						rounded="rounded-xl"
-						src={$userProfile ? 'https://' + $userProfile.avatar_url : 'https://i.pravatar.cc/'}
+				{#if $userProfile && $userProfile.avatar_url}
+					<img
+						class="w-8 rounded-xl"
+						id="currentPhoto"
+						src={'https://' + $userProfile.avatar_url}
+						onerror="this.onerror=null; this.src='/icons8-customer-96.png'"
+						alt=""
+						width="64"
+						height="64"
 					/>
+
 					<span class="hidden md:block">{$userProfile.full_name}</span>
 				{:else}
 					<span>Manage profile</span>
