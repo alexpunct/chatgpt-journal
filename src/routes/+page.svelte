@@ -106,11 +106,11 @@
 
 		<!-- Pre-Release Alert -->
 		<aside class="alert variant-ghost-warning">
-			<i class="fa-solid fa-triangle-exclamation text-4xl" />
+			<i class="fa-solid fa-triangle-exclamation text-4xl mx-auto" />
 			<div class="alert-message">
 				Chat Journal is currently in beta. Please report bugs on GitHub.
 			</div>
-			<div class="alert-actions">
+			<div class="alert-actions mx-auto">
 				<a
 					href="https://github.com/alexpunct/chatgpt-journal/issues"
 					target="_blank"
