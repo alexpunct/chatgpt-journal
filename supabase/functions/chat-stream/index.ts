@@ -90,61 +90,38 @@ export const generateEmbeddings = async (openAi: OpenAIApi, content: string) => 
 const fetchSimilarEntries = async (
 	openAi: OpenAIApi,
 	supabaseClient: any,
-	user: { id: any },
 	query: string
 ): Promise<string[]> => {
 	const journalEntries: string[] = [];
 
-	if (query.includes('today')) {
-		// if there are no similar entries, use today's entry
-		if (user && user.id) {
-			const findEntryResponse = await supabaseClient
-				.from('journal')
-				.select(`day, content`)
-				.eq('user_id', user.id)
-				.eq('day', new Date().toISOString().split('T')[0])
-				.single();
+	// Generate a one-time embedding for the query itself
+	const query_embedding = await generateEmbeddings(openAi, query);
 
-			if (findEntryResponse.data) {
-				const content =
-					'Journal entry from ' +
-					findEntryResponse.data.day +
-					' (Today); \n Content: ' +
-					findEntryResponse.data.content +
-					';\n';
-				journalEntries.push(`${content.trim()}`);
+	// In production we should handle possible errors
+	const { data: similar_entries } = await supabaseClient.rpc('match_entries', {
+		query_embedding,
+		similarity_threshold: 0.78, // Choose an appropriate threshold for your data
+		match_count: 3 // Choose the number of matches
+	});
+
+	const tokenizer = new GPT3Tokenizer({ type: 'gpt3' });
+	let tokenCount = 0;
+
+	// Concat matched documents
+	if (similar_entries && similar_entries.length > 0) {
+		for (let i = 0; i < similar_entries.length; i++) {
+			const document = similar_entries[i];
+			const content =
+				'Journal entry from ' + document.entry_day + '; \n Content: ' + document.content + ';\n';
+			const encoded = tokenizer.encode(content);
+			tokenCount += encoded.text.length;
+
+			// Limit context to max 1500 tokens (configurable)
+			if (tokenCount > 1500) {
+				break;
 			}
-		}
-	} else {
-		// Generate a one-time embedding for the query itself
-		const query_embedding = await generateEmbeddings(openAi, query);
 
-		// In production we should handle possible errors
-		const { data: similar_entries } = await supabaseClient.rpc('match_entries', {
-			query_embedding,
-			similarity_threshold: 0.78, // Choose an appropriate threshold for your data
-			match_count: 3 // Choose the number of matches
-		});
-
-		const tokenizer = new GPT3Tokenizer({ type: 'gpt3' });
-		let tokenCount = 0;
-
-		// Concat matched documents
-		if (similar_entries && similar_entries.length > 0) {
-			for (let i = 0; i < similar_entries.length; i++) {
-				const document = similar_entries[i];
-				const content =
-					'Journal entry from ' + document.entry_day + '; \n Content: ' + document.content + ';\n';
-				const encoded = tokenizer.encode(content);
-				tokenCount += encoded.text.length;
-
-				// Limit context to max 1500 tokens (configurable)
-				if (tokenCount > 1500) {
-					break;
-				}
-
-				journalEntries.push(`${content.trim()}`);
-			}
+			journalEntries.push(`${content.trim()}`);
 		}
 	}
 
@@ -159,7 +136,13 @@ serve(async (req: Request) => {
 
 	try {
 		// Search query is passed in request payload
-		const { query, conversationHistory, temperature, agentId = '1' } = await req.json();
+		const {
+			query,
+			conversationHistory,
+			temperature,
+			activeModel = 'gpt-3.5-turbo',
+			agentId = '1'
+		} = await req.json();
 
 		if (!query) {
 			throw new Error('No query provided');
@@ -221,9 +204,9 @@ serve(async (req: Request) => {
 		}
 
 		// Get similar entries from the database
-		const similarEntries = await fetchSimilarEntries(openAi, supabaseClient, user, query);
+		const similarEntries = await fetchSimilarEntries(openAi, supabaseClient, query);
 		// Add the similar entries to the prompt
-		if (similarEntries) {
+		if (similarEntries && similarEntries.length > 0) {
 			similarEntries.forEach((message) => {
 				messages.push({ role: 'user', content: message });
 			});
@@ -234,7 +217,7 @@ serve(async (req: Request) => {
 
 		// // In production we should handle possible errors
 		const completionOptions: CreateChatCompletionRequest = {
-			model: 'gpt-4',
+			model: activeModel,
 			messages,
 			max_tokens: 300, // Choose the max allowed tokens in completion
 			temperature: temperature || agent.temperature, // Set to 0 for deterministic results

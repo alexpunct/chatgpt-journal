@@ -3,7 +3,7 @@ import { localStorageStore } from '@skeletonlabs/skeleton';
 
 // types
 import type { Database } from '$lib/types/supabaseTypes';
-import type { Message } from '$lib/types/chatTypes';
+import type { Message, ChatModel } from '$lib/types/chatTypes';
 
 // Svelte Writable Stores ---
 
@@ -29,4 +29,5 @@ export const userConversation: Writable<Message[] | []> = localStorageStore('use
 	}
 ]);
 
+export const activeModel: Writable<ChatModel> = localStorageStore('activeModel', 'gpt-3.5-turbo');
 export const activeAgent: Writable<string> = localStorageStore('activeAgent', '1');

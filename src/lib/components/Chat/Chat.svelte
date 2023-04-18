@@ -10,11 +10,12 @@
 	import ChatInput from '$lib/components/Chat/ChatInput.svelte';
 
 	// Types
-	import type { Message } from '$lib/types/chatTypes';
+	import type { ChatModel, Message } from '$lib/types/chatTypes';
 
 	// Data
 	export let conversation: Message[];
 	export let activeAgent: string;
+	export let activeModel: ChatModel;
 	const dispatch = createEventDispatcher();
 
 	// Real time
@@ -41,6 +42,7 @@
 		try {
 			const eventSource = await createEventSource(
 				event.detail.content,
+				activeModel,
 				activeAgent,
 				conversation.length > 10 ? recentConversationHistory : conversationHistory
 			);

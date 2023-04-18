@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/auth-helpers-sveltekit';
 import { SSE } from 'sse.js';
 
-import type { Message } from '$lib/types/chatTypes';
+import type { ChatModel, Message } from '$lib/types/chatTypes';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseFunctionsUrl = import.meta.env.VITE_SUPABASE_FUNCTIONS_URL;
@@ -11,6 +11,7 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export const createEventSource = async (
 	query: string,
+	activeModel: ChatModel,
 	agentId: string,
 	conversationHistory: Message[] = []
 ) => {
@@ -30,6 +31,7 @@ export const createEventSource = async (
 		payload: JSON.stringify({
 			query,
 			conversationHistory,
+			activeModel,
 			agentId,
 			temperature: 0
 		})

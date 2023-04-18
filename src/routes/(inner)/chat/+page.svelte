@@ -1,12 +1,13 @@
 <script lang="ts">
-	import { userConversation, activeAgent } from '$lib/stores';
+	import { userConversation, activeAgent, activeModel } from '$lib/stores';
 
 	// types
-	import type { Message } from '$lib/types/chatTypes';
+	import type { ChatModel, Message } from '$lib/types/chatTypes';
 
 	// Components
 	import Shell from '$libSkeleton/Shell/Shell.svelte';
 	import Chat from '$lib/components/Chat/Chat.svelte';
+	import { RadioGroup, RadioItem } from '@skeletonlabs/skeleton';
 
 	const handleClearConversation = () => {
 		if (!confirm('Are you sure you want to clear your conversation? It will be lost forever!'))
@@ -42,17 +43,27 @@
 					<Chat
 						on:addMessage={handleAddMessage}
 						conversation={$userConversation}
+						activeModel={$activeModel}
 						activeAgent={$activeAgent}
 					/>
 				</div>
 				<div
-					class="md:block col-span-1 md:p-4 card variant-soft-surface max-h-[500px] ml-2 xl:ml-16 pb-16"
+					class="md:block col-span-1 md:p-4 card variant-soft-surface max-h-[450px] ml-2 xl:ml-16 pb-16"
 				>
-					<header class="text-center p-2 md:p-4">
-						<h4 class="text-center mb-4">
-							<i class="fa-solid fa-comment text-lg mr-2" />
-							Chat with:
-						</h4>
+					<h4 class="text-center mb-4 font-bold flex justify-center">
+						<span class="mr-4 pt-2">Model</span><RadioGroup
+							active="variant-filled-primary"
+							hover="hover:variant-soft-primary"
+						>
+							<RadioItem bind:group={$activeModel} name="chatmodel" value="gpt-3.5-turbo"
+								>GPT 3.5</RadioItem
+							>
+							<RadioItem bind:group={$activeModel} name="chatmodel" value="gpt-4">GPT-4</RadioItem
+							></RadioGroup
+						>
+					</h4>
+					<header class="text-center p-2 md:p-2">
+						<h4 class="text-center mb-4 font-bold">Agent</h4>
 						<ul class="space-y-4">
 							<li class="">
 								<button
@@ -79,24 +90,6 @@
 									on:click={handleChangeAgent.bind(null, '5')}
 								>
 									A trader
-								</button>
-							</li>
-							<li class="">
-								<button
-									class="card space-y-4 p-4 w-full {$activeAgent === '3' ? '!bg-surface-500' : ''}"
-									title="Albert Einstein"
-									on:click={handleChangeAgent.bind(null, '3')}
-								>
-									Albert Einstein
-								</button>
-							</li>
-							<li class="">
-								<button
-									class="card space-y-4 p-4 w-full {$activeAgent === '4' ? '!bg-surface-500' : ''}"
-									title="George from Seinfeld"
-									on:click={handleChangeAgent.bind(null, '4')}
-								>
-									George from Seinfeld
 								</button>
 							</li>
 						</ul>
