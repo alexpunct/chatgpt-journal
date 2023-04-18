@@ -11,7 +11,7 @@
 	export let spacing = 'space-y-8 md:space-y-12';
 	// Props (regions)
 	export let regionHeader = 'variant-glass-surface border-b border-black/5 dark:border-white/5';
-	export let regionPanels = 'page-container';
+	export let regionPanels = 'page-container !pt-0';
 	export let rightColumn = 'lg:col-span-1';
 
 	// Classes

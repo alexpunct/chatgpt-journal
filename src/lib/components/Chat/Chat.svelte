@@ -1,6 +1,6 @@
 <script lang="ts">
 	// Utilities
-	import { beforeUpdate, afterUpdate } from 'svelte';
+	import { afterUpdate } from 'svelte';
 	import { createEventSource } from '$lib/supabaseClient';
 	import { createEventDispatcher } from 'svelte';
 
@@ -85,7 +85,7 @@
 </script>
 
 <div class="root overflow-hidden">
-	<div class="history md:p-2 overflow-y-scroll h-[450px] md:h-[600px] md:pr-2" bind:this={div}>
+	<div class="history md:p-2 overflow-y-scroll h-[450px] md:h-[700px] md:pr-2" bind:this={div}>
 		<ul>
 			{#each conversation as message, i (message.time)}
 				{#if message.content}

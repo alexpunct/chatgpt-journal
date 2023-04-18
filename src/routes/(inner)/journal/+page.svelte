@@ -21,7 +21,7 @@
 >
 	<!-- Slot: Sandbox -->
 	<svelte:fragment slot="sandbox">
-		<div class="container">
+		<div class="container pt-12">
 			<div class="grid grid-cols-1 md:grid-cols-3 gap-2">
 				<!-- How are you feeling? -->
 				<div class="col-span-1 md:col-span-2 p-4 pt-8">

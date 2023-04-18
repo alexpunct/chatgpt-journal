@@ -48,7 +48,7 @@
 					/>
 				</div>
 				<div
-					class="md:block col-span-1 md:p-4 card variant-soft-surface max-h-[450px] ml-2 xl:ml-16 pb-16"
+					class="md:block col-span-1 md:p-4 card variant-soft-surface max-h-[450px] ml-2 xl:ml-16 pb-16 md:mt-12"
 				>
 					<h4 class="text-center mb-4 font-bold flex justify-center">
 						<span class="mr-4 pt-2">Model</span><RadioGroup

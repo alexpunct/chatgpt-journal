@@ -51,7 +51,7 @@
 			}}
 			class="text-center md:text-left"
 		>
-			<section class="space-y-4">
+			<section class="space-y-4 pt-12">
 				<header class="text-center mb-4">
 					<h2 class="gradient-heading">Profile</h2>
 				</header>
