@@ -48,7 +48,7 @@
 					/>
 				</div>
 				<div
-					class="md:block col-span-1 md:p-4 card variant-soft-surface max-h-[450px] ml-2 xl:ml-16 pb-16 md:mt-12"
+					class="md:block col-span-1 md:p-4 card variant-soft-surface max-h-[500px] ml-2 xl:ml-16 pb-16 md:mt-12"
 				>
 					<h4 class="text-center mb-4 font-bold flex justify-center">
 						<span class="mr-4 pt-2">Model</span><RadioGroup
@@ -62,7 +62,15 @@
 							></RadioGroup
 						>
 					</h4>
-					<header class="text-center p-2 md:p-2">
+					{#if $activeModel === 'gpt-4'}
+						<span class="text-center pt-2 text-sm text-warning-400-500-token"
+							>Due to high costs, GPT-4 currently works only with your own OpenAI API Key. Set your
+							key in your <a href="/profile">profile settings</a>
+							and if you don't have access to GPT-4, apply
+							<a href="https://openai.com/waitlist/gpt-4-api" target="_blank">here</a>.</span
+						>
+					{/if}
+					<header class="text-center p-2 md:p-2 mt-4">
 						<h4 class="text-center mb-4 font-bold">Agent</h4>
 						<ul class="space-y-4">
 							<li class="">

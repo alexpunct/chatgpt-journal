@@ -12,6 +12,7 @@ import GPT3Tokenizer from 'gpt3-tokenizer';
 import { stripIndent, oneLine } from 'common-tags';
 
 let defaultOpenAiKey = Deno.env.get('OPENAI_API_KEY');
+const DEFAULT_CHAT_MODEL = 'gpt-3.5-turbo';
 
 import agents from './agents.json' assert { type: 'json' };
 const getAgentByAgentId = (agentId: string) => {
@@ -136,11 +137,11 @@ serve(async (req: Request) => {
 
 	try {
 		// Search query is passed in request payload
-		const {
+		let {
 			query,
 			conversationHistory,
 			temperature,
-			activeModel = 'gpt-3.5-turbo',
+			activeModel = DEFAULT_CHAT_MODEL,
 			agentId = '1'
 		} = await req.json();
 
@@ -180,6 +181,8 @@ serve(async (req: Request) => {
 			fetchPrivateProfileResponse.data?.openai_api_key
 		) {
 			openAiKey = fetchPrivateProfileResponse.data.openai_api_key;
+		} else {
+			activeModel = DEFAULT_CHAT_MODEL;
 		}
 
 		const openAi = new OpenAIApi(new Configuration({ apiKey: openAiKey }));
@@ -219,7 +222,7 @@ serve(async (req: Request) => {
 		const completionOptions: CreateChatCompletionRequest = {
 			model: activeModel,
 			messages,
-			max_tokens: 300, // Choose the max allowed tokens in completion
+			max_tokens: activeModel === DEFAULT_CHAT_MODEL ? 300 : 600, // Choose the max allowed tokens in completion
 			temperature: temperature || agent.temperature, // Set to 0 for deterministic results
 			// top_p: 0.1,
 			stream: true,
