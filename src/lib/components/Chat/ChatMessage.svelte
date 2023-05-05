@@ -28,7 +28,7 @@
 	{/if}
 </div>
 <div
-	class="message p-3 md:p-5 tracking-wide {alignRight
+	class="message whitespace-pre-wrap prose text-white p-3 md:p-5 tracking-wide {alignRight
 		? `other-message`
 		: `my-message`} {alignRight && `float-right`}"
 >
