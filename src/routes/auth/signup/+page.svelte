@@ -15,7 +15,7 @@
 
 	const success = () => {
 		successToast(
-			'Account created, please verify your email address. The sender is supabase.io, please also check your junk folder.',
+			'Your account has been created. Please verify your email address to login. The sender is supabase.io, so please check your junk folder too.',
 			{ autohide: false }
 		);
 	};
