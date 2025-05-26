@@ -1,6 +1,6 @@
 # A string used to distinguish different Supabase projects on the same host. Defaults to the working
 # directory name when running `supabase init`.
-project_id = "chatApp"
+project_id = "chatjournal"
 
 [api]
 # Port to use for the API URL.
@@ -70,3 +70,6 @@ redirect_uri = ""
 # Overrides the default auth provider URL. Used to support self-hosted gitlab, single-tenant Azure,
 # or any other third-party OIDC providers.
 url = ""
+
+[edge_runtime]
+enabled = true

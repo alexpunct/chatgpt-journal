@@ -126,8 +126,7 @@
 							class="input text-center md:text-left"
 							type="text"
 							name="openai_api_key"
-							pattern="^sk-[a-zA-Z0-9]+$"
-							title="begins with sk-"
+							title="Your API Key"
 							value={data.userProfilePrivate?.openai_api_key || ''}
 						/>
 					</label>

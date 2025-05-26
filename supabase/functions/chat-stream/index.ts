@@ -160,12 +160,15 @@ serve(async (req: Request) => {
 			{ global: { headers: { Authorization: req.headers.get('Authorization')! } } }
 		);
 
+		const usr = await supabaseClient.auth.getUser();
+
 		// Now we can get the session or user object
 		const {
 			data: { user }
-		} = await supabaseClient.auth.getUser();
+		} = usr;
 
 		if (!user || !user.id) {
+			console.log('No user found', usr);
 			throw new Error('No user found');
 		}
 
