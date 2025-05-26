@@ -55,19 +55,18 @@
 							active="variant-filled-primary"
 							hover="hover:variant-soft-primary"
 						>
-							<RadioItem bind:group={$activeModel} name="chatmodel" value="gpt-3.5-turbo"
-								>GPT 3.5</RadioItem
+							<RadioItem bind:group={$activeModel} name="chatmodel" value="gpt-4.1-nano"
+								>4.1-nano</RadioItem
 							>
-							<RadioItem bind:group={$activeModel} name="chatmodel" value="gpt-4">GPT-4</RadioItem
+							<RadioItem bind:group={$activeModel} name="chatmodel" value="gpt-4.1">4.1</RadioItem
 							></RadioGroup
 						>
 					</h4>
-					{#if $activeModel === 'gpt-4'}
+					{#if $activeModel === 'gpt-4.1'}
 						<span class="text-center pt-2 text-sm text-warning-400-500-token"
-							>Due to high costs, GPT-4 currently works only with your own OpenAI API Key. Set your
+							>Due to high costs, GPT-4.1 currently works only with your own OpenAI API Key. Set your
 							key in your <a href="/profile">profile settings</a>
-							and if you don't have access to GPT-4, apply
-							<a href="https://openai.com/waitlist/gpt-4-api" target="_blank">here</a>.</span
+							.</span
 						>
 					{/if}
 					<header class="text-center p-2 md:p-2 mt-4">

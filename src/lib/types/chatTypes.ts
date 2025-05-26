@@ -4,4 +4,4 @@ export interface Message {
 	role: string;
 }
 
-export type ChatModel = 'gpt-3.5-turbo' | 'gpt-4';
+export type ChatModel = 'gpt-4.1-nano' | 'gpt-4.1';

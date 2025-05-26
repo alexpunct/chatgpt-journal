@@ -12,7 +12,7 @@ import GPT3Tokenizer from 'gpt3-tokenizer';
 import { stripIndent, oneLine } from 'common-tags';
 
 let defaultOpenAiKey = Deno.env.get('OPENAI_API_KEY');
-const DEFAULT_CHAT_MODEL = 'gpt-3.5-turbo';
+const DEFAULT_CHAT_MODEL = 'gpt-4.1-nano';
 
 import agents from './agents.json' assert { type: 'json' };
 const getAgentByAgentId = (agentId: string) => {
