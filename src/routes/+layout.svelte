@@ -6,10 +6,13 @@
 	import { onMount } from 'svelte';
 	import { page, navigating } from '$app/stores';
 	import { afterNavigate } from '$app/navigation';
-	import { dev } from '$app/environment';
+	import { dev, browser } from '$app/environment';
+	import posthog from 'posthog-js';
 
 	import GoogleAnalytics from '@sajuthankappan/sveltekit-google-analytics';
 	const gaKey = import.meta.env.VITE_GA_KEY;
+	const posthogKey = import.meta.env.VITE_POSTHOG_KEY;
+	const posthogHost = import.meta.env.VITE_POSTHOG_HOST;
 
 	// Floating UI for Popups
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
@@ -30,6 +33,16 @@
 	import Footer from '$libSkeleton/Footer/DocsFooter.svelte';
 
 	onMount(() => {
+		if (browser && posthogKey) {
+			posthog.init(
+				posthogKey,
+				{
+					api_host: posthogHost || 'https://app.posthog.com',
+					person_profiles: 'always', // or 'identified_only' to create profiles for registered users only
+					disable_session_recording: true // Disable session recording for privacy
+				}
+			);
+		}
 		const {
 			data: { subscription }
 		} = supabase.auth.onAuthStateChange(() => {
