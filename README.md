@@ -7,7 +7,7 @@ The application is built using:
 - [Svelte](https://github.com/sveltejs/svelte) and [Sveltekit](https://github.com/sveltejs/kit)
 - [SkeletonUI](https://github.com/skeletonlabs/skeleton) and [TailwindCSS](https://github.com/tailwindlabs/tailwindcss) (a big part of the UI layout is based on their Docs website)
 - [Supabase](https://github.com/supabase/supabase-js)
-- The ChatGPT interactions are built using Supabase edge functions which you can find in the `supabase_functions` folder in this repo (you need to [deploy them yourself](https://github.com/supabase/supabase/tree/master/examples/edge-functions))
+- The ChatGPT interactions are built using Supabase edge functions which you can find in the `supabase/functions` folder in this repo (you need to [deploy them yourself](https://github.com/supabase/supabase/tree/master/examples/edge-functions))
 
 # Setup Dev environment
 
