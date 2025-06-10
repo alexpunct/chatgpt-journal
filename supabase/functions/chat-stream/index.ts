@@ -9,9 +9,10 @@ import { corsHeaders } from '../_shared/cors.ts';
 import { createClient } from '@supabase/supabase-js';
 import { Configuration, OpenAIApi, CreateChatCompletionRequest } from 'openai';
 import GPT3Tokenizer from 'gpt3-tokenizer';
+
 import { stripIndent, oneLine } from 'common-tags';
 
-let defaultOpenAiKey = Deno.env.get('OPENAI_API_KEY');
+const defaultOpenAiKey = Deno.env.get('OPENAI_API_KEY');
 const DEFAULT_CHAT_MODEL = 'gpt-4.1-nano';
 
 import agents from './agents.json' assert { type: 'json' };
@@ -137,7 +138,7 @@ serve(async (req: Request) => {
 
 	try {
 		// Search query is passed in request payload
-		let {
+		const {
 			query,
 			conversationHistory,
 			temperature,
@@ -178,15 +179,17 @@ serve(async (req: Request) => {
 			.eq('id', user.id)
 			.single();
 
-		let openAiKey = defaultOpenAiKey;
-		if (
-			fetchPrivateProfileResponse.status === 200 &&
-			fetchPrivateProfileResponse.data?.openai_api_key
-		) {
-			openAiKey = fetchPrivateProfileResponse.data.openai_api_key;
-		} else {
-			activeModel = DEFAULT_CHAT_MODEL;
-		}
+               let openAiKey = defaultOpenAiKey;
+               let shouldTrackUsage = false;
+               if (
+                       fetchPrivateProfileResponse.status === 200 &&
+                       fetchPrivateProfileResponse.data?.openai_api_key
+               ) {
+                       openAiKey = fetchPrivateProfileResponse.data.openai_api_key;
+                       shouldTrackUsage = true;
+               } else {
+                       activeModel = DEFAULT_CHAT_MODEL;
+               }
 
 		const openAi = new OpenAIApi(new Configuration({ apiKey: openAiKey }));
 
@@ -241,12 +244,89 @@ serve(async (req: Request) => {
 			body: JSON.stringify(completionOptions)
 		});
 
-		if (!response.ok) {
-			throw new Error('Failed to complete');
-		}
+                if (!response.ok) {
+                        throw new Error('Failed to complete');
+                }
 
-		// Proxy the streamed SSE response from OpenAI
-		return new Response(response.body, {
+                let usageTotals: any = null;
+
+		const stream = new ReadableStream({
+			async start(controller) {
+				const decoder = new TextDecoder();
+				let buffer = '';
+
+				for await (const chunk of response.body as any) {
+					buffer += decoder.decode(chunk);
+					let boundary = buffer.indexOf('\n\n');
+					while (boundary !== -1) {
+						const dataChunk = buffer.slice(0, boundary).trim();
+						buffer = buffer.slice(boundary + 2);
+						boundary = buffer.indexOf('\n\n');
+
+						if (dataChunk.startsWith('data:')) {
+							const data = dataChunk.slice(5).trim();
+							if (data === '[DONE]') {
+                                                                controller.enqueue(`data: [DONE]\n\n`);
+                                                                controller.close();
+
+                                                                if (shouldTrackUsage && usageTotals) {
+                                                                        const totalTokensCalc = usageTotals.total_tokens;
+
+                                                                        const { data: profile } = await supabaseClient
+                                                                                .from('profiles_private')
+                                                                                .select('tokens_used_month,tokens_used_total,tokens_last_reset')
+                                                                                .eq('id', user.id)
+                                                                                .single();
+
+                                                                        if (profile) {
+                                                                                const now = new Date();
+                                                                                let monthTokens = profile.tokens_used_month || 0;
+                                                                                let totalTokensStored = profile.tokens_used_total || 0;
+                                                                                let lastReset = profile.tokens_last_reset
+                                                                                        ? new Date(profile.tokens_last_reset)
+                                                                                        : now;
+
+                                                                                if (
+                                                                                        now.getUTCFullYear() !== lastReset.getUTCFullYear() ||
+                                                                                        now.getUTCMonth() !== lastReset.getUTCMonth()
+                                                                                ) {
+                                                                                        monthTokens = 0;
+                                                                                        lastReset = now;
+                                                                                }
+
+                                                                                monthTokens += totalTokensCalc;
+                                                                                totalTokensStored += totalTokensCalc;
+
+                                                                                await supabaseClient
+                                                                                        .from('profiles_private')
+                                                                                        .update({
+                                                                                                tokens_used_month: monthTokens,
+                                                                                                tokens_used_total: totalTokensStored,
+                                                                                                tokens_last_reset: lastReset.toISOString()
+                                                                                        })
+                                                                                        .eq('id', user.id);
+                                                                        }
+                                                                }
+
+                                                                return;
+                                                        } else if (data) {
+                                                                controller.enqueue(`data: ${data}\n\n`);
+                                                                try {
+                                                                        const json = JSON.parse(data);
+                                                                        if (json.usage) {
+                                                                                usageTotals = json.usage;
+                                                                        }
+                                                                } catch (_) {
+                                                                        // ignore json parse errors
+                                                                }
+                                                        }
+						}
+					}
+				}
+			}
+		});
+
+		return new Response(stream, {
 			headers: {
 				...corsHeaders,
 				'Content-Type': 'text/event-stream'

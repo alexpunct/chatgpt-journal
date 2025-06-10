@@ -140,16 +140,25 @@ export interface Database {
         Row: {
           id: string
           openai_api_key: string | null
+          tokens_used_month: number | null
+          tokens_used_total: number | null
+          tokens_last_reset: string | null
           updated_at: string | null
         }
         Insert: {
           id: string
           openai_api_key?: string | null
+          tokens_used_month?: number | null
+          tokens_used_total?: number | null
+          tokens_last_reset?: string | null
           updated_at?: string | null
         }
         Update: {
           id?: string
           openai_api_key?: string | null
+          tokens_used_month?: number | null
+          tokens_used_total?: number | null
+          tokens_last_reset?: string | null
           updated_at?: string | null
         }
       }

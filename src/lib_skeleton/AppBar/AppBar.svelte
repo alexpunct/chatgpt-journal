@@ -11,13 +11,28 @@
 
 	// Utilities
 	import { popup } from '@skeletonlabs/skeleton';
+	import { onMount } from 'svelte';
 
 	// Stores
-	import { userProfile } from '$lib/stores';
-	import { drawerStore } from '@skeletonlabs/skeleton';
+import { userProfile } from '$lib/stores';
+import { drawerStore } from '@skeletonlabs/skeleton';
+import { modelPricing } from '$lib/constants/modelPricing';
 
-	// Local
-	let isOsMac = false;
+       // Local
+       let isOsMac = false;
+       let tokensMonth = 0;
+       let tokensTotal = 0;
+
+       const costPerToken = modelPricing['gpt-4.1-nano'].input;
+
+	onMount(async () => {
+		const res = await fetch('/api/userProfile/private');
+		if (res.ok) {
+			const { data } = await res.json();
+			tokensMonth = data?.tokens_used_month ?? 0;
+			tokensTotal = data?.tokens_used_total ?? 0;
+		}
+	});
 
 	// Set Search Shortkey Keys
 	if (browser) {
@@ -83,21 +98,26 @@
 			</button>
 			<!-- prettier-ignore -->
 			<div class="card p-4 w-60 shadow-xl" data-popup="user">
-				<nav class="list-nav">
-					<ul>
-						<li>
-							<a href="/profile">
-								<span class="w-6 text-center"><i class="fa-solid fa-user" /></span>
-								<span>Profile</span>
-							</a>
-							<hr class="my-4">
-							<a href="/logout" on:click|preventDefault={signOut}>
-								<span class="w-6 text-center"><i class="fa-solid fa-right-from-bracket" /></span>
-								<span>Log Out</span>
-							</a>
-						</li>
-					</ul>
-				</nav>
+                                <nav class="list-nav">
+                                        <ul>
+                                                <li>
+                                                        <a href="/profile">
+                                                                <span class="w-6 text-center"><i class="fa-solid fa-user" /></span>
+                                                                <span>Profile</span>
+                                                        </a>
+                                                        <hr class="my-4">
+                                                        <a href="/logout" on:click|preventDefault={signOut}>
+                                                                <span class="w-6 text-center"><i class="fa-solid fa-right-from-bracket" /></span>
+                                                                <span>Log Out</span>
+                                                        </a>
+                                                </li>
+                                        </ul>
+                                </nav>
+                                <div class="mt-2 text-sm">
+                                        <p>Tokens this month: {tokensMonth}</p>
+                                        <p>Estimated cost: ${(tokensMonth * costPerToken).toFixed(4)}$</p>
+                                        <p class="mt-1">Total tokens: {tokensTotal}</p>
+                                </div>
 			</div>
 		</div>
 		<!-- Social -->
