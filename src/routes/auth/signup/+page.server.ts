@@ -1,7 +1,19 @@
-import type { Actions } from './$types';
+import type { Actions, PageServerLoad } from './$types';
 import { fail, redirect } from '@sveltejs/kit';
-import { getSupabase } from '@supabase/auth-helpers-sveltekit';
+import { getSupabase, getServerSession } from '@supabase/auth-helpers-sveltekit';
 import { AuthApiError } from '@supabase/supabase-js';
+
+export const load: PageServerLoad = async (event) => {
+	const session = await getServerSession(event);
+	
+	// If user is already authenticated, redirect to journal
+	if (session) {
+		throw redirect(307, '/journal');
+	}
+	
+	// Otherwise, redirect to signin (no new signups allowed)
+	throw redirect(307, '/auth/signin');
+};
 
 export const actions: Actions = {
 	default: async (event) => {
